@@ -1,6 +1,6 @@
 <?php
 
-use App\Features\Payment\Presentation\Controllers\CheckoutController;
+use App\Features\Checkout\Presentation\Controllers\CheckoutController;
 use App\Features\Plan\Presentation\Controllers\PlanController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +19,11 @@ Route::get('/', [PlanController::class, 'landing'])->name('landing');
 // Checkout (Página de Pagamento)
 Route::get('/checkout/{plan}', [CheckoutController::class, 'show'])->name('checkout');
 Route::post('/checkout/{plan}', [CheckoutController::class, 'process'])->name('checkout.process');
-Route::get('/checkout/{plan}/success', [CheckoutController::class, 'success'])->name('checkout.success');
+
+// Success (Página de Sucesso)
+Route::get('/success/{plan}/{checkout}', [\App\Features\Success\Presentation\Controllers\SuccessController::class, 'show'])->name('success');
+Route::get('/account', [\App\Features\Success\Presentation\Controllers\SuccessController::class, 'goToAccount'])->name('account');
+Route::get('/support', [\App\Features\Success\Presentation\Controllers\SuccessController::class, 'support'])->name('support');
 
 // Login (Página de Login)
 Route::get('/login', function () {
