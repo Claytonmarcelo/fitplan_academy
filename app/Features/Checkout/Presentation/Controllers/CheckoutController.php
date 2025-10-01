@@ -84,7 +84,7 @@ class CheckoutController extends Controller
                     return response()->json([
                         'success' => true,
                         'message' => $result->message,
-                        'redirect_url' => route('success', ['plan' => $planId, 'checkout' => $result->checkoutId]),
+                        'redirect_url' => route('obrigado', ['plan' => $planId, 'checkout' => $result->checkoutId]),
                         'checkout_id' => $result->checkoutId,
                         'transaction_id' => $result->transactionId
                     ]);

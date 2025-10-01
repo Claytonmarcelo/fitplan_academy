@@ -55,12 +55,12 @@ class ProcessCheckoutUseCase
 
             DB::commit();
 
-            return CheckoutResponseDTO::success(
-                message: 'Checkout processado com sucesso!',
-                checkoutId: $checkout->id,
-                redirectUrl: route('checkout.success', ['plan' => $checkoutData->planId, 'checkout' => $checkout->id]),
-                transactionId: $paymentResult['transaction_id']
-            );
+                return CheckoutResponseDTO::success(
+                    message: 'Checkout processado com sucesso!',
+                    checkoutId: $checkout->id,
+                    redirectUrl: route('obrigado', ['plan' => $checkoutData->planId, 'checkout' => $checkout->id]),
+                    transactionId: $paymentResult['transaction_id']
+                );
 
         } catch (\Exception $e) {
             DB::rollBack();

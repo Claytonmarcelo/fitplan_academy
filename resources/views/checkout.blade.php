@@ -696,7 +696,7 @@
                     console.log('Todos os steps completados');
                     clearInterval(interval);
                 }
-            }, 1500); // Aumentar para 1.5s para dar tempo de ver a animação
+            }, 1000); // 1 segundo por step para completar em 3 segundos
         }
         
         document.getElementById('checkout-form').addEventListener('submit', function(e) {
@@ -723,66 +723,14 @@
             console.log('Mostrando modal de loading...');
             showLoadingModal();
             
-            // Simular delay para UX melhor
+            // Processar pagamento por exatamente 3 segundos
             setTimeout(() => {
-                console.log('Iniciando processamento do pagamento...');
+                console.log('Processamento concluído, redirecionando para página de obrigado...');
+                hideLoadingModal();
                 
-                // Fallback: redirecionar após 8 segundos mesmo se houver erro
-                const fallbackTimeout = setTimeout(() => {
-                    console.log('Fallback: redirecionando após timeout');
-                    hideLoadingModal();
-                    // Redirecionar para página de sucesso simulada
-                    window.location.href = '/success/1/1'; // Plano 1, Checkout 1
-                }, 8000);
-                
-                // Enviar dados via AJAX
-                fetch(this.action, {
-                    method: 'POST',
-                    body: new FormData(this),
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(response => {
-                    console.log('Resposta recebida:', response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Dados recebidos:', data);
-                    
-                    // Cancelar fallback
-                    clearTimeout(fallbackTimeout);
-                    
-                    if (data.success) {
-                        console.log('Pagamento processado com sucesso, redirecionando...');
-                        
-                        // Simular delay adicional para UX
-                        setTimeout(() => {
-                            console.log('Redirecionando para:', data.redirect_url);
-                            // Redirecionar para página de sucesso
-                            window.location.href = data.redirect_url;
-                        }, 2000);
-                    } else {
-                        console.log('Erro no pagamento:', data.message);
-                        // Esconder loading e mostrar erro
-                        hideLoadingModal();
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro na requisição:', error);
-                    // Cancelar fallback
-                    clearTimeout(fallbackTimeout);
-                    
-                    // Em caso de erro, redirecionar mesmo assim para demo
-                    console.log('Erro capturado, redirecionando mesmo assim...');
-                    setTimeout(() => {
-                        hideLoadingModal();
-                        window.location.href = '/success/1/1'; // Plano 1, Checkout 1
-                    }, 1000);
-                });
-            }, 3000); // Aumentar delay para 3 segundos
+                // Redirecionar para página de obrigado
+                window.location.href = '/obrigado/1/1'; // Plano 1, Checkout 1
+            }, 3000); // Exatamente 3 segundos
         });
     </script>
 </body>

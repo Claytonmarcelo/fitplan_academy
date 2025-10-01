@@ -49,10 +49,10 @@ class SuccessController extends Controller
             }
 
             // Renderizar view com dados
-            return view('success', [
+            return view('obrigado', [
                 'success' => $successData->toArray(),
-                'page_title' => 'Sucesso - FitPlan Academy',
-                'meta_description' => 'Sua inscrição foi realizada com sucesso. Bem-vindo à FitPlan Academy!'
+                'page_title' => 'Obrigado - FitPlan Academy',
+                'meta_description' => 'Obrigado pela sua compra! Bem-vindo à FitPlan Academy!'
             ]);
 
         } catch (\Exception $e) {

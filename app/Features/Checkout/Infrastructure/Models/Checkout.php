@@ -19,6 +19,7 @@ class Checkout extends Model
         'plan_id',
         'email',
         'password',
+        'payment_method',
         'card_name',
         'card_number',
         'expiry_date',

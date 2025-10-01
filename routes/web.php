@@ -20,8 +20,8 @@ Route::get('/', [PlanController::class, 'landing'])->name('landing');
 Route::get('/checkout/{plan}', [CheckoutController::class, 'show'])->name('checkout');
 Route::post('/checkout/{plan}', [CheckoutController::class, 'process'])->name('checkout.process');
 
-// Success (Página de Sucesso)
-Route::get('/success/{plan}/{checkout}', [\App\Features\Success\Presentation\Controllers\SuccessController::class, 'show'])->name('success');
+// Obrigado (Página de Obrigado)
+Route::get('/obrigado/{plan}/{checkout}', [\App\Features\Success\Presentation\Controllers\SuccessController::class, 'show'])->name('obrigado');
 Route::get('/account', [\App\Features\Success\Presentation\Controllers\SuccessController::class, 'goToAccount'])->name('account');
 Route::get('/support', [\App\Features\Success\Presentation\Controllers\SuccessController::class, 'support'])->name('support');
 

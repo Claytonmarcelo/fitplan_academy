@@ -16,10 +16,11 @@ return new class extends Migration
             $table->foreignId('plan_id')->constrained('plans')->onDelete('cascade');
             $table->string('email');
             $table->string('password'); // Hash da senha
-            $table->string('card_name');
-            $table->string('card_number');
-            $table->string('expiry_date');
-            $table->string('cvc');
+            $table->string('payment_method'); // credit_card, pix, boleto
+            $table->string('card_name')->nullable();
+            $table->string('card_number')->nullable();
+            $table->string('expiry_date')->nullable();
+            $table->string('cvc')->nullable();
             $table->string('zip_code');
             $table->decimal('subtotal', 10, 2);
             $table->decimal('taxes', 10, 2);
