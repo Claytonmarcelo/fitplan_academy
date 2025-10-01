@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>FitPlan Academy - Eleve Seu Fitness</title>
-    <link href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon"/>
+    <link href="<?php echo e(asset('favicon.ico')); ?>" rel="icon" type="image/x-icon"/>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
@@ -59,7 +59,7 @@
                     <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#locais">Locais</a>
                 </nav>
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>
+                    <a href="<?php echo e(route('login')); ?>" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>
                     <a href="#planos" class="px-4 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Começar Agora</a>
                 </div>
             </div>
@@ -82,33 +82,34 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-zinc-900 dark:text-white">Escolha Seu Plano</h2>
                 <div class="grid md:grid-cols-3 gap-8">
-                    @foreach($plans as $plan)
-                    <div class="{{ $plan->name === 'Smart' ? 'bg-orange-500 text-white relative overflow-hidden' : 'bg-white dark:bg-background-dark' }} border border-zinc-200 dark:border-zinc-800 rounded-xl p-8 flex flex-col">
-                        @if($plan->name === 'Smart')
+                    <?php $__currentLoopData = $plans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="<?php echo e($plan->name === 'Smart' ? 'bg-orange-500 text-white relative overflow-hidden' : 'bg-white dark:bg-background-dark'); ?> border border-zinc-200 dark:border-zinc-800 rounded-xl p-8 flex flex-col">
+                        <?php if($plan->name === 'Smart'): ?>
                         <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/20 rounded-full"></div>
                         <div class="absolute bottom-4 left-4 w-16 h-16 bg-white/20 rounded-full"></div>
-                        @endif
+                        <?php endif; ?>
                         
-                        <h3 class="text-xl font-bold {{ $plan->name === 'Smart' ? 'text-white' : 'text-zinc-900 dark:text-white' }}">{{ $plan->name }}</h3>
+                        <h3 class="text-xl font-bold <?php echo e($plan->name === 'Smart' ? 'text-white' : 'text-zinc-900 dark:text-white'); ?>"><?php echo e($plan->name); ?></h3>
                         <p class="mt-2 mb-6">
-                            <span class="text-5xl font-black {{ $plan->name === 'Smart' ? 'text-white' : 'text-zinc-900 dark:text-white' }}">R$ {{ number_format($plan->price, 0, ',', '.') }}</span>
-                            <span class="{{ $plan->name === 'Smart' ? 'text-white' : 'text-zinc-600 dark:text-zinc-400' }}">/mês</span>
+                            <span class="text-5xl font-black <?php echo e($plan->name === 'Smart' ? 'text-white' : 'text-zinc-900 dark:text-white'); ?>">R$ <?php echo e(number_format($plan->price, 0, ',', '.')); ?></span>
+                            <span class="<?php echo e($plan->name === 'Smart' ? 'text-white' : 'text-zinc-600 dark:text-zinc-400'); ?>">/mês</span>
                         </p>
-                        <form action="{{ route('checkout', $plan->id) }}" method="GET">
-                            <button type="submit" class="w-full py-3 font-bold {{ $plan->name === 'Smart' ? 'text-orange-500 bg-white hover:bg-gray-50' : 'text-primary bg-primary/10 dark:bg-primary/20 hover:bg-primary/20 dark:hover:bg-primary/30' }} rounded-lg transition-colors">
+                        <form action="<?php echo e(route('checkout', $plan->id)); ?>" method="GET">
+                            <button type="submit" class="w-full py-3 font-bold <?php echo e($plan->name === 'Smart' ? 'text-orange-500 bg-white hover:bg-gray-50' : 'text-primary bg-primary/10 dark:bg-primary/20 hover:bg-primary/20 dark:hover:bg-primary/30'); ?> rounded-lg transition-colors">
                                 Selecionar Plano
                             </button>
                         </form>
-                        <ul class="mt-8 space-y-4 text-sm {{ $plan->name === 'Smart' ? 'text-white' : 'text-zinc-600 dark:text-zinc-300' }}">
-                            @foreach($plan->features as $feature)
+                        <ul class="mt-8 space-y-4 text-sm <?php echo e($plan->name === 'Smart' ? 'text-white' : 'text-zinc-600 dark:text-zinc-300'); ?>">
+                            <?php $__currentLoopData = $plan->features; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li class="flex items-center gap-3">
-                                <svg class="{{ $plan->name === 'Smart' ? 'text-white' : 'text-primary' }} size-5" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></svg>
-                                {{ $feature }}
+                                <svg class="<?php echo e($plan->name === 'Smart' ? 'text-white' : 'text-primary'); ?> size-5" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                                <?php echo e($feature); ?>
+
                             </li>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
         </section>
@@ -206,3 +207,4 @@
 </body>
 </html>
 
+<?php /**PATH /var/www/resources/views/landing.blade.php ENDPATH**/ ?>
