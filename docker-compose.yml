@@ -45,7 +45,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"  # Mudou para 5433 para evitar conflito
     networks:
       - fitplan
 
@@ -55,7 +55,7 @@ services:
     container_name: fitplan_redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6380:6379"  # Mudou para 6380 para evitar conflito
     networks:
       - fitplan
 

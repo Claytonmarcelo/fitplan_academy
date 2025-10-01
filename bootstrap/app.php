@@ -1,29 +1,46 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Foundation\Configuration\Middleware;
-
 /**
- * Bootstrap da aplicação Laravel
+ * Bootstrap da aplicação Laravel 10
  * 
- * Este arquivo é responsável por configurar a aplicação Laravel,
- * incluindo middlewares, exceções e configurações globais.
+ * Este arquivo é responsável por inicializar a aplicação Laravel,
+ * configurando o container de serviços e retornando a instância da aplicação.
  */
 
-return Application::configure(basePath: dirname(__DIR__))
-    ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
-        health: '/up',
-    )
-    ->withMiddleware(function (Middleware $middleware) {
-        // Configuração de middlewares globais
-        // Adicione aqui middlewares customizados se necessário
-    })
-    ->withExceptions(function (Exceptions $exceptions) {
-        // Configuração de tratamento de exceções
-        // Personalize o tratamento de exceções aqui
-    })->create();
+$app = new Illuminate\Foundation\Application(
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+);
+
+/**
+ * Vincular interfaces importantes
+ * 
+ * Aqui vinculamos as interfaces do Laravel aos seus respectivos
+ * implementadores concretos. Isso permite que o framework resolva
+ * as dependências automaticamente.
+ */
+
+$app->singleton(
+    Illuminate\Contracts\Http\Kernel::class,
+    App\Http\Kernel::class
+);
+
+$app->singleton(
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
+);
+
+$app->singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
+);
+
+/**
+ * Retornar a aplicação
+ * 
+ * Este script retorna a instância da aplicação. A instância
+ * é dada para o script chamador para que possamos separar
+ * a construção das instâncias da execução real.
+ */
+
+return $app;
 
