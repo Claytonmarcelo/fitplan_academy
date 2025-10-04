@@ -49,22 +49,36 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'cpf',
         'email',
+        'phone',
+        'cep',
+        'street',
+        'number',
+        'complement',
+        'district',
+        'city',
+        'state',
+        'login',
         'password',
+        'profile',
         'is_active',
+        'two_factor_secret',
+        'two_factor_confirmed_at',
         'email_verified_at',
     ];
 
     /**
      * Atributos que devem ser ocultados em arrays/JSON
      * 
-     * SEGURANÇA: Password nunca deve ser exposto
+     * SEGURANÇA: Password e dados sensíveis nunca devem ser expostos
      * 
      * @var array<int, string>
      */
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_secret',
     ];
 
     /**
@@ -76,6 +90,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'two_factor_confirmed_at' => 'datetime',
         'is_active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -140,6 +155,80 @@ class User extends Authenticatable
     public function isActive(): bool
     {
         return $this->is_active;
+    }
+
+    /**
+     * Verifica se o usuário é Master
+     * 
+     * @return bool
+     */
+    public function isMaster(): bool
+    {
+        return $this->profile === 'master';
+    }
+
+    /**
+     * Verifica se o usuário é Comum
+     * 
+     * @return bool
+     */
+    public function isCommon(): bool
+    {
+        return $this->profile === 'comum';
+    }
+
+    /**
+     * Verifica se o usuário tem 2FA configurado
+     * 
+     * @return bool
+     */
+    public function hasTwoFactorEnabled(): bool
+    {
+        return !is_null($this->two_factor_secret) && !is_null($this->two_factor_confirmed_at);
+    }
+
+    /**
+     * Scope para buscar usuários por perfil
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $profile
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByProfile($query, string $profile)
+    {
+        return $query->where('profile', $profile);
+    }
+
+    /**
+     * Scope para buscar por CPF
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $cpf
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByCpf($query, string $cpf)
+    {
+        return $query->where('cpf', $cpf);
+    }
+
+    /**
+     * Scope para buscar por login
+     * 
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $login
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByLogin($query, string $login)
+    {
+        return $query->where('login', $login);
+    }
+
+    /**
+     * Relacionamento com logs de acesso
+     */
+    public function accessLogs()
+    {
+        return $this->hasMany(\App\Models\AccessLog::class);
     }
 }
 

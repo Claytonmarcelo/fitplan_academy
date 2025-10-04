@@ -2,46 +2,106 @@
 <html lang="pt-BR">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Pagamento Confirmado - FitPlan Academy</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>FitPlan Academy - Pagamento Confirmado</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff6a00",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#1a1a1a",
+                        "text-light": "#f8f7f5",
+                        "text-dark": "#23170f",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2c2c2c",
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#3c3c3c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
 </head>
-<body class="bg-gray-50 font-['Inter']">
+<body class="bg-background-light dark:bg-background-dark font-display text-text-dark dark:text-text-light">
     <div class="min-h-screen flex items-center justify-center px-4">
-        <div class="max-w-md w-full bg-white rounded-lg shadow-xl p-8 text-center">
-            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
+        <div class="max-w-md w-full">
+            <!-- Card de Sucesso -->
+            <div class="bg-card-light dark:bg-card-dark rounded-xl shadow-lg p-8 text-center">
+                <!-- Ícone de Sucesso -->
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 dark:bg-green-900 mb-6">
+                    <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-3xl">check_circle</span>
+                </div>
+                
+                <!-- Título -->
+                <h1 class="text-2xl font-bold text-text-dark dark:text-text-light mb-4">
+                    Pagamento Confirmado!
+                </h1>
+                
+                <!-- Mensagem -->
+                <p class="text-text-dark/70 dark:text-text-light/70 mb-6">
+                    {{ $message ?? 'Seu pagamento foi processado com sucesso. Bem-vindo ao FitPlan Academy!' }}
+                </p>
+                
+                <!-- Detalhes do Checkout -->
+                <div class="bg-background-light dark:bg-background-dark rounded-lg p-4 mb-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-text-dark/70 dark:text-text-light/70">ID do Checkout:</span>
+                        <span class="text-sm font-mono text-text-dark dark:text-text-light">#{{ $checkout_id }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-text-dark/70 dark:text-text-light/70">Data:</span>
+                        <span class="text-sm text-text-dark dark:text-text-light">{{ now()->format('d/m/Y H:i') }}</span>
+                    </div>
+                </div>
+                
+                <!-- Botões de Ação -->
+                <div class="space-y-3">
+                    <a href="{{ route('login') }}" 
+                       class="w-full bg-primary text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-block">
+                        Fazer Login
+                    </a>
+                    
+                    <a href="{{ route('landing') }}" 
+                       class="w-full bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light py-3 px-4 rounded-lg font-semibold hover:bg-background-light/80 dark:hover:bg-background-dark/80 transition-colors inline-block">
+                        Voltar ao Início
+                    </a>
+                </div>
+                
+                <!-- Informações Adicionais -->
+                <div class="mt-8 pt-6 border-t border-border-light dark:border-border-dark">
+                    <p class="text-xs text-text-dark/60 dark:text-text-light/60 mb-2">
+                        Você receberá um email de confirmação em breve.
+                    </p>
+                    <p class="text-xs text-text-dark/60 dark:text-text-light/60">
+                        Em caso de dúvidas, entre em contato conosco.
+                    </p>
+                </div>
             </div>
-
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">Pagamento Confirmado!</h1>
-            <p class="text-gray-600 mb-6">
-                Sua assinatura do plano <span class="font-bold text-orange-600">{{ $plan->name }}</span> foi ativada com sucesso!
-            </p>
-
-            <div class="bg-gray-50 rounded-lg p-4 mb-6">
-                <p class="text-sm text-gray-600 mb-2">Valor cobrado:</p>
-                <p class="text-2xl font-bold text-gray-900">R$ {{ number_format($plan->price, 2, ',', '.') }}/mês</p>
+            
+            <!-- Footer -->
+            <div class="text-center mt-8">
+                <p class="text-sm text-text-dark/60 dark:text-text-light/60">
+                    © 2024 FitPlan Academy. Todos os direitos reservados.
+                </p>
             </div>
-
-            <div class="space-y-3">
-                <a href="{{ route('login') }}"
-                   class="block w-full bg-orange-600 text-white py-3 rounded-lg font-bold hover:bg-orange-700 transition-colors">
-                    Fazer Login
-                </a>
-                <a href="{{ route('landing') }}"
-                   class="block w-full bg-gray-200 text-gray-700 py-3 rounded-lg font-bold hover:bg-gray-300 transition-colors">
-                    Voltar ao Início
-                </a>
-            </div>
-
-            <p class="text-sm text-gray-500 mt-6">
-                Um email de confirmação foi enviado para você com todos os detalhes da sua assinatura.
-            </p>
         </div>
     </div>
 </body>
 </html>
-

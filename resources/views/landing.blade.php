@@ -36,6 +36,34 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        
+        /* Animação suave para o submenu */
+        .dropdown-menu {
+            backdrop-filter: blur(8px);
+        }
+        
+        /* Efeito hover nos itens do submenu */
+        .dropdown-item {
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            transform: translateX(4px);
+        }
+        
+        /* Animação da seta */
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        
+        /* Sombra personalizada */
+        .custom-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dark .custom-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-200">
@@ -54,13 +82,51 @@
                 </div>
                 <nav class="hidden md:flex items-center gap-8">
                     <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#hero">Home</a>
-                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#planos">Planos</a>
+                    
+                    <!-- Menu Planos com Submenu -->
+                    <div class="relative group">
+                        <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="#planos">
+                            Planos
+                            <svg class="w-4 h-4 dropdown-arrow group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </a>
+                        
+                        <!-- Submenu Dropdown -->
+                        <div class="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-zinc-800/95 dropdown-menu custom-shadow rounded-lg border border-zinc-200 dark:border-zinc-700 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible transform translate-y-2 group-hover:translate-y-0">
+                            <div class="py-2">
+                                @foreach($plans as $plan)
+                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 {{ $plan->name === 'Smart' ? 'border-orange-500' : ($plan->name === 'Black' ? 'border-zinc-800 dark:border-zinc-200' : 'border-zinc-300 dark:border-zinc-600') }}">
+                                    <a href="{{ route('plan.' . strtolower($plan->name)) }}" class="block">
+                                        @if($plan->name === 'Smart')
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <h4 class="font-semibold text-zinc-900 dark:text-white">{{ $plan->name }}</h4>
+                                            <span class="px-2 py-1 text-xs font-bold text-white bg-orange-500 rounded-full">POPULAR</span>
+                                        </div>
+                                        @else
+                                        <h4 class="font-semibold text-zinc-900 dark:text-white">{{ $plan->name }}</h4>
+                                        @endif
+                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">R$ {{ number_format($plan->price, 2, ',', '.') }}</p>
+                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">{{ $plan->description }}</p>
+                                    </a>
+                                </div>
+                                @endforeach
+                                
+                                <div class="border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2 mx-4">
+                                    <a href="#planos" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
+                                        Ver Todos os Planos →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#comparacao">Comparação</a>
                     <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#locais">Locais</a>
                 </nav>
                 <div class="flex items-center gap-2">
                     <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>
-                    <a href="#planos" class="px-4 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Começar Agora</a>
+                    <a href="{{ route('cadastro') }}" class="px-4 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Cadastre-se</a>
                 </div>
             </div>
         </div>
@@ -72,7 +138,7 @@
                 <div class="flex flex-col gap-6">
                     <h1 class="text-4xl md:text-6xl font-black tracking-tighter text-zinc-900 dark:text-white">Eleve Sua Jornada Fitness</h1>
                     <p class="text-lg text-zinc-600 dark:text-zinc-300">Desbloqueie seu potencial com a FitPlan Academy. Experimente treinamento personalizado, aulas diversificadas e uma comunidade de apoio para alcançar seus objetivos de fitness.</p>
-                    <a href="#planos" class="self-start px-6 py-3 text-base font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Começar Agora</a>
+                    <a href="{{ route('cadastro') }}" class="self-start px-6 py-3 text-base font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Cadastre-se</a>
                 </div>
                 <div class="w-full aspect-video bg-cover bg-center rounded-xl" style='background-image: url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800");'></div>
             </div>
@@ -96,7 +162,7 @@
                         </p>
                         <form action="{{ route('checkout', $plan->id) }}" method="GET">
                             <button type="submit" class="w-full py-3 font-bold {{ $plan->name === 'Smart' ? 'text-orange-500 bg-white hover:bg-gray-50' : 'text-primary bg-primary/10 dark:bg-primary/20 hover:bg-primary/20 dark:hover:bg-primary/30' }} rounded-lg transition-colors">
-                                Selecionar Plano
+                                Cadastre-se
                             </button>
                         </form>
                         <ul class="mt-8 space-y-4 text-sm {{ $plan->name === 'Smart' ? 'text-white' : 'text-zinc-600 dark:text-zinc-300' }}">

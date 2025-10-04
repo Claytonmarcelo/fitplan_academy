@@ -16,38 +16,43 @@ class PlanSeeder extends Seeder
     {
         Plan::create([
             'name' => 'Basic',
-            'description' => 'Plano básico com acesso à academia e aulas em grupo',
-            'price' => 99.00,
+            'description' => 'Ideal para iniciantes',
+            'price' => 79.90,
             'features' => [
-                'Acesso às instalações básicas da academia',
-                'Aulas de fitness em grupo',
-                'Plano de treino personalizado',
+                'Acesso a equipamentos básicos',
+                'Treino livre',
+                'Vestiário com armários',
+                'Horário: 6h às 22h'
             ],
             'is_active' => true,
         ]);
 
         Plan::create([
             'name' => 'Smart',
-            'description' => 'Plano intermediário com treinos avançados e nutrição',
-            'price' => 149.00,
+            'description' => 'Mais popular entre nossos alunos',
+            'price' => 129.90,
             'features' => [
-                'Todas as funcionalidades do plano Basic',
-                'Programas de treinamento avançados',
-                'Orientação nutricional',
-                'Acompanhamento de progresso',
+                'Todos os benefícios do Basic',
+                'Aulas coletivas incluídas',
+                'Avaliação física trimestral',
+                'App de treinos personalizado',
+                'Horário: 5h às 23h'
             ],
             'is_active' => true,
         ]);
 
         Plan::create([
             'name' => 'Black',
-            'description' => 'Plano premium com acesso ilimitado e personal trainer',
-            'price' => 249.00,
+            'description' => 'Premium e completo',
+            'price' => 199.90,
             'features' => [
-                'Todas as funcionalidades do plano Smart',
-                'Acesso exclusivo às instalações premium',
-                'Sessões ilimitadas de personal trainer',
-                'Prioridade na reserva de aulas',
+                'Todos os benefícios do Smart',
+                'Personal trainer 2x por mês',
+                'Nutricionista incluso',
+                'Acesso a todas as unidades',
+                'Acesso 24 horas',
+                'Sala VIP',
+                'Convidados ilimitados'
             ],
             'is_active' => true,
         ]);

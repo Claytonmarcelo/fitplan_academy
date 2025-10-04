@@ -40,3 +40,9 @@ interface SuccessRepositoryInterface
      */
     public function create(SuccessEntity $success): SuccessEntity;
 }
+
+
+
+
+
+
