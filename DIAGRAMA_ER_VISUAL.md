@@ -175,3 +175,4 @@ SUBSCRIPTIONS (1) ──────► (N) PAYMENTS
 8. **Exportar como imagem** para documentação
 
 **🎊 Diagrama ER completo e pronto para importação!**
+

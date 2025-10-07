@@ -121,8 +121,95 @@
                         </div>
                     </div>
                     
-                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#comparacao">Comparação</a>
-                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#locais">Locais</a>
+                    <!-- Menu Comparação com Submenu -->
+                    <div class="relative group">
+                        <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="#comparacao">
+                            Comparação
+                            <svg class="w-4 h-4 dropdown-arrow group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </a>
+                        
+                        <!-- Submenu Dropdown -->
+                        <div class="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-zinc-800/95 dropdown-menu custom-shadow rounded-lg border border-zinc-200 dark:border-zinc-700 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible transform translate-y-2 group-hover:translate-y-0">
+                            <div class="py-2">
+                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-primary">
+                                    <a href="#comparacao" class="block">
+                                        <h4 class="font-semibold text-zinc-900 dark:text-white">Comparação Completa</h4>
+                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Todos os Planos</p>
+                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Veja todos os benefícios e recursos</p>
+                                    </a>
+                                </div>
+                                
+                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
+                                    <a href="#comparacao" class="block">
+                                        <h4 class="font-semibold text-zinc-900 dark:text-white">Preços</h4>
+                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Tabela de Valores</p>
+                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Compare preços e promoções</p>
+                                    </a>
+                                </div>
+                                
+                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
+                                    <a href="#comparacao" class="block">
+                                        <h4 class="font-semibold text-zinc-900 dark:text-white">Benefícios</h4>
+                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Recursos Inclusos</p>
+                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">O que cada plano oferece</p>
+                                    </a>
+                                </div>
+                                
+                                <div class="border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2 mx-4">
+                                    <a href="#comparacao" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
+                                        Ver Comparação Completa →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Menu Locais com Submenu -->
+                    <div class="relative group">
+                        <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="#locais">
+                            Locais
+                            <svg class="w-4 h-4 dropdown-arrow group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </a>
+                        
+                        <!-- Submenu Dropdown -->
+                        <div class="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-zinc-800/95 dropdown-menu custom-shadow rounded-lg border border-zinc-200 dark:border-zinc-700 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible transform translate-y-2 group-hover:translate-y-0">
+                            <div class="py-2">
+                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-primary">
+                                    <a href="#locais" class="block">
+                                        <h4 class="font-semibold text-zinc-900 dark:text-white">Centro</h4>
+                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Av. Paulista, 1000</p>
+                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Academia completa com equipamentos modernos</p>
+                                    </a>
+                                </div>
+                                
+                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
+                                    <a href="#locais" class="block">
+                                        <h4 class="font-semibold text-zinc-900 dark:text-white">Zona Sul</h4>
+                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Rua Augusta, 500</p>
+                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Foco em aulas em grupo e pilates</p>
+                                    </a>
+                                </div>
+                                
+                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
+                                    <a href="#locais" class="block">
+                                        <h4 class="font-semibold text-zinc-900 dark:text-white">Zona Oeste</h4>
+                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Av. Faria Lima, 2000</p>
+                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Instalações premium com personal trainers</p>
+                                    </a>
+                                </div>
+                                
+                                <div class="border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2 mx-4">
+                                    <a href="#locais" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
+                                        Ver Todas as Unidades →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </nav>
                 <div class="flex items-center gap-2">
                     <a href="<?php echo e(route('login')); ?>" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>

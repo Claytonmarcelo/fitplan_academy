@@ -8,6 +8,7 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\Auth\DemoAuthController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,10 @@ Route::get('/', [PlanController::class, 'landing'])->name('landing');
 Route::get('/planos/basic', [PlanController::class, 'show'])->defaults('plan_name', 'Basic')->name('plan.basic');
 Route::get('/planos/smart', [PlanController::class, 'show'])->defaults('plan_name', 'Smart')->name('plan.smart');
 Route::get('/planos/black', [PlanController::class, 'show'])->defaults('plan_name', 'Black')->name('plan.black');
+
+// Rotas para unidades
+Route::get('/unidades', [UnitController::class, 'index'])->name('units.index');
+Route::get('/unidades/{unitId}', [UnitController::class, 'show'])->name('unit.show');
 
 // Checkout (Página de Pagamento)
 Route::get('/checkout/{plan}', [CheckoutController::class, 'show'])->name('checkout');

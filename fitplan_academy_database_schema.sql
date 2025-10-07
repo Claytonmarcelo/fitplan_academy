@@ -312,3 +312,4 @@ ESTRUTURA DO BANCO DE DADOS FITPLAN ACADEMY:
 - Timestamps automáticos
 - Soft deletes onde necessário
 */
+
