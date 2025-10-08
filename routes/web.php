@@ -13,6 +13,7 @@ use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
 /*

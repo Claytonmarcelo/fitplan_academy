@@ -15,7 +15,7 @@
                 <h1 class="text-2xl font-bold text-zinc-900 dark:text-white">FitPlan Academy</h1>
             </div>
             <nav class="hidden md:flex items-center gap-8">
-                @auth
+                @if(session()->has('demo_user'))
                     <!-- Navegação para usuários logados -->
                     <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('student.dashboard') }}">Home</a>
                     <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('workouts.index') }}">Treinos</a>
@@ -25,7 +25,7 @@
                 @else
                     <!-- Navegação para visitantes -->
                     <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('landing') }}#hero">Home</a>
-                @endauth
+                @endif
                 
                 <!-- Menu Planos com Submenu -->
                 <div class="relative group">
@@ -184,7 +184,7 @@
                 </div>
             </nav>
             <div class="flex items-center gap-2">
-                @auth
+                @if(session()->has('demo_user'))
                     <!-- Usuário logado -->
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-semibold">
@@ -197,7 +197,7 @@
                     <!-- Visitante -->
                     <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>
                     <a href="{{ route('cadastro') }}" class="px-4 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Cadastre-se</a>
-                @endauth
+                @endif
             </div>
         </div>
     </div>

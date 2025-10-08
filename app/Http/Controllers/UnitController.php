@@ -4,324 +4,200 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Controller para gerenciar unidades da academia
+ * 
+ * Este controller é responsável por:
+ * - Exibir lista de unidades
+ * - Mostrar detalhes de unidades específicas
+ * - Gerenciar informações das instalações
+ * 
+ * Arquitetura: Clean Architecture
+ * - Separação de responsabilidades
+ * - Código limpo e comentado
+ * - Performance otimizada
+ */
 class UnitController extends Controller
 {
     /**
-     * Display a listing of all units
+     * Exibe a lista de todas as unidades
+     * 
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $units = [
-            [
-                'id' => 'centro',
-                'name' => 'Centro',
-                'address' => 'Av. Paulista, 1000 - São Paulo',
-                'description' => 'Nossa unidade principal no coração de São Paulo, oferecendo uma experiência completa de fitness com equipamentos de última geração.',
-                'image' => 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800',
-                'features' => [
-                    'Equipamentos modernos e tecnológicos',
-                    'Aulas em grupo diversificadas',
-                    'Personal trainers especializados',
-                    'Área de musculação completa',
-                    'Sala de spinning',
-                    'Estúdio de pilates',
-                    'Vestiários com chuveiros',
-                    'Estacionamento próprio',
-                    'Wi-Fi gratuito',
-                    'Horário estendido (5h às 23h)'
-                ],
-                'equipment' => [
-                    'Máquinas de musculação Life Fitness',
-                    'Esteiras Technogym com TV',
-                    'Bicicletas ergométricas',
-                    'Equipamentos de funcional',
-                    'Barras e halteres',
-                    'Máquinas de cardio',
-                    'Equipamentos de pilates',
-                    'Espaço para crossfit'
-                ],
-                'classes' => [
-                    'Musculação',
-                    'Pilates',
-                    'Spinning',
-                    'Funcional',
-                    'Crossfit',
-                    'Yoga',
-                    'Zumba',
-                    'Body Pump'
-                ],
-                'hours' => [
-                    'Segunda a Sexta: 5h às 23h',
-                    'Sábado: 6h às 22h',
-                    'Domingo: 7h às 20h'
-                ],
-                'contact' => [
-                    'phone' => '(11) 9999-0001',
-                    'email' => 'centro@fitplanacademy.com.br'
-                ]
-            ],
-            [
-                'id' => 'zona-sul',
-                'name' => 'Zona Sul',
-                'address' => 'Rua Augusta, 500 - São Paulo',
-                'description' => 'Unidade especializada em aulas em grupo e pilates, com foco em bem-estar e qualidade de vida.',
-                'image' => 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800',
-                'features' => [
-                    'Foco em aulas em grupo',
-                    'Estúdio de pilates completo',
-                    'Instrutores certificados',
-                    'Área de musculação básica',
-                    'Sala de dança',
-                    'Espaço para yoga',
-                    'Vestiários modernos',
-                    'Estacionamento',
-                    'Wi-Fi gratuito',
-                    'Horário comercial (6h às 22h)'
-                ],
-                'equipment' => [
-                    'Equipamentos de pilates',
-                    'Máquinas de musculação básica',
-                    'Esteiras e bicicletas',
-                    'Equipamentos de funcional',
-                    'Espaço para dança',
-                    'Materiais de yoga',
-                    'Barras e halteres',
-                    'Equipamentos de cardio'
-                ],
-                'classes' => [
-                    'Pilates',
-                    'Yoga',
-                    'Zumba',
-                    'Funcional',
-                    'Dança',
-                    'Musculação',
-                    'Spinning',
-                    'Body Pump'
-                ],
-                'hours' => [
-                    'Segunda a Sexta: 6h às 22h',
-                    'Sábado: 7h às 21h',
-                    'Domingo: 8h às 19h'
-                ],
-                'contact' => [
-                    'phone' => '(11) 9999-0002',
-                    'email' => 'zonasul@fitplanacademy.com.br'
-                ]
-            ],
-            [
-                'id' => 'zona-oeste',
-                'name' => 'Zona Oeste',
-                'address' => 'Av. Faria Lima, 2000 - São Paulo',
-                'description' => 'Nossa unidade premium com instalações de alto padrão e personal trainers exclusivos.',
-                'image' => 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800',
-                'features' => [
-                    'Instalações premium',
-                    'Personal trainers exclusivos',
-                    'Equipamentos de última geração',
-                    'Área VIP de musculação',
-                    'Sala de spinning premium',
-                    'Estúdio de pilates',
-                    'Spa e sauna',
-                    'Vestiários luxuosos',
-                    'Estacionamento valet',
-                    'Horário estendido (5h às 24h)'
-                ],
-                'equipment' => [
-                    'Máquinas de musculação Technogym',
-                    'Esteiras premium com TV',
-                    'Bicicletas ergométricas',
-                    'Equipamentos de funcional',
-                    'Barras e halteres premium',
-                    'Máquinas de cardio',
-                    'Equipamentos de pilates',
-                    'Espaço para crossfit'
-                ],
-                'classes' => [
-                    'Musculação Premium',
-                    'Pilates',
-                    'Spinning Premium',
-                    'Funcional',
-                    'Crossfit',
-                    'Yoga',
-                    'Zumba',
-                    'Body Pump'
-                ],
-                'hours' => [
-                    'Segunda a Sexta: 5h às 24h',
-                    'Sábado: 6h às 23h',
-                    'Domingo: 7h às 21h'
-                ],
-                'contact' => [
-                    'phone' => '(11) 9999-0003',
-                    'email' => 'zonaoeste@fitplanacademy.com.br'
-                ]
-            ]
-        ];
-
+        $units = $this->getAllUnits();
+        
         return view('units.index', compact('units'));
     }
 
     /**
-     * Display the specified unit
+     * Exibe detalhes de uma unidade específica
+     * 
+     * @param string $unitId
+     * @return \Illuminate\View\View
      */
-    public function show(Request $request, $unitId)
+    public function show($unitId)
     {
-        $units = [
-            'centro' => [
+        $unit = $this->getUnitDetails($unitId);
+        
+        if (!$unit) {
+            abort(404, 'Unidade não encontrada');
+        }
+        
+        return view('units.show', compact('unit'));
+    }
+
+    /**
+     * Obtém todas as unidades da academia
+     * 
+     * @return array
+     */
+    private function getAllUnits()
+    {
+        return [
+            [
                 'id' => 'centro',
-                'name' => 'Centro',
-                'address' => 'Av. Paulista, 1000 - São Paulo',
-                'description' => 'Nossa unidade principal no coração de São Paulo, oferecendo uma experiência completa de fitness com equipamentos de última geração.',
-                'image' => 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800',
+                'name' => 'FitPlan Centro',
+                'description' => 'Nossa unidade principal no coração da cidade',
+                'address' => 'Av. Paulista, 1000 - Bela Vista, São Paulo - SP',
+                'image' => '/images/units/centro.jpg',
                 'features' => [
-                    'Equipamentos modernos e tecnológicos',
-                    'Aulas em grupo diversificadas',
-                    'Personal trainers especializados',
-                    'Área de musculação completa',
-                    'Sala de spinning',
-                    'Estúdio de pilates',
-                    'Vestiários com chuveiros',
+                    'Academia completa com equipamentos modernos',
+                    'Salas de aula em grupo',
+                    'Área de musculação e cardio',
                     'Estacionamento próprio',
-                    'Wi-Fi gratuito',
-                    'Horário estendido (5h às 23h)'
+                    'Vestiários com armários',
+                    'Loja de suplementos'
                 ],
                 'equipment' => [
                     'Máquinas de musculação Life Fitness',
-                    'Esteiras Technogym com TV',
-                    'Bicicletas ergométricas',
-                    'Equipamentos de funcional',
-                    'Barras e halteres',
-                    'Máquinas de cardio',
-                    'Equipamentos de pilates',
-                    'Espaço para crossfit'
+                    'Esteiras e bicicletas ergométricas',
+                    'Equipamentos de CrossFit',
+                    'Pesos livres e halteres',
+                    'Máquinas de pilates',
+                    'Espelhos e barras de ballet'
                 ],
                 'classes' => [
-                    'Musculação',
-                    'Pilates',
+                    'Pilates Mat',
                     'Spinning',
-                    'Funcional',
-                    'Crossfit',
-                    'Yoga',
+                    'Yoga Flow',
+                    'CrossFit',
                     'Zumba',
-                    'Body Pump'
+                    'Funcional'
                 ],
-                'hours' => [
-                    'Segunda a Sexta: 5h às 23h',
-                    'Sábado: 6h às 22h',
-                    'Domingo: 7h às 20h'
+                'operating_hours' => [
+                    'Segunda a Sexta: 6h às 23h',
+                    'Sábado: 7h às 21h',
+                    'Domingo: 8h às 20h'
                 ],
                 'contact' => [
-                    'phone' => '(11) 9999-0001',
-                    'email' => 'centro@fitplanacademy.com.br'
+                    'phone' => '(11) 3456-7890',
+                    'email' => 'centro@fitplan.com.br',
+                    'whatsapp' => '(11) 99999-1234'
                 ]
             ],
-            'zona-sul' => [
+            [
                 'id' => 'zona-sul',
-                'name' => 'Zona Sul',
-                'address' => 'Rua Augusta, 500 - São Paulo',
-                'description' => 'Unidade especializada em aulas em grupo e pilates, com foco em bem-estar e qualidade de vida.',
-                'image' => 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800',
+                'name' => 'FitPlan Zona Sul',
+                'description' => 'Unidade focada em aulas em grupo e pilates',
+                'address' => 'Rua Augusta, 500 - Jardins, São Paulo - SP',
+                'image' => '/images/units/zona-sul.jpg',
                 'features' => [
                     'Foco em aulas em grupo',
                     'Estúdio de pilates completo',
-                    'Instrutores certificados',
-                    'Área de musculação básica',
-                    'Sala de dança',
-                    'Espaço para yoga',
-                    'Vestiários modernos',
-                    'Estacionamento',
-                    'Wi-Fi gratuito',
-                    'Horário comercial (6h às 22h)'
+                    'Sala de yoga climatizada',
+                    'Área de musculação compacta',
+                    'Café e lanchonete',
+                    'Estacionamento rotativo'
                 ],
                 'equipment' => [
-                    'Equipamentos de pilates',
-                    'Máquinas de musculação básica',
-                    'Esteiras e bicicletas',
-                    'Equipamentos de funcional',
-                    'Espaço para dança',
-                    'Materiais de yoga',
-                    'Barras e halteres',
-                    'Equipamentos de cardio'
+                    'Máquinas de pilates',
+                    'Mats e acessórios de yoga',
+                    'Equipamentos de musculação',
+                    'Sistema de som profissional',
+                    'Espelhos nas salas',
+                    'Ar condicionado'
                 ],
                 'classes' => [
-                    'Pilates',
-                    'Yoga',
-                    'Zumba',
-                    'Funcional',
-                    'Dança',
-                    'Musculação',
-                    'Spinning',
-                    'Body Pump'
+                    'Pilates Mat',
+                    'Pilates Aparatos',
+                    'Yoga Flow',
+                    'Yoga Restaurativa',
+                    'Pilates Suspenso',
+                    'Meditação'
                 ],
-                'hours' => [
-                    'Segunda a Sexta: 6h às 22h',
-                    'Sábado: 7h às 21h',
-                    'Domingo: 8h às 19h'
+                'operating_hours' => [
+                    'Segunda a Sexta: 7h às 22h',
+                    'Sábado: 8h às 18h',
+                    'Domingo: 9h às 17h'
                 ],
                 'contact' => [
-                    'phone' => '(11) 9999-0002',
-                    'email' => 'zonasul@fitplanacademy.com.br'
+                    'phone' => '(11) 2345-6789',
+                    'email' => 'zonasul@fitplan.com.br',
+                    'whatsapp' => '(11) 99999-5678'
                 ]
             ],
-            'zona-oeste' => [
+            [
                 'id' => 'zona-oeste',
-                'name' => 'Zona Oeste',
-                'address' => 'Av. Faria Lima, 2000 - São Paulo',
-                'description' => 'Nossa unidade premium com instalações de alto padrão e personal trainers exclusivos.',
-                'image' => 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800',
+                'name' => 'FitPlan Zona Oeste',
+                'description' => 'Instalações premium com personal trainers',
+                'address' => 'Av. Faria Lima, 2000 - Itaim Bibi, São Paulo - SP',
+                'image' => '/images/units/zona-oeste.jpg',
                 'features' => [
                     'Instalações premium',
                     'Personal trainers exclusivos',
-                    'Equipamentos de última geração',
-                    'Área VIP de musculação',
-                    'Sala de spinning premium',
-                    'Estúdio de pilates',
-                    'Spa e sauna',
-                    'Vestiários luxuosos',
-                    'Estacionamento valet',
-                    'Horário estendido (5h às 24h)'
+                    'Área VIP para membros Black',
+                    'Spa e massagem',
+                    'Restaurante gourmet',
+                    'Valet parking'
                 ],
                 'equipment' => [
-                    'Máquinas de musculação Technogym',
-                    'Esteiras premium com TV',
-                    'Bicicletas ergométricas',
-                    'Equipamentos de funcional',
-                    'Barras e halteres premium',
-                    'Máquinas de cardio',
-                    'Equipamentos de pilates',
-                    'Espaço para crossfit'
+                    'Equipamentos Technogym premium',
+                    'Máquinas de última geração',
+                    'Área de treino funcional',
+                    'Piscina aquecida',
+                    'Sauna e steam room',
+                    'Sala de recuperação'
                 ],
                 'classes' => [
-                    'Musculação Premium',
-                    'Pilates',
-                    'Spinning Premium',
-                    'Funcional',
-                    'Crossfit',
-                    'Yoga',
-                    'Zumba',
-                    'Body Pump'
+                    'Personal Training',
+                    'Pilates Privativo',
+                    'Yoga Premium',
+                    'CrossFit Elite',
+                    'Aqua Fitness',
+                    'Recuperação Ativa'
                 ],
-                'hours' => [
+                'operating_hours' => [
                     'Segunda a Sexta: 5h às 24h',
-                    'Sábado: 6h às 23h',
+                    'Sábado: 6h às 22h',
                     'Domingo: 7h às 21h'
                 ],
                 'contact' => [
-                    'phone' => '(11) 9999-0003',
-                    'email' => 'zonaoeste@fitplanacademy.com.br'
+                    'phone' => '(11) 1234-5678',
+                    'email' => 'zonaoeste@fitplan.com.br',
+                    'whatsapp' => '(11) 99999-9012'
                 ]
             ]
         ];
+    }
 
-        if (!isset($units[$unitId])) {
-            abort(404, 'Unidade não encontrada');
+    /**
+     * Obtém detalhes de uma unidade específica
+     * 
+     * @param string $unitId
+     * @return array|null
+     */
+    private function getUnitDetails($unitId)
+    {
+        $units = $this->getAllUnits();
+        
+        foreach ($units as $unit) {
+            if ($unit['id'] === $unitId) {
+                return $unit;
+            }
         }
-
-        $unit = $units[$unitId];
-        $otherUnits = array_filter($units, function($key) use ($unitId) {
-            return $key !== $unitId;
-        }, ARRAY_FILTER_USE_KEY);
-
-        return view('units.show', compact('unit', 'otherUnits'));
+        
+        return null;
     }
 }
