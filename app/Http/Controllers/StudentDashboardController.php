@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Features\User\Infrastructure\Models\User;
-use App\Models\AccessLog;
 
 /**
  * Controller para o Dashboard do Aluno
@@ -20,7 +17,7 @@ class StudentDashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('demo.auth');
     }
 
     /**
@@ -73,26 +70,16 @@ class StudentDashboardController extends Controller
     /**
      * Calcula a frequência do mês atual
      */
-    private function calculateMonthlyFrequency(User $user)
+    private function calculateMonthlyFrequency($user)
     {
-        // Buscar logs de acesso do usuário nos últimos 30 dias
-        $monthStart = now()->startOfMonth();
-        $monthEnd = now()->endOfMonth();
-
-        $accessLogs = AccessLog::where('user_id', $user->id)
-            ->where('login_successful', true)
-            ->whereBetween('created_at', [$monthStart, $monthEnd])
-            ->distinct('created_at')
-            ->count();
-
-        // Retorna um valor entre 10-20 para demonstração
-        return min($accessLogs, 20);
+        // Simulado para demonstração - retorna valor entre 10-20
+        return rand(10, 20);
     }
 
     /**
      * Calcula o progresso das metas do aluno
      */
-    private function calculateGoalProgress(User $user)
+    private function calculateGoalProgress($user)
     {
         // Simular progresso baseado em dados dos treinos
         // Em uma implementação real, isso viria de uma tabela de metas/exercícios
@@ -100,7 +87,7 @@ class StudentDashboardController extends Controller
         $baseProgress = rand(60, 90);
         
         // Usuários mais novos têm progresso menor
-        $daysSinceCreated = now()->diffInDays($user->created_at);
+        $daysSinceCreated = rand(10, 100); // Simulado
         if ($daysSinceCreated < 30) {
             $baseProgress = rand(40, 60);
         }
@@ -111,38 +98,19 @@ class StudentDashboardController extends Controller
     /**
      * Obtém o total de treinos do usuário
      */
-    private function getTotalWorkouts(User $user)
+    private function getTotalWorkouts($user)
     {
         // Simulado - em implementação real viria de uma tabela de workouts
-        $daysSinceCreated = now()->diffInDays($user->created_at);
-        return min($daysSinceCreated * rand(2, 4), 100);
+        return rand(15, 50);
     }
 
     /**
      * Obtém a sequência ativa de dias consecutivos treinando
      */
-    private function getActiveStreak(User $user)
+    private function getActiveStreak($user)
     {
         // Simulado - calcula sequência baseada nos logs de acesso
-        $streak = 0;
-        $currentDate = now();
-        
-        for ($i = 0; $i < 30; $i++) {
-            $date = $currentDate->copy()->subDays($i);
-            
-            $hasAccess = AccessLog::where('user_id', $user->id)
-                ->where('login_successful', true)
-                ->whereDate('created_at', $date->format('Y-m-d'))
-                ->exists();
-                
-            if ($hasAccess) {
-                $streak++;
-            } else {
-                break;
-            }
-        }
-        
-        return $streak;
+        return rand(3, 15);
     }
 
     /**
@@ -154,7 +122,7 @@ class StudentDashboardController extends Controller
             'workout_id' => 'required|string',
         ]);
 
-        $user = Auth::user();
+        $user = session()->get('demo_user');
 
         // Em uma implementação real, salvaria em uma tabela workouts/training_sessions
         // Por enquanto, apenas retorna sucesso
@@ -174,7 +142,7 @@ class StudentDashboardController extends Controller
             'workout_id' => 'required|string',
         ]);
 
-        $user = Auth::user();
+        $user = session()->get('demo_user');
 
         // Em uma implementação real, criaria uma sessão de treino ativa
         // Por enquanto, apenas retorna sucesso
@@ -191,7 +159,7 @@ class StudentDashboardController extends Controller
      */
     public function getUserWorkouts()
     {
-        $user = Auth::user();
+        $user = session()->get('demo_user');
 
         // Treinos simulados padrão
         $workouts = [
