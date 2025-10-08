@@ -8,7 +8,7 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\Auth\DemoAuthController;
-use App\Http\Controllers\UnitController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +31,10 @@ Route::get('/planos/black', [PlanController::class, 'show'])->defaults('plan_nam
 // Rotas para unidades
 Route::get('/unidades', [UnitController::class, 'index'])->name('units.index');
 Route::get('/unidades/{unitId}', [UnitController::class, 'show'])->name('unit.show');
+
+// Página de contato
+Route::get('/contato', [ContactController::class, 'index'])->name('contact');
+Route::post('/contato', [ContactController::class, 'send'])->name('contact.send');
 
 // Checkout (Página de Pagamento)
 Route::get('/checkout/{plan}', [CheckoutController::class, 'show'])->name('checkout');

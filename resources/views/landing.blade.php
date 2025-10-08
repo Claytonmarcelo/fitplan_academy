@@ -352,7 +352,7 @@
             <div class="flex justify-center gap-6 mb-8">
                 <a class="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
                 <a class="hover:text-primary transition-colors" href="#">Termos de Serviço</a>
-                <a class="hover:text-primary transition-colors" href="#">Contato</a>
+                <a class="hover:text-primary transition-colors" href="{{ route('contact') }}">Contato</a>
             </div>
             <p class="text-sm">© 2024 FitPlan Academy. Todos os direitos reservados.</p>
         </div>
