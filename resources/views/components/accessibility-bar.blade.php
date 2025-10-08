@@ -1,61 +1,50 @@
-<!-- Barra de Acessibilidade - Padrão Gov.br -->
-<div id="accessibility-bar" class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-300 px-4 py-2">
-    <div class="container mx-auto flex items-center justify-between">
-        <!-- Logo e título -->
-        <div class="flex items-center gap-3">
-            <div class="text-blue-600 size-6">
-                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
-                </svg>
-            </div>
-            <span class="text-sm font-medium text-gray-800">Acessibilidade</span>
-        </div>
+<!-- Ícones de Acessibilidade Flutuantes -->
+<div id="accessibility-floating" class="fixed right-4 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-2">
+    <!-- Botão Libras -->
+    <button id="libras-toggle" 
+            class="flex items-center justify-center w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+            title="Libras - Língua Brasileira de Sinais">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+    </button>
 
-        <!-- Controles de Acessibilidade -->
-        <div class="flex items-center gap-2">
-            <!-- Botão Libras -->
-            <button id="libras-toggle" 
-                    class="flex items-center justify-center w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-                    title="Libras - Língua Brasileira de Sinais">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-            </button>
+    <!-- Botão Contraste -->
+    <button id="contrast-toggle" 
+            class="flex items-center justify-center w-12 h-12 bg-gray-600 hover:bg-gray-700 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+            title="Alto Contraste">
+        <svg id="contrast-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
 
-            <!-- Contraste -->
-            <button id="contrast-toggle" 
-                    class="flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded transition-colors"
-                    title="Alto Contraste">
-                <svg id="contrast-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                </svg>
-                <span id="contrast-text" class="text-sm">Alto Contraste</span>
-            </button>
+    <!-- Botão Diminuir Fonte -->
+    <button id="font-decrease" 
+            class="flex items-center justify-center w-12 h-12 bg-gray-600 hover:bg-gray-700 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+            title="Diminuir fonte">
+        <span class="text-lg font-bold">A-</span>
+    </button>
 
-            <!-- Tamanho da Fonte -->
-            <div class="flex items-center gap-1">
-                <button id="font-decrease" 
-                        class="flex items-center justify-center w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded transition-colors"
-                        title="Diminuir fonte">
-                    <span class="text-sm font-bold">A-</span>
-                </button>
-                
-                <span id="font-size-display" class="text-sm text-gray-800 min-w-[2rem] text-center">A</span>
-                
-                <button id="font-increase" 
-                        class="flex items-center justify-center w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded transition-colors"
-                        title="Aumentar fonte">
-                    <span class="text-sm font-bold">A+</span>
-                </button>
-            </div>
+    <!-- Botão Aumentar Fonte -->
+    <button id="font-increase" 
+            class="flex items-center justify-center w-12 h-12 bg-gray-600 hover:bg-gray-700 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+            title="Aumentar fonte">
+        <span class="text-lg font-bold">A+</span>
+    </button>
 
-            <!-- Reset -->
-            <button id="accessibility-reset" 
-                    class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded transition-colors"
-                    title="Restaurar configurações padrão">
-                Reset
-            </button>
-        </div>
+    <!-- Botão Reset -->
+    <button id="accessibility-reset" 
+            class="flex items-center justify-center w-12 h-12 bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+            title="Restaurar configurações padrão">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+    </button>
+
+    <!-- Indicador de Tamanho da Fonte -->
+    <div id="font-size-indicator" 
+         class="flex items-center justify-center w-12 h-8 bg-gray-800 text-white text-xs rounded-full shadow-lg">
+        <span id="font-size-display">A</span>
     </div>
 </div>
 
@@ -125,36 +114,57 @@
         color: #ffffff !important;
     }
 
-    /* Ajustar posicionamento do conteúdo quando a barra está visível */
-    body {
-        padding-top: 3rem;
-    }
-
     /* Transições suaves */
     * {
         transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
-    /* Estilo da barra de acessibilidade no modo alto contraste */
-    .high-contrast #accessibility-bar {
-        background-color: #000000 !important;
-        border-color: #ffffff !important;
+    /* Estilo dos ícones no modo alto contraste */
+    .high-contrast #accessibility-floating button {
+        border: 2px solid #ffffff !important;
     }
 
-    .high-contrast #accessibility-bar .text-gray-800 {
-        color: #ffffff !important;
-    }
-
-    .high-contrast #accessibility-bar .bg-gray-100 {
+    .high-contrast #accessibility-floating .bg-gray-600 {
         background-color: #333333 !important;
     }
 
-    .high-contrast #accessibility-bar .bg-gray-200 {
-        background-color: #555555 !important;
+    .high-contrast #accessibility-floating .bg-gray-800 {
+        background-color: #000000 !important;
+        border: 2px solid #ffffff !important;
     }
 
-    .high-contrast #accessibility-bar .hover\:bg-gray-200:hover {
-        background-color: #666666 !important;
+    /* Animação de entrada */
+    #accessibility-floating {
+        animation: slideInRight 0.5s ease-out;
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100px) translateY(-50%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0) translateY(-50%);
+            opacity: 1;
+        }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        #accessibility-floating {
+            right: 2rem;
+            gap: 1rem;
+        }
+        
+        #accessibility-floating button {
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        #font-size-indicator {
+            width: 3rem;
+            height: 2rem;
+        }
     }
 </style>
 
@@ -165,7 +175,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const librasToggle = document.getElementById('libras-toggle');
     const contrastToggle = document.getElementById('contrast-toggle');
     const contrastIcon = document.getElementById('contrast-icon');
-    const contrastText = document.getElementById('contrast-text');
     const fontDecrease = document.getElementById('font-decrease');
     const fontIncrease = document.getElementById('font-increase');
     const fontSizeDisplay = document.getElementById('font-size-display');
@@ -204,7 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Atualizar display do tamanho da fonte
     function updateFontDisplay(size) {
-        const percentage = Math.round(size * 100);
         if (size === 1) {
             fontSizeDisplay.textContent = 'A';
         } else if (size < 1) {
@@ -218,10 +226,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateContrastUI(isHighContrast) {
         if (isHighContrast) {
             contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
-            contrastText.textContent = 'Contraste Normal';
         } else {
             contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
-            contrastText.textContent = 'Alto Contraste';
         }
     }
 
@@ -281,10 +287,10 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.removeItem('accessibility-contrast');
         
         // Feedback visual
-        resetButton.textContent = 'Resetado!';
+        resetButton.style.transform = 'scale(1.2)';
         setTimeout(() => {
-            resetButton.textContent = 'Reset';
-        }, 1000);
+            resetButton.style.transform = 'scale(1)';
+        }, 200);
     });
 
     // Carregar configurações ao inicializar

@@ -1,8 +1,8 @@
 <!-- Barra de Acessibilidade -->
-@include('components.accessibility-bar')
+<?php echo $__env->make('components.accessibility-bar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <!-- Menu Component -->
-<header class="sticky top-0 z-40 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800">
+<header class="sticky top-0 z-40 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800" style="top: 3rem;">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center gap-4">
@@ -15,11 +15,11 @@
                 <h1 class="text-2xl font-bold text-zinc-900 dark:text-white">FitPlan Academy</h1>
             </div>
             <nav class="hidden md:flex items-center gap-8">
-                <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('landing') }}#hero">Home</a>
+                <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="<?php echo e(route('landing')); ?>#hero">Home</a>
                 
                 <!-- Menu Planos com Submenu -->
                 <div class="relative group">
-                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="{{ route('landing') }}#planos">
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="<?php echo e(route('landing')); ?>#planos">
                         Planos
                         <svg class="w-4 h-4 dropdown-arrow group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -29,34 +29,34 @@
                     <!-- Submenu Dropdown -->
                     <div class="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-zinc-800/95 dropdown-menu custom-shadow rounded-lg border border-zinc-200 dark:border-zinc-700 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible transform translate-y-2 group-hover:translate-y-0">
                         <div class="py-2">
-                            @if(isset($plans))
-                                @foreach($plans as $plan)
-                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 {{ $plan->name === 'Smart' ? 'border-orange-500' : ($plan->name === 'Black' ? 'border-zinc-800 dark:border-zinc-200' : 'border-zinc-300 dark:border-zinc-600') }}">
-                                    <a href="{{ route('plan.' . strtolower($plan->name)) }}" class="block">
-                                        @if($plan->name === 'Smart')
+                            <?php if(isset($plans)): ?>
+                                <?php $__currentLoopData = $plans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 <?php echo e($plan->name === 'Smart' ? 'border-orange-500' : ($plan->name === 'Black' ? 'border-zinc-800 dark:border-zinc-200' : 'border-zinc-300 dark:border-zinc-600')); ?>">
+                                    <a href="<?php echo e(route('plan.' . strtolower($plan->name))); ?>" class="block">
+                                        <?php if($plan->name === 'Smart'): ?>
                                         <div class="flex items-center gap-2 mb-1">
-                                            <h4 class="font-semibold text-zinc-900 dark:text-white">{{ $plan->name }}</h4>
+                                            <h4 class="font-semibold text-zinc-900 dark:text-white"><?php echo e($plan->name); ?></h4>
                                             <span class="px-2 py-1 text-xs font-bold text-white bg-orange-500 rounded-full">POPULAR</span>
                                         </div>
-                                        @else
-                                        <h4 class="font-semibold text-zinc-900 dark:text-white">{{ $plan->name }}</h4>
-                                        @endif
-                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">R$ {{ number_format($plan->price, 2, ',', '.') }}</p>
-                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">{{ $plan->description }}</p>
+                                        <?php else: ?>
+                                        <h4 class="font-semibold text-zinc-900 dark:text-white"><?php echo e($plan->name); ?></h4>
+                                        <?php endif; ?>
+                                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">R$ <?php echo e(number_format($plan->price, 2, ',', '.')); ?></p>
+                                        <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1"><?php echo e($plan->description); ?></p>
                                     </a>
                                 </div>
-                                @endforeach
-                            @else
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
                                 <!-- Fallback para páginas sem $plans -->
                                 <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
-                                    <a href="{{ route('plan.basic') }}" class="block">
+                                    <a href="<?php echo e(route('plan.basic')); ?>" class="block">
                                         <h4 class="font-semibold text-zinc-900 dark:text-white">Basic</h4>
                                         <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">R$ 89,90</p>
                                         <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Plano essencial para iniciantes</p>
                                     </a>
                                 </div>
                                 <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-orange-500">
-                                    <a href="{{ route('plan.smart') }}" class="block">
+                                    <a href="<?php echo e(route('plan.smart')); ?>" class="block">
                                         <div class="flex items-center gap-2 mb-1">
                                             <h4 class="font-semibold text-zinc-900 dark:text-white">Smart</h4>
                                             <span class="px-2 py-1 text-xs font-bold text-white bg-orange-500 rounded-full">POPULAR</span>
@@ -66,16 +66,16 @@
                                     </a>
                                 </div>
                                 <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-800 dark:border-zinc-200">
-                                    <a href="{{ route('plan.black') }}" class="block">
+                                    <a href="<?php echo e(route('plan.black')); ?>" class="block">
                                         <h4 class="font-semibold text-zinc-900 dark:text-white">Black</h4>
                                         <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">R$ 299,90</p>
                                         <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Plano premium com instalações exclusivas</p>
                                     </a>
                                 </div>
-                            @endif
+                            <?php endif; ?>
                             
                             <div class="border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2 mx-4">
-                                <a href="{{ route('landing') }}#planos" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
+                                <a href="<?php echo e(route('landing')); ?>#planos" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
                                     Ver Todos os Planos →
                                 </a>
                             </div>
@@ -85,7 +85,7 @@
                 
                 <!-- Menu Comparação com Submenu -->
                 <div class="relative group">
-                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="{{ route('landing') }}#comparacao">
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="<?php echo e(route('landing')); ?>#comparacao">
                         Comparação
                         <svg class="w-4 h-4 dropdown-arrow group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -96,7 +96,7 @@
                     <div class="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-zinc-800/95 dropdown-menu custom-shadow rounded-lg border border-zinc-200 dark:border-zinc-700 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible transform translate-y-2 group-hover:translate-y-0">
                         <div class="py-2">
                             <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-primary">
-                                <a href="{{ route('landing') }}#comparacao" class="block">
+                                <a href="<?php echo e(route('landing')); ?>#comparacao" class="block">
                                     <h4 class="font-semibold text-zinc-900 dark:text-white">Comparação Completa</h4>
                                     <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Todos os Planos</p>
                                     <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Veja todos os benefícios e recursos</p>
@@ -104,7 +104,7 @@
                             </div>
                             
                             <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
-                                <a href="{{ route('landing') }}#comparacao" class="block">
+                                <a href="<?php echo e(route('landing')); ?>#comparacao" class="block">
                                     <h4 class="font-semibold text-zinc-900 dark:text-white">Preços</h4>
                                     <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Tabela de Valores</p>
                                     <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Compare preços e promoções</p>
@@ -112,7 +112,7 @@
                             </div>
                             
                             <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
-                                <a href="{{ route('landing') }}#comparacao" class="block">
+                                <a href="<?php echo e(route('landing')); ?>#comparacao" class="block">
                                     <h4 class="font-semibold text-zinc-900 dark:text-white">Benefícios</h4>
                                     <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Recursos Inclusos</p>
                                     <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">O que cada plano oferece</p>
@@ -120,7 +120,7 @@
                             </div>
                             
                             <div class="border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2 mx-4">
-                                <a href="{{ route('landing') }}#comparacao" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
+                                <a href="<?php echo e(route('landing')); ?>#comparacao" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
                                     Ver Comparação Completa →
                                 </a>
                             </div>
@@ -130,7 +130,7 @@
                 
                 <!-- Menu Locais com Submenu -->
                 <div class="relative group">
-                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="{{ route('landing') }}#locais">
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors cursor-pointer flex items-center gap-1" href="<?php echo e(route('landing')); ?>#locais">
                         Locais
                         <svg class="w-4 h-4 dropdown-arrow group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -141,7 +141,7 @@
                     <div class="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-zinc-800/95 dropdown-menu custom-shadow rounded-lg border border-zinc-200 dark:border-zinc-700 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible transform translate-y-2 group-hover:translate-y-0">
                         <div class="py-2">
                             <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-primary">
-                                <a href="{{ route('unit.show', 'centro') }}" class="block">
+                                <a href="<?php echo e(route('unit.show', 'centro')); ?>" class="block">
                                     <h4 class="font-semibold text-zinc-900 dark:text-white">Centro</h4>
                                     <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Av. Paulista, 1000</p>
                                     <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Academia completa com equipamentos modernos</p>
@@ -149,7 +149,7 @@
                             </div>
                             
                             <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
-                                <a href="{{ route('unit.show', 'zona-sul') }}" class="block">
+                                <a href="<?php echo e(route('unit.show', 'zona-sul')); ?>" class="block">
                                     <h4 class="font-semibold text-zinc-900 dark:text-white">Zona Sul</h4>
                                     <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Rua Augusta, 500</p>
                                     <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Foco em aulas em grupo e pilates</p>
@@ -157,7 +157,7 @@
                             </div>
                             
                             <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
-                                <a href="{{ route('unit.show', 'zona-oeste') }}" class="block">
+                                <a href="<?php echo e(route('unit.show', 'zona-oeste')); ?>" class="block">
                                     <h4 class="font-semibold text-zinc-900 dark:text-white">Zona Oeste</h4>
                                     <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Av. Faria Lima, 2000</p>
                                     <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Instalações premium com personal trainers</p>
@@ -165,7 +165,7 @@
                             </div>
                             
                             <div class="border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2 mx-4">
-                                <a href="{{ route('units.index') }}" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
+                                <a href="<?php echo e(route('units.index')); ?>" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
                                     Ver Todas as Unidades →
                                 </a>
                             </div>
@@ -174,9 +174,10 @@
                 </div>
             </nav>
             <div class="flex items-center gap-2">
-                <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>
-                <a href="{{ route('cadastro') }}" class="px-4 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Cadastre-se</a>
+                <a href="<?php echo e(route('login')); ?>" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>
+                <a href="<?php echo e(route('cadastro')); ?>" class="px-4 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Cadastre-se</a>
             </div>
         </div>
     </div>
 </header>
+<?php /**PATH /Users/eduardocruz/fitplan_acadamy/resources/views/components/header.blade.php ENDPATH**/ ?>
