@@ -40,8 +40,10 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-200">
 <div class="min-h-screen">
+    <!-- Barra de Acessibilidade -->
+    <?php echo $__env->make('components.accessibility-bar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800">
+    <header class="sticky top-0 z-40 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800" style="top: 3rem;">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-4">
@@ -113,6 +115,46 @@
                                        name="name" 
                                        value="<?php echo e(old('name')); ?>"
                                        placeholder="Digite seu nome completo"
+                                       minlength="8"
+                                       maxlength="60"
+                                       required
+                                       class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Entre 8 e 60 caracteres alfabéticos</p>
+                            </div>
+
+                            <div>
+                                <label for="birth_date" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Data de Nascimento *</label>
+                                <input type="date" 
+                                       id="birth_date" 
+                                       name="birth_date" 
+                                       value="<?php echo e(old('birth_date')); ?>"
+                                       required
+                                       class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            </div>
+
+                            <div>
+                                <label for="gender" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Sexo *</label>
+                                <select id="gender" 
+                                        name="gender" 
+                                        required
+                                        class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                    <option value="">Selecione o sexo</option>
+                                    <option value="M" <?php echo e(old('gender') == 'M' ? 'selected' : ''); ?>>Masculino</option>
+                                    <option value="F" <?php echo e(old('gender') == 'F' ? 'selected' : ''); ?>>Feminino</option>
+                                    <option value="O" <?php echo e(old('gender') == 'O' ? 'selected' : ''); ?>>Outro</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="mother_name" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Nome da Mãe *</label>
+                                <input type="text" 
+                                       id="mother_name" 
+                                       name="mother_name" 
+                                       value="<?php echo e(old('mother_name')); ?>"
+                                       placeholder="Nome completo da mãe"
+                                       minlength="8"
+                                       maxlength="60"
+                                       required
                                        class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                             </div>
 
@@ -124,7 +166,9 @@
                                        value="<?php echo e(old('cpf')); ?>"
                                        placeholder="000.000.000-00"
                                        maxlength="14"
+                                       required
                                        class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Será validado com dígito verificador</p>
                             </div>
 
                             <div>
@@ -134,24 +178,39 @@
                                        name="email" 
                                        value="<?php echo e(old('email')); ?>"
                                        placeholder="seu@email.com"
+                                       required
                                        class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                             </div>
 
-                            <div>
-                                <label for="phone" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Telefone *</label>
-                                <input type="tel" 
-                                       id="phone" 
-                                       name="phone" 
-                                       value="<?php echo e(old('phone')); ?>"
-                                       placeholder="(00) 00000-0000"
-                                       maxlength="15"
-                                       class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="phone_cell" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Telefone Celular *</label>
+                                    <input type="tel" 
+                                           id="phone_cell" 
+                                           name="phone_cell" 
+                                           value="<?php echo e(old('phone_cell')); ?>"
+                                           placeholder="(+55)11-99999-9999"
+                                           maxlength="16"
+                                           required
+                                           class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                </div>
+                                <div>
+                                    <label for="phone_fixed" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Telefone Fixo *</label>
+                                    <input type="tel" 
+                                           id="phone_fixed" 
+                                           name="phone_fixed" 
+                                           value="<?php echo e(old('phone_fixed')); ?>"
+                                           placeholder="(+55)11-3333-4444"
+                                           maxlength="16"
+                                           required
+                                           class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                </div>
                             </div>
                         </div>
 
                         <!-- Endereço -->
                         <div class="space-y-4">
-                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white border-b border-zinc-200 dark:border-zinc-700 pb-2">Endereço</h3>
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white border-b border-zinc-200 dark:border-zinc-700 pb-2">Endereço Completo</h3>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="md:col-span-1">
@@ -162,15 +221,18 @@
                                            value="<?php echo e(old('cep')); ?>"
                                            placeholder="00000-000"
                                            maxlength="9"
+                                           required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                    <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Preenchimento automático via ViaCEP</p>
                                 </div>
                                 <div class="md:col-span-1">
-                                    <label for="street" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Rua/Av *</label>
+                                    <label for="street" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Logradouro *</label>
                                     <input type="text" 
                                            id="street" 
                                            name="street" 
                                            value="<?php echo e(old('street')); ?>"
-                                           placeholder="Nome da rua"
+                                           placeholder="Nome da rua/avenida"
+                                           required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 </div>
                             </div>
@@ -183,15 +245,17 @@
                                            name="number" 
                                            value="<?php echo e(old('number')); ?>"
                                            placeholder="123"
+                                           required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 </div>
                                 <div>
-                                    <label for="complement" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Complemento</label>
+                                    <label for="complement" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Complemento *</label>
                                     <input type="text" 
                                            id="complement" 
                                            name="complement" 
                                            value="<?php echo e(old('complement')); ?>"
-                                           placeholder="Apto 45"
+                                           placeholder="Apto 45, Bloco A, etc."
+                                           required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 </div>
                             </div>
@@ -203,6 +267,7 @@
                                        name="district" 
                                        value="<?php echo e(old('district')); ?>"
                                        placeholder="Nome do bairro"
+                                       required
                                        class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                             </div>
 
@@ -214,6 +279,7 @@
                                            name="city" 
                                            value="<?php echo e(old('city')); ?>"
                                            placeholder="Nome da cidade"
+                                           required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 </div>
                                 <div>
@@ -224,6 +290,7 @@
                                            value="<?php echo e(old('state')); ?>"
                                            placeholder="SP"
                                            maxlength="2"
+                                           required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 </div>
                             </div>
@@ -231,7 +298,7 @@
 
                         <!-- Dados de Acesso -->
                         <div class="space-y-4">
-                            <p class="text-lg font-semibold text-zinc-900 dark:text-white border-b border-zinc-200 dark:border-zinc-700 pb-2">Dados de Acesso</p>
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white border-b border-zinc-200 dark:border-zinc-700 pb-2">Dados de Acesso</h3>
                             
                             <div>
                                 <label for="login" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Login *</label>
@@ -240,9 +307,12 @@
                                        name="login" 
                                        value="<?php echo e(old('login')); ?>"
                                        placeholder="EXEMPLO"
+                                       minlength="6"
                                        maxlength="6"
+                                       pattern="[A-Za-z]{6}"
+                                       required
                                        class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                                <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Exatamente 6 letras</p>
+                                <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Exatamente 6 caracteres alfabéticos</p>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -251,16 +321,23 @@
                                     <input type="password" 
                                            id="password" 
                                            name="password"
-                                           placeholder="Mínimo 8 caracteres"
+                                           placeholder="Mínimo 8 caracteres alfabéticos"
+                                           minlength="8"
+                                           pattern="[A-Za-z]{8,}"
+                                           required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                    <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">8 caracteres alfabéticos</p>
                                 </div>
                                 <div>
-                                    <label for="password_confirmation" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Confirme a Senha *</label>
+                                    <label for="password_confirmation" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Confirmação da Senha *</label>
                                     <input type="password" 
                                            id="password_confirmation" 
                                            name="password_confirmation"
                                            placeholder="Digite a senha novamente"
+                                           minlength="8"
+                                           required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                    <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Deve ser idêntica à senha</p>
                                 </div>
                             </div>
                         </div>
@@ -292,27 +369,73 @@
         </div>
     </footer>
 
-    <!-- JavaScript para máscaras -->
+    <!-- JavaScript para máscaras e validações -->
     <script>
-        // Máscara para CPF
+        // Função para validar CPF
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\d]/g, '');
+            if (cpf.length !== 11) return false;
+            
+            // Verificar se todos os dígitos são iguais
+            if (/^(\d)\1{10}$/.test(cpf)) return false;
+            
+            // Validar primeiro dígito verificador
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            let resto = 11 - (soma % 11);
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(9))) return false;
+            
+            // Validar segundo dígito verificador
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            resto = 11 - (soma % 11);
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.charAt(10))) return false;
+            
+            return true;
+        }
+
+        // Máscara para CPF com validação
         document.getElementById('cpf').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
             e.target.value = value;
+            
+            // Validar CPF quando completo
+            if (value.length === 14) {
+                if (!validarCPF(value)) {
+                    e.target.setCustomValidity('CPF inválido');
+                    e.target.reportValidity();
+                } else {
+                    e.target.setCustomValidity('');
+                }
+            }
         });
 
-        // Máscara para telefone
-        document.getElementById('phone').addEventListener('input', function(e) {
+        // Máscara para telefone celular
+        document.getElementById('phone_cell').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
-            if (value.length <= 10) {
-                value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-            } else {
-                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            if (value.length <= 11) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '(+55)$1-$2-$3');
             }
             e.target.value = value;
         });
 
-        // Máscara para CEP
+        // Máscara para telefone fixo
+        document.getElementById('phone_fixed').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 10) {
+                value = value.replace(/(\d{2})(\d{4})(\d{4})/, '(+55)$1-$2-$3');
+            }
+            e.target.value = value;
+        });
+
+        // Máscara para CEP com busca automática
         document.getElementById('cep').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
@@ -328,9 +451,14 @@
                             document.getElementById('district').value = data.bairro || '';
                             document.getElementById('city').value = data.localidade || '';
                             document.getElementById('state').value = data.uf || '';
+                        } else {
+                            console.log('CEP não encontrado');
                         }
                     })
-                    .catch(error => console.log('Erro ao buscar CEP:', error));
+                    .catch(error => {
+                        console.log('Erro ao buscar CEP:', error);
+                        // Permitir preenchimento manual em caso de erro
+                    });
             }
         });
 
@@ -339,9 +467,48 @@
             e.target.value = e.target.value.toUpperCase();
         });
 
-        // Máscara para login (uppercase)
+        // Máscara para login (uppercase e apenas letras)
         document.getElementById('login').addEventListener('input', function(e) {
-            e.target.value = e.target.value.toUpperCase();
+            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '').toUpperCase();
+        });
+
+        // Validação de senha e confirmação
+        document.getElementById('password_confirmation').addEventListener('input', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmation = e.target.value;
+            
+            if (password !== confirmation) {
+                e.target.setCustomValidity('As senhas não coincidem');
+                e.target.reportValidity();
+            } else {
+                e.target.setCustomValidity('');
+            }
+        });
+
+        // Validação de nome (apenas letras e espaços)
+        document.getElementById('name').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+        });
+
+        // Validação de nome da mãe (apenas letras e espaços)
+        document.getElementById('mother_name').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+        });
+
+        // Validação de senha (apenas letras)
+        document.getElementById('password').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '');
+            
+            // Revalidar confirmação se já foi preenchida
+            const confirmation = document.getElementById('password_confirmation');
+            if (confirmation.value) {
+                confirmation.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // Validação de confirmação de senha (apenas letras)
+        document.getElementById('password_confirmation').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '');
         });
     </script>
 </div>

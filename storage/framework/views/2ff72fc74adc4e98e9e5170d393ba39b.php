@@ -1,57 +1,54 @@
-<!-- Barra de Acessibilidade - Padrão Gov.br -->
-<div id="accessibility-bar" class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-300 px-4 py-2">
+<!-- Barra de Acessibilidade -->
+<div id="accessibility-bar" class="fixed top-0 left-0 right-0 z-50 bg-zinc-800 dark:bg-zinc-900 border-b border-zinc-700 dark:border-zinc-600 px-4 py-2">
     <div class="container mx-auto flex items-center justify-between">
         <!-- Logo e título -->
         <div class="flex items-center gap-3">
-            <div class="text-blue-600 size-6">
+            <div class="text-primary size-6">
                 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                     <path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
                 </svg>
             </div>
-            <span class="text-sm font-medium text-gray-800">Acessibilidade</span>
+            <span class="text-sm font-medium text-white">Acessibilidade</span>
         </div>
 
         <!-- Controles de Acessibilidade -->
-        <div class="flex items-center gap-2">
-            <!-- Botão Libras -->
-            <button id="libras-toggle" 
-                    class="flex items-center justify-center w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-                    title="Libras - Língua Brasileira de Sinais">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-            </button>
-
+        <div class="flex items-center gap-4">
             <!-- Contraste -->
-            <button id="contrast-toggle" 
-                    class="flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded transition-colors"
-                    title="Alto Contraste">
-                <svg id="contrast-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                </svg>
-                <span id="contrast-text" class="text-sm">Alto Contraste</span>
-            </button>
+            <div class="flex items-center gap-2">
+                <button id="contrast-toggle" 
+                        class="flex items-center gap-2 px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-white text-sm rounded-md transition-colors"
+                        title="Alternar contraste">
+                    <svg id="contrast-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                    <span id="contrast-text">Alto Contraste</span>
+                </button>
+            </div>
 
             <!-- Tamanho da Fonte -->
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-2">
                 <button id="font-decrease" 
-                        class="flex items-center justify-center w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded transition-colors"
+                        class="flex items-center justify-center w-8 h-8 bg-zinc-700 hover:bg-zinc-600 text-white rounded-md transition-colors"
                         title="Diminuir fonte">
-                    <span class="text-sm font-bold">A-</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                    </svg>
                 </button>
                 
-                <span id="font-size-display" class="text-sm text-gray-800 min-w-[2rem] text-center">A</span>
+                <span id="font-size-display" class="text-sm text-white min-w-[3rem] text-center">100%</span>
                 
                 <button id="font-increase" 
-                        class="flex items-center justify-center w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded transition-colors"
+                        class="flex items-center justify-center w-8 h-8 bg-zinc-700 hover:bg-zinc-600 text-white rounded-md transition-colors"
                         title="Aumentar fonte">
-                    <span class="text-sm font-bold">A+</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
                 </button>
             </div>
 
             <!-- Reset -->
             <button id="accessibility-reset" 
-                    class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded transition-colors"
+                    class="px-3 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-white text-sm rounded-md transition-colors"
                     title="Restaurar configurações padrão">
                 Reset
             </button>
@@ -72,7 +69,7 @@
         font-size: calc(1rem * var(--font-size-multiplier));
     }
 
-    /* Modo alto contraste - Padrão Gov.br */
+    /* Modo alto contraste */
     .high-contrast {
         --accessibility-contrast: high;
     }
@@ -134,35 +131,12 @@
     * {
         transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
-
-    /* Estilo da barra de acessibilidade no modo alto contraste */
-    .high-contrast #accessibility-bar {
-        background-color: #000000 !important;
-        border-color: #ffffff !important;
-    }
-
-    .high-contrast #accessibility-bar .text-gray-800 {
-        color: #ffffff !important;
-    }
-
-    .high-contrast #accessibility-bar .bg-gray-100 {
-        background-color: #333333 !important;
-    }
-
-    .high-contrast #accessibility-bar .bg-gray-200 {
-        background-color: #555555 !important;
-    }
-
-    .high-contrast #accessibility-bar .hover\:bg-gray-200:hover {
-        background-color: #666666 !important;
-    }
 </style>
 
 <!-- JavaScript para funcionalidades de acessibilidade -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos
-    const librasToggle = document.getElementById('libras-toggle');
     const contrastToggle = document.getElementById('contrast-toggle');
     const contrastIcon = document.getElementById('contrast-icon');
     const contrastText = document.getElementById('contrast-text');
@@ -205,13 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Atualizar display do tamanho da fonte
     function updateFontDisplay(size) {
         const percentage = Math.round(size * 100);
-        if (size === 1) {
-            fontSizeDisplay.textContent = 'A';
-        } else if (size < 1) {
-            fontSizeDisplay.textContent = 'A-';
-        } else {
-            fontSizeDisplay.textContent = 'A+';
-        }
+        fontSizeDisplay.textContent = percentage + '%';
     }
 
     // Atualizar UI do contraste
@@ -224,12 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
             contrastText.textContent = 'Alto Contraste';
         }
     }
-
-    // Toggle Libras (simulação)
-    librasToggle.addEventListener('click', function() {
-        // Simulação do botão Libras - pode ser expandido para integração real
-        alert('Funcionalidade Libras ativada! Esta funcionalidade pode ser integrada com serviços de tradução em Libras.');
-    });
 
     // Toggle contraste
     contrastToggle.addEventListener('click', function() {
@@ -291,3 +253,4 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSettings();
 });
 </script>
+<?php /**PATH /Users/eduardocruz/fitplan_acadamy/resources/views/components/accessibility-bar.blade.php ENDPATH**/ ?>
