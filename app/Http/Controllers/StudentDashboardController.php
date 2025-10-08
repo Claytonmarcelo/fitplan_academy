@@ -47,7 +47,7 @@ class StudentDashboardController extends Controller
     /**
      * Calcula estatísticas do estudante
      */
-    private function getStudentStats(User $user)
+    private function getStudentStats($user)
     {
         // Frequência do mês (simulado para demonstração)
         $frequencyThisMonth = $this->calculateMonthlyFrequency($user);
