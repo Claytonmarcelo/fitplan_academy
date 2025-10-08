@@ -57,8 +57,12 @@
     }
 
     /* Aplicar multiplicador de fonte */
-    body {
-        font-size: calc(1rem * var(--font-size-multiplier));
+    * {
+        font-size: calc(1em * var(--font-size-multiplier));
+    }
+    
+    html {
+        font-size: calc(16px * var(--font-size-multiplier));
     }
 
     /* Modo alto contraste - Padrão Gov.br */
