@@ -40,6 +40,15 @@ class RegisterController extends Controller
                 'max:60',
                 'regex:/^[a-zA-ZÀ-ÿ\s]+$/'
             ],
+            'birth_date' => 'required|date|before:today',
+            'gender' => 'required|in:M,F,O',
+            'mother_name' => [
+                'required',
+                'string',
+                'min:8',
+                'max:60',
+                'regex:/^[a-zA-ZÀ-ÿ\s]+$/'
+            ],
             'cpf' => [
                 'required',
                 'string',
@@ -51,13 +60,18 @@ class RegisterController extends Controller
                 },
             ],
             'email' => 'required|email',
-            'phone' => [
+            'phone_cell' => [
                 'required',
                 'string',
-                'regex:/^\(\d{2}\) \d{4,5}-\d{4}$/'
+                'regex:/^\(\+55\)\d{2}-\d{5}-\d{4}$/'
+            ],
+            'phone_fixed' => [
+                'required',
+                'string',
+                'regex:/^\(\+55\)\d{2}-\d{4}-\d{4}$/'
             ],
             
-            // Endereço
+            // Endereço completo
             'cep' => [
                 'required',
                 'string',
@@ -65,7 +79,7 @@ class RegisterController extends Controller
             ],
             'street' => 'required|string|max:255',
             'number' => 'required|string|max:10',
-            'complement' => 'nullable|string|max:255',
+            'complement' => 'required|string|max:255',
             'district' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'state' => 'required|string|size:2',
@@ -81,6 +95,7 @@ class RegisterController extends Controller
                 'required',
                 'string',
                 'min:8',
+                'regex:/^[A-Za-z]{8,}$/',
                 'confirmed'
             ],
             'password_confirmation' => 'required|string|min:8',
@@ -92,22 +107,36 @@ class RegisterController extends Controller
             'name.max' => 'O nome deve ter no máximo 60 caracteres.',
             'name.regex' => 'O nome deve conter apenas letras.',
             
+            'birth_date.required' => 'A data de nascimento é obrigatória.',
+            'birth_date.date' => 'A data de nascimento deve ser uma data válida.',
+            'birth_date.before' => 'A data de nascimento deve ser anterior a hoje.',
+            
+            'gender.required' => 'O sexo é obrigatório.',
+            'gender.in' => 'O sexo deve ser Masculino, Feminino ou Outro.',
+            
+            'mother_name.required' => 'O nome da mãe é obrigatório.',
+            'mother_name.min' => 'O nome da mãe deve ter pelo menos 8 caracteres.',
+            'mother_name.max' => 'O nome da mãe deve ter no máximo 60 caracteres.',
+            'mother_name.regex' => 'O nome da mãe deve conter apenas letras.',
+            
             'cpf.required' => 'O CPF é obrigatório.',
             'cpf.regex' => 'O CPF deve estar no formato 000.000.000-00.',
-            'cpf.unique' => 'Este CPF já está cadastrado.',
             
             'email.required' => 'O email é obrigatório.',
             'email.email' => 'O email deve ter um formato válido.',
-            'email.unique' => 'Este email já está cadastrado.',
             
-            'phone.required' => 'O telefone é obrigatório.',
-            'phone.regex' => 'O telefone deve estar no formato (XX) XXXXX-XXXX.',
+            'phone_cell.required' => 'O telefone celular é obrigatório.',
+            'phone_cell.regex' => 'O telefone celular deve estar no formato (+55)XX-XXXXX-XXXX.',
+            
+            'phone_fixed.required' => 'O telefone fixo é obrigatório.',
+            'phone_fixed.regex' => 'O telefone fixo deve estar no formato (+55)XX-XXXX-XXXX.',
             
             'cep.required' => 'O CEP é obrigatório.',
             'cep.regex' => 'O CEP deve estar no formato 00000-000.',
             
-            'street.required' => 'A rua é obrigatória.',
+            'street.required' => 'O logradouro é obrigatório.',
             'number.required' => 'O número é obrigatório.',
+            'complement.required' => 'O complemento é obrigatório.',
             'district.required' => 'O bairro é obrigatório.',
             'city.required' => 'A cidade é obrigatória.',
             'state.required' => 'O estado é obrigatório.',
@@ -116,10 +145,10 @@ class RegisterController extends Controller
             'login.required' => 'O login é obrigatório.',
             'login.size' => 'O login deve ter exatamente 6 caracteres.',
             'login.regex' => 'O login deve conter apenas letras.',
-            'login.unique' => 'Este login já está em uso.',
             
             'password.required' => 'A senha é obrigatória.',
             'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+            'password.regex' => 'A senha deve conter apenas caracteres alfabéticos.',
             'password.confirmed' => 'A confirmação da senha não confere.',
         ]);
 
@@ -134,9 +163,13 @@ class RegisterController extends Controller
         $userData = [
             'id' => rand(1000, 9999), // ID simulado
             'name' => $validated['name'],
+            'birth_date' => $validated['birth_date'],
+            'gender' => $validated['gender'],
+            'mother_name' => $validated['mother_name'],
             'cpf' => $validated['cpf'],
             'email' => $validated['email'],
-            'phone' => $validated['phone'],
+            'phone_cell' => $validated['phone_cell'],
+            'phone_fixed' => $validated['phone_fixed'],
             'cep' => $validated['cep'],
             'street' => $validated['street'],
             'number' => $validated['number'],
@@ -145,6 +178,7 @@ class RegisterController extends Controller
             'city' => $validated['city'],
             'state' => strtoupper($validated['state']),
             'login' => strtoupper($validated['login']),
+            'password' => Hash::make($validated['password']), // Senha criptografada
             'profile' => 'comum',
             'is_active' => true,
             'created_at' => now(),
