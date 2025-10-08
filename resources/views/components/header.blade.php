@@ -15,7 +15,17 @@
                 <h1 class="text-2xl font-bold text-zinc-900 dark:text-white">FitPlan Academy</h1>
             </div>
             <nav class="hidden md:flex items-center gap-8">
-                <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('landing') }}#hero">Home</a>
+                @auth
+                    <!-- Navegação para usuários logados -->
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('student.dashboard') }}">Home</a>
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('workouts.index') }}">Treinos</a>
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('classes.index') }}">Aulas</a>
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('challenges.index') }}">Desafios</a>
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('community.index') }}">Comunidade</a>
+                @else
+                    <!-- Navegação para visitantes -->
+                    <a class="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('landing') }}#hero">Home</a>
+                @endauth
                 
                 <!-- Menu Planos com Submenu -->
                 <div class="relative group">
@@ -174,8 +184,20 @@
                 </div>
             </nav>
             <div class="flex items-center gap-2">
-                <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>
-                <a href="{{ route('cadastro') }}" class="px-4 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Cadastre-se</a>
+                @auth
+                    <!-- Usuário logado -->
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-semibold">
+                            {{ substr(session('demo_user')['name'] ?? 'U', 0, 1) }}
+                        </div>
+                        <span class="text-sm font-medium text-zinc-900 dark:text-white">{{ session('demo_user')['name'] ?? 'Usuário' }}</span>
+                        <a href="{{ route('logout') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Sair</a>
+                    </div>
+                @else
+                    <!-- Visitante -->
+                    <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Entrar</a>
+                    <a href="{{ route('cadastro') }}" class="px-4 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors">Cadastre-se</a>
+                @endauth
             </div>
         </div>
     </div>

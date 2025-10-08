@@ -37,104 +37,11 @@
             width: 100%;
             height: 50px;
         }
-
-        /* Barra de Acessibilidade */
-        .accessibility-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--background-dark);
-            color: white;
-            padding: 10px;
-            text-align: center;
-            z-index: 50;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .accessibility-bar.active {
-            transform: translateY(0);
-        }
-
-        .accessibility-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .accessibility-btn {
-            background: none;
-            border: 1px solid white;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .accessibility-btn:hover {
-            background: white;
-            color: var(--background-dark);
-        }
-
-        .accessibility-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 51;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Ajustes para alto contraste */
-        body.high-contrast {
-            filter: contrast(200%);
-        }
-
-        /* Ajustes de fonte */
-        body.font-large {
-            font-size: 1.2rem;
-        }
-
-        body.font-small {
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-100">
     <!-- Barra de Acessibilidade -->
-    <div class="accessibility-bar" id="accessibilityBar">
-        <div class="accessibility-controls">
-            <button class="accessibility-btn" onclick="toggleContrast()">
-                <span class="material-symbols-outlined text-sm">contrast</span> Contraste
-            </button>
-            <button class="accessibility-btn" onclick="increaseFontSize()">
-                <span class="material-symbols-outlined text-sm">text_increase</span> A+
-            </button>
-            <button class="accessibility-btn" onclick="decreaseFontSize()">
-                <span class="material-symbols-outlined text-sm">text_decrease</span> A-
-            </button>
-            <button class="accessibility-btn" onclick="toggleDarkMode()">
-                <span class="material-symbols-outlined text-sm">brightness_6</span> Modo Escuro
-            </button>
-            <button class="accessibility-btn" onclick="resetAccessibility()">
-                <span class="material-symbols-outlined text-sm">refresh</span> Reset
-            </button>
-        </div>
-    </div>
-
-    <!-- Botão de Toggle da Acessibilidade -->
-    <button class="accessibility-toggle" onclick="toggleAccessibilityBar()">
-        <span class="material-symbols-outlined">accessibility</span>
-    </button>
+    <?php echo $__env->make('components.accessibility-bar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <div class="flex flex-col min-h-screen">
         <header class="sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm z-10 border-b border-primary/20 dark:border-primary/30">
@@ -384,60 +291,6 @@
     </div>
 
     <script>
-        // Funções de Acessibilidade
-        function toggleAccessibilityBar() {
-            const bar = document.getElementById('accessibilityBar');
-            bar.classList.toggle('active');
-        }
-
-        function toggleContrast() {
-            document.body.classList.toggle('high-contrast');
-            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
-        }
-
-        function increaseFontSize() {
-            document.body.classList.remove('font-small');
-            document.body.classList.add('font-large');
-            localStorage.setItem('fontSize', 'large');
-        }
-
-        function decreaseFontSize() {
-            document.body.classList.remove('font-large');
-            document.body.classList.add('font-small');
-            localStorage.setItem('fontSize', 'small');
-        }
-
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
-        }
-
-        function resetAccessibility() {
-            document.body.classList.remove('high-contrast', 'font-large', 'font-small');
-            document.documentElement.classList.remove('dark');
-            localStorage.removeItem('highContrast');
-            localStorage.removeItem('fontSize');
-            localStorage.removeItem('darkMode');
-        }
-
-        // Carregar preferências salvas
-        document.addEventListener('DOMContentLoaded', function() {
-            if (localStorage.getItem('highContrast') === 'true') {
-                document.body.classList.add('high-contrast');
-            }
-            
-            const fontSize = localStorage.getItem('fontSize');
-            if (fontSize === 'large') {
-                document.body.classList.add('font-large');
-            } else if (fontSize === 'small') {
-                document.body.classList.add('font-small');
-            }
-
-            if (localStorage.getItem('darkMode') === 'true') {
-                document.documentElement.classList.add('dark');
-            }
-        });
-
         // Auto-dismiss notifications
         setTimeout(function() {
             const alerts = document.querySelectorAll('[role="alert"]');

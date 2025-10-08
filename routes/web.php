@@ -9,6 +9,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\Auth\DemoAuthController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\ClassController;
+use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\CommunityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -101,6 +105,39 @@ Route::middleware('demo.auth')->group(function () {
         Route::post('/workout/complete', [StudentDashboardController::class, 'markWorkoutCompleted'])->name('student.workout.complete');
         Route::post('/workout/start', [StudentDashboardController::class, 'startWorkout'])->name('student.workout.start');
         Route::get('/workouts', [StudentDashboardController::class, 'getUserWorkouts'])->name('student.workouts');
+    });
+    
+    // Rotas de Treinos
+    Route::prefix('workouts')->group(function () {
+        Route::get('/', [WorkoutController::class, 'index'])->name('workouts.index');
+        Route::get('/{workoutId}', [WorkoutController::class, 'show'])->name('workouts.show');
+        Route::post('/{workoutId}/start', [WorkoutController::class, 'start'])->name('workouts.start');
+        Route::post('/{workoutId}/complete', [WorkoutController::class, 'complete'])->name('workouts.complete');
+    });
+    
+    // Rotas de Aulas
+    Route::prefix('classes')->group(function () {
+        Route::get('/', [ClassController::class, 'index'])->name('classes.index');
+        Route::get('/{classId}', [ClassController::class, 'show'])->name('classes.show');
+        Route::post('/{classId}/enroll', [ClassController::class, 'enroll'])->name('classes.enroll');
+        Route::post('/{classId}/cancel', [ClassController::class, 'cancel'])->name('classes.cancel');
+    });
+    
+    // Rotas de Desafios
+    Route::prefix('challenges')->group(function () {
+        Route::get('/', [ChallengeController::class, 'index'])->name('challenges.index');
+        Route::get('/{challengeId}', [ChallengeController::class, 'show'])->name('challenges.show');
+        Route::post('/{challengeId}/join', [ChallengeController::class, 'join'])->name('challenges.join');
+        Route::post('/update-progress', [ChallengeController::class, 'updateProgress'])->name('challenges.update-progress');
+    });
+    
+    // Rotas de Comunidade
+    Route::prefix('community')->group(function () {
+        Route::get('/', [CommunityController::class, 'index'])->name('community.index');
+        Route::get('/posts/{postId}', [CommunityController::class, 'showPost'])->name('community.post');
+        Route::post('/create-post', [CommunityController::class, 'createPost'])->name('community.create-post');
+        Route::post('/posts/{postId}/like', [CommunityController::class, 'likePost'])->name('community.like-post');
+        Route::post('/posts/{postId}/comment', [CommunityController::class, 'addComment'])->name('community.add-comment');
     });
     
 });
