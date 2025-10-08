@@ -17,7 +17,7 @@ class StudentDashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('demo.auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -25,16 +25,11 @@ class StudentDashboardController extends Controller
      */
     public function index(Request $request)
     {
-        // Obter usuário da sessão demo
-        $user = session()->get('demo_user');
-        if (!$user) {
-            return redirect()->route('login')->withErrors(['login' => 'Sessão expirada.']);
-        }
-        
-        $user = (object) $user;
+        // Obter usuário autenticado
+        $user = auth()->user();
         
         // Se for usuário Master, redireciona para o dashboard administrativo
-        if ($user->profile === 'master') {
+        if ($user->isMaster()) {
             return redirect()->route('dashboard');
         }
 

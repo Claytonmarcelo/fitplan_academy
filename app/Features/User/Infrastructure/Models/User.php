@@ -49,9 +49,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'birth_date',
+        'gender',
+        'mother_name',
         'cpf',
         'email',
         'phone',
+        'landline_phone',
         'cep',
         'street',
         'number',
@@ -59,9 +63,10 @@ class User extends Authenticatable
         'district',
         'city',
         'state',
+        'zip_code',
         'login',
         'password',
-        'profile',
+        'role',
         'is_active',
         'two_factor_secret',
         'two_factor_confirmed_at',
@@ -164,7 +169,7 @@ class User extends Authenticatable
      */
     public function isMaster(): bool
     {
-        return $this->profile === 'master';
+        return $this->role === 'master';
     }
 
     /**
@@ -174,7 +179,7 @@ class User extends Authenticatable
      */
     public function isCommon(): bool
     {
-        return $this->profile === 'comum';
+        return $this->role === 'common';
     }
 
     /**
@@ -191,12 +196,12 @@ class User extends Authenticatable
      * Scope para buscar usuários por perfil
      * 
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $profile
+     * @param string $role
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeByProfile($query, string $profile)
+    public function scopeByRole($query, string $role)
     {
-        return $query->where('profile', $profile);
+        return $query->where('role', $role);
     }
 
     /**

@@ -217,7 +217,7 @@
                         <div class="space-y-4">
                             @foreach($leaderboard as $position)
                             <div class="flex items-center gap-4 p-3 {{ $position['position'] <= 3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg' : '' }}">
-                                <div class="flex items-center justify-center w-8 h-8 rounded-full {{ $position['position'] === 1 ? 'bg-yellow-500 text-white' : $position['position'] === 2 ? 'bg-gray-400 text-white' : $position['position'] === 3 ? 'bg-orange-600 text-white' : 'bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400' }}">
+                                <div class="flex items-center justify-center w-8 h-8 rounded-full {{ ($position['position'] === 1 ? 'bg-yellow-500 text-white' : ($position['position'] === 2 ? 'bg-gray-400 text-white' : ($position['position'] === 3 ? 'bg-orange-600 text-white' : 'bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400'))) }}">
                                     {{ $position['position'] }}
                                 </div>
                                 <div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white font-semibold">

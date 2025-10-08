@@ -159,36 +159,42 @@ class RegisterController extends Controller
             ])->withInput();
         }
 
-        // Simular criação do usuário (sem banco de dados para demo)
-        $userData = [
-            'id' => rand(1000, 9999), // ID simulado
-            'name' => $validated['name'],
-            'birth_date' => $validated['birth_date'],
-            'gender' => $validated['gender'],
-            'mother_name' => $validated['mother_name'],
-            'cpf' => $validated['cpf'],
-            'email' => $validated['email'],
-            'phone_cell' => $validated['phone_cell'],
-            'phone_fixed' => $validated['phone_fixed'],
-            'cep' => $validated['cep'],
-            'street' => $validated['street'],
-            'number' => $validated['number'],
-            'complement' => $validated['complement'],
-            'district' => $validated['district'],
-            'city' => $validated['city'],
-            'state' => strtoupper($validated['state']),
-            'login' => strtoupper($validated['login']),
-            'password' => Hash::make($validated['password']), // Senha criptografada
-            'profile' => 'comum',
-            'is_active' => true,
-            'created_at' => now(),
-        ];
+        // Criar usuário no banco de dados
+        try {
+            $user = User::create([
+                'name' => $validated['name'],
+                'birth_date' => $validated['birth_date'],
+                'gender' => $validated['gender'],
+                'mother_name' => $validated['mother_name'],
+                'cpf' => $validated['cpf'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone_cell'],
+                'landline_phone' => $validated['phone_fixed'],
+                'cep' => $validated['cep'],
+                'street' => $validated['street'],
+                'number' => $validated['number'],
+                'complement' => $validated['complement'],
+                'district' => $validated['district'],
+                'city' => $validated['city'],
+                'state' => strtoupper($validated['state']),
+                'zip_code' => $validated['cep'], // Mesmo valor do CEP
+                'login' => strtoupper($validated['login']),
+                'password' => Hash::make($validated['password']), // Senha criptografada
+                'role' => 'common',
+                'is_active' => true,
+            ]);
 
-        // Armazenar dados temporariamente na sessão para demonstração
-        session()->flash('registered_user', $userData);
+            // Fazer login automático do usuário
+            auth()->login($user);
 
-        return redirect()->route('login')
-                        ->with('success', 'Cadastro realizado com sucesso! Use o login: ' . strtoupper($validated['login']) . ' para entrar no sistema.');
+            return redirect()->route('student.dashboard')
+                            ->with('success', 'Cadastro realizado com sucesso! Bem-vindo, ' . $user->name . '!');
+
+        } catch (\Exception $e) {
+            return back()->withErrors([
+                'general' => 'Erro ao criar conta. Tente novamente.'
+            ])->withInput();
+        }
     }
 
     /**

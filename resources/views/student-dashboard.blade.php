@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="mt-6 w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+                        <button onclick="startWorkout('workout_a')" class="mt-6 w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
                             <span>Começar Treino</span>
                             <span class="material-symbols-outlined">play_arrow</span>
                         </button>
@@ -229,7 +229,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="mt-6 w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+                        <button onclick="startWorkout('workout_c')" class="mt-6 w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
                             <span>Começar Treino</span>
                             <span class="material-symbols-outlined">play_arrow</span>
                         </button>
@@ -251,6 +251,12 @@
                 }
             });
         }, 100);
+
+        // Função para iniciar treino
+        function startWorkout(workoutId) {
+            // Redirecionar para página de execução do treino
+            window.location.href = `/workouts/${workoutId}/execute`;
+        }
     </script>
 </body>
 </html>

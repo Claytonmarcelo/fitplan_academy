@@ -122,6 +122,37 @@ class WorkoutController extends Controller
     }
 
     /**
+     * Exibe a página de execução de treino com cronômetro
+     * 
+     * @param Request $request
+     * @param string $workoutId
+     * @return \Illuminate\View\View
+     */
+    public function execute(Request $request, $workoutId)
+    {
+        $user = session()->get('demo_user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['login' => 'Sessão expirada.']);
+        }
+        
+        $user = (object) $user;
+
+        // Obter detalhes do treino
+        $workout = $this->getWorkoutDetails($workoutId);
+        
+        if (!$workout) {
+            return redirect()->route('workouts.index')->withErrors(['workout' => 'Treino não encontrado.']);
+        }
+
+        // Adicionar informações extras para execução
+        $workout['started_at'] = now();
+        $workout['current_exercise'] = 0;
+        $workout['total_exercises'] = count($workout['exercises']);
+
+        return view('workouts.execute', compact('user', 'workout'));
+    }
+
+    /**
      * Marca um treino como concluído
      * 
      * @param Request $request

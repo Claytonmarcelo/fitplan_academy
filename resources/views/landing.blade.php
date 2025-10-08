@@ -136,7 +136,7 @@
                         <div class="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-zinc-800/95 dropdown-menu custom-shadow rounded-lg border border-zinc-200 dark:border-zinc-700 opacity-0 invisible transition-all duration-300 group-hover:opacity-100 group-hover:visible transform translate-y-2 group-hover:translate-y-0">
                             <div class="py-2">
                                 <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-primary">
-                                    <a href="{{ route('landing') }}#comparacao" class="block">
+                                    <a href="{{ route('comparison.index') }}" class="block">
                                         <h4 class="font-semibold text-zinc-900 dark:text-white">Comparação Completa</h4>
                                         <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Todos os Planos</p>
                                         <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Veja todos os benefícios e recursos</p>
@@ -144,7 +144,7 @@
                                 </div>
                                 
                                 <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
-                                    <a href="{{ route('landing') }}#comparacao" class="block">
+                                    <a href="{{ route('comparison.prices') }}" class="block">
                                         <h4 class="font-semibold text-zinc-900 dark:text-white">Preços</h4>
                                         <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Tabela de Valores</p>
                                         <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">Compare preços e promoções</p>
@@ -152,7 +152,7 @@
                                 </div>
                                 
                                 <div class="px-4 py-3 dropdown-item hover:bg-zinc-50 dark:hover:bg-zinc-700 border-l-4 border-zinc-300 dark:border-zinc-600">
-                                    <a href="{{ route('landing') }}#comparacao" class="block">
+                                    <a href="{{ route('comparison.benefits') }}" class="block">
                                         <h4 class="font-semibold text-zinc-900 dark:text-white">Benefícios</h4>
                                         <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Recursos Inclusos</p>
                                         <p class="text-xs text-zinc-500 dark:text-zinc-500 mt-1">O que cada plano oferece</p>
@@ -160,7 +160,7 @@
                                 </div>
                                 
                                 <div class="border-t border-zinc-200 dark:border-zinc-700 mt-2 pt-2 mx-4">
-                                    <a href="{{ route('landing') }}#comparacao" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
+                                    <a href="{{ route('comparison.index') }}" class="block px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors dropdown-item">
                                         Ver Comparação Completa →
                                     </a>
                                 </div>
