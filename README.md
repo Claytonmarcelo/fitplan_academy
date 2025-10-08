@@ -50,6 +50,34 @@ Sistema completo de gestão de academia com funcionalidades avançadas de treino
 - **Middleware de autenticação** robusto
 - **Sanitização de dados** de entrada
 
+## 🚀 Instalação Rápida
+
+### Instalação Automática (Recomendado)
+
+Scripts executáveis para instalação automática em diferentes sistemas:
+
+```bash
+# Linux/macOS - Instalação universal
+curl -sSL https://raw.githubusercontent.com/edufilhocruz/fitplan_acadamy/main/install.sh | bash
+
+# Windows - Execute como administrador
+powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/edufilhocruz/fitplan_acadamy/main/install-windows.bat' -OutFile 'install-windows.bat'; .\install-windows.bat"
+```
+
+### Instalação Manual
+
+Para instalação manual detalhada, consulte:
+- **[INSTALLATION.md](INSTALLATION.md)** - Guia completo de instalação
+- **[INSTALL-SCRIPTS.md](INSTALL-SCRIPTS.md)** - Documentação dos scripts automáticos
+
+### Credenciais Padrão
+
+Após a instalação:
+- **URL**: http://localhost:8000
+- **Login Master**: MASTER
+- **Senha Master**: Master123
+- **Email**: master@fitplan.com.br
+
 ## 🏗️ Arquitetura
 
 ### Backend
@@ -67,11 +95,11 @@ Sistema completo de gestão de academia com funcionalidades avançadas de treino
 - **Acessibilidade** seguindo padrões WCAG
 
 ### Banco de Dados
-- **SQLite** para desenvolvimento
-- **MySQL** para produção
+- **MySQL** para desenvolvimento e produção
 - **Migrations** organizadas e versionadas
 - **Modelos Eloquent** com relacionamentos
 - **Índices otimizados** para performance
+- **phpMyAdmin** para administração gráfica
 
 ## 📱 Páginas Principais
 
@@ -110,13 +138,18 @@ fitplan_acadamy/
 │   └── Models/             # Modelos Eloquent
 ├── database/
 │   ├── migrations/         # Migrations do banco
-│   └── database.sqlite     # Banco SQLite local
+│   └── seeders/           # Seeders para dados iniciais
 ├── resources/
 │   ├── views/              # Templates Blade
 │   └── css/               # Estilos CSS
 ├── routes/
 │   └── web.php            # Rotas da aplicação
-└── public/                # Arquivos públicos
+├── public/                # Arquivos públicos
+├── install.sh             # Instalador universal
+├── install-linux.sh       # Instalador Linux
+├── install-windows.bat    # Instalador Windows
+├── INSTALLATION.md        # Guia de instalação manual
+└── INSTALL-SCRIPTS.md     # Documentação dos scripts
 ```
 
 ## 🎯 Próximos Passos
