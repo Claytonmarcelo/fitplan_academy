@@ -58,15 +58,84 @@ php artisan key:generate
 
 ### 4. Configurar Banco de Dados
 
-O projeto está configurado para usar **SQLite** por padrão, que é mais simples para desenvolvimento local.
+O projeto está configurado para usar **MySQL** por padrão. Siga os passos abaixo:
+
+#### 4.1. Instalar MySQL
 
 ```bash
-# Criar arquivo do banco SQLite
-touch database/database.sqlite
+# macOS com Homebrew
+arch -arm64 brew install mysql
 
+# Ubuntu/Debian
+sudo apt install mysql-server
+
+# Windows
+# Baixar do site oficial do MySQL
+```
+
+#### 4.2. Iniciar MySQL
+
+```bash
+# macOS
+brew services start mysql
+
+# Ubuntu/Debian
+sudo systemctl start mysql
+
+# Windows
+# Iniciar via serviços do Windows
+```
+
+#### 4.3. Criar Banco de Dados
+
+```bash
+# Conectar ao MySQL (sem senha por padrão)
+mysql -u root
+
+# Criar banco de dados
+CREATE DATABASE fitplan_academy CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+EXIT;
+```
+
+#### 4.4. Configurar .env
+
+O arquivo `.env` já está configurado para MySQL:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=fitplan_academy
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+#### 4.5. Executar Migrations
+
+```bash
 # Executar migrations
 php artisan migrate
+
+# Criar usuário Master
+php artisan db:seed --class=MasterUserSeeder
 ```
+
+#### 4.6. Instalar phpMyAdmin (Opcional)
+
+Para facilitar a administração do banco:
+
+```bash
+# macOS
+arch -arm64 brew install phpmyadmin
+
+# Ubuntu/Debian
+sudo apt install phpmyadmin
+
+# Windows
+# Baixar do site oficial do phpMyAdmin
+```
+
+Acesse: `http://localhost/phpmyadmin` (após configurar servidor web)
 
 ### 5. Configurar Permissões (Linux/Mac)
 
@@ -114,7 +183,16 @@ Abra seu navegador e acesse:
 3. Clique em "Cadastrar"
 4. Você será redirecionado para o dashboard
 
-### 2. Login
+### 2. Login com Usuário Master
+
+1. Acesse `http://localhost:8000/login`
+2. Use as credenciais do usuário Master criado:
+   - **Login**: MASTER
+   - **Senha**: Master123
+3. Clique em "Entrar"
+4. Você será redirecionado para o dashboard administrativo
+
+### 3. Login com Usuário Comum
 
 1. Acesse `http://localhost:8000/login`
 2. Use as credenciais cadastradas:
@@ -169,40 +247,25 @@ php artisan make:controller NomeDoController
 
 ## 🔧 Configuração Avançada
 
-### Usando MySQL (Opcional)
+### Usando SQLite (Alternativo)
 
-Se preferir usar MySQL em vez de SQLite:
+Se preferir usar SQLite em vez de MySQL:
 
-1. **Instalar MySQL**:
-   ```bash
-   # Ubuntu/Debian
-   sudo apt install mysql-server
-   
-   # macOS com Homebrew
-   brew install mysql
-   
-   # Windows
-   # Baixar do site oficial do MySQL
-   ```
-
-2. **Criar banco de dados**:
-   ```sql
-   CREATE DATABASE fitplan_academy;
-   ```
-
-3. **Configurar .env**:
+1. **Configurar .env**:
    ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=fitplan_academy
-   DB_USERNAME=seu_usuario
-   DB_PASSWORD=sua_senha
+   DB_CONNECTION=sqlite
+   DB_DATABASE=database/database.sqlite
    ```
 
-4. **Executar migrations**:
+2. **Criar arquivo do banco**:
+   ```bash
+   touch database/database.sqlite
+   ```
+
+3. **Executar migrations**:
    ```bash
    php artisan migrate
+   php artisan db:seed --class=MasterUserSeeder
    ```
 
 ### Configuração de Email (Opcional)
@@ -244,6 +307,34 @@ icacls storage /grant Everyone:F /T
 ```bash
 # Reinstalar dependências
 composer dump-autoload
+```
+
+### Banco de dados MySQL não conecta
+
+```bash
+# Verificar se MySQL está rodando
+brew services list | grep mysql
+
+# Iniciar MySQL
+brew services start mysql
+
+# Testar conexão
+mysql -u root -e "SHOW DATABASES;"
+
+# Verificar configuração no .env
+cat .env | grep DB_
+```
+
+### Erro: "Unknown column 'profile'"
+
+```bash
+# Executar migration que corrige o campo
+php artisan migrate
+
+# Ou recriar banco completamente
+mysql -u root -e "DROP DATABASE fitplan_academy; CREATE DATABASE fitplan_academy CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+php artisan migrate
+php artisan db:seed --class=MasterUserSeeder
 ```
 
 ### Banco de dados não encontrado

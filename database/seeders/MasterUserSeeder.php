@@ -21,7 +21,7 @@ class MasterUserSeeder extends Seeder
     public function run(): void
     {
         // Verifica se já existe um usuário master
-        $existingMaster = DB::table('users')->where('profile', 'master')->first();
+        $existingMaster = DB::table('users')->where('role', 'master')->first();
         
         if ($existingMaster) {
             $this->command->info('Usuário Master já existe no sistema.');
@@ -43,7 +43,7 @@ class MasterUserSeeder extends Seeder
             'state' => 'SP',
             'login' => 'MASTER',
             'password' => Hash::make('Master123'), // Senha padrão: Master123
-            'profile' => 'master',
+            'role' => 'master',
             'is_active' => true,
             'email_verified_at' => now(),
             'created_at' => now(),
