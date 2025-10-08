@@ -42,57 +42,11 @@
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-100">
     <!-- Barra de Acessibilidade -->
     @include('components.accessibility-bar')
+    
+    <!-- Header -->
+    @include('components.header')
 
     <div class="flex flex-col min-h-screen">
-        <header class="sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm z-10 border-b border-primary/20 dark:border-primary/30">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16">
-                    <div class="flex items-center gap-4">
-                        <div class="text-primary">
-                            <svg class="feather feather-activity" fill="none" height="28" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                            </svg>
-                        </div>
-                        <h1 class="text-xl font-bold text-zinc-900 dark:text-white">FitPlan</h1>
-                    </div>
-                    <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-                        <a class="text-zinc-700 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="{{ route('dashboard') }}">
-                            Home
-                        </a>
-                        <a class="text-primary font-semibold" href="#">Treinos</a>
-                        <a class="text-zinc-700 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Aulas</a>
-                        <a class="text-zinc-700 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Desafios</a>
-                        <a class="text-zinc-700 dark:text-zinc-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">Comunidade</a>
-                    </nav>
-                    <div class="flex items-center gap-4">
-                        <button class="relative rounded-full p-2 text-zinc-600 dark:text-zinc-400 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary dark:hover:text-primary transition-colors">
-                            <span class="material-symbols-outlined">notifications</span>
-                            <span class="absolute top-1 right-1 block h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-background-light dark:ring-background-dark"></span>
-                        </button>
-                        <div class="relative group">
-                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg cursor-pointer">
-                                {{ substr($user->name, 0, 1) }}
-                            </div>
-                            <div class="absolute right-0 top-12 hidden group-hover:block bg-white dark:bg-zinc-800 shadow-lg rounded-lg py-2 min-w-[200px] z-50">
-                                <a href="{{ route('users.edit', $user->id) }}" class="block px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-700">
-                                    <span class="material-symbols-outlined text-sm mr-2">person</span>
-                                    Meu Perfil
-                                </a>
-                                <a href="{{ route('change-password') }}" class="block px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-700">
-                                    <span class="material-symbols-outlined text-sm mr-2">lock</span>
-                                    Alterar Senha
-                                </a>
-                                <hr class="my-2 border-zinc-200 dark:border-zinc-700">
-                                <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-700">
-                                    <span class="material-symbols-outlined text-sm mr-2">logout</span>
-                                    Sair
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
 
         <main class="flex-grow">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
