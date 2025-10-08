@@ -43,7 +43,7 @@
     <!-- Barra de Acessibilidade -->
     <?php echo $__env->make('components.accessibility-bar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <!-- Header -->
-    <header class="sticky top-0 z-40 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800" style="top: 3rem;">
+    <header class="sticky top-0 z-40 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-4">
@@ -302,42 +302,121 @@
                             
                             <div>
                                 <label for="login" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Login *</label>
-                                <input type="text" 
-                                       id="login" 
-                                       name="login" 
-                                       value="<?php echo e(old('login')); ?>"
-                                       placeholder="EXEMPLO"
-                                       minlength="6"
-                                       maxlength="6"
-                                       pattern="[A-Za-z]{6}"
-                                       required
-                                       class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                                <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Exatamente 6 caracteres alfabéticos</p>
+                                <div class="relative">
+                                    <input type="text" 
+                                           id="login" 
+                                           name="login" 
+                                           value="<?php echo e(old('login')); ?>"
+                                           placeholder="EXEMPLO"
+                                           minlength="6"
+                                           maxlength="6"
+                                           pattern="[A-Za-z]{6}"
+                                           required
+                                           class="w-full px-4 py-3 pr-10 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                    <div id="login-check" class="absolute right-3 top-1/2 transform -translate-y-1/2 hidden">
+                                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div id="login-hint" class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span id="login-count">0</span>/6 caracteres alfabéticos
+                                        <span id="login-status" class="text-xs"></span>
+                                    </div>
+                                    <div id="login-examples" class="text-xs text-zinc-400 dark:text-zinc-500">
+                                        <span class="block">Exemplos válidos: EXEMPLO, ABCDEF, LOGIN1</span>
+                                        <span class="block">❌ Não use: números, símbolos ou espaços</span>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label for="password" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Senha *</label>
-                                    <input type="password" 
-                                           id="password" 
-                                           name="password"
-                                           placeholder="Mínimo 8 caracteres alfabéticos"
-                                           minlength="8"
-                                           pattern="[A-Za-z]{8,}"
-                                           required
-                                           class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                                    <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">8 caracteres alfabéticos</p>
+                                    <div class="relative">
+                                        <input type="password" 
+                                               id="password" 
+                                               name="password"
+                                               placeholder="Mínimo 8 caracteres alfabéticos"
+                                               minlength="8"
+                                               pattern="[A-Za-z]{8,}"
+                                               required
+                                               class="w-full px-4 py-3 pr-20 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                        
+                                        <!-- Botão de mostrar/ocultar senha -->
+                                        <button type="button" 
+                                                id="password-toggle" 
+                                                class="absolute right-10 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
+                                                onclick="togglePasswordVisibility('password')">
+                                            <svg id="password-eye" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                            <svg id="password-eye-slash" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                                            </svg>
+                                        </button>
+                                        
+                                        <!-- Checkmark de validação -->
+                                        <div id="password-check" class="absolute right-3 top-1/2 transform -translate-y-1/2 hidden">
+                                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div id="password-hint" class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span id="password-count">0</span>/8 caracteres alfabéticos
+                                            <span id="password-status" class="text-xs"></span>
+                                        </div>
+                                        <div id="password-examples" class="text-xs text-zinc-400 dark:text-zinc-500">
+                                            <span class="block">✅ Exemplos válidos: MINHASENHA, ABCDEFGH, PASSWORD</span>
+                                            <span class="block">🔒 A senha será armazenada de forma criptografada</span>
+                                            <span class="block">❌ Não use: números, símbolos ou espaços</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
                                     <label for="password_confirmation" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Confirmação da Senha *</label>
-                                    <input type="password" 
-                                           id="password_confirmation" 
-                                           name="password_confirmation"
-                                           placeholder="Digite a senha novamente"
-                                           minlength="8"
-                                           required
-                                           class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                                    <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Deve ser idêntica à senha</p>
+                                    <div class="relative">
+                                        <input type="password" 
+                                               id="password_confirmation" 
+                                               name="password_confirmation"
+                                               placeholder="Digite a senha novamente"
+                                               minlength="8"
+                                               required
+                                               class="w-full px-4 py-3 pr-20 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                               
+                                        <!-- Botão de mostrar/ocultar senha -->
+                                        <button type="button" 
+                                                id="password-confirm-toggle" 
+                                                class="absolute right-10 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors"
+                                                onclick="togglePasswordVisibility('password_confirmation')">
+                                            <svg id="password-confirm-eye" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                            <svg id="password-confirm-eye-slash" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                                            </svg>
+                                        </button>
+                                               
+                                        <div id="password-confirm-check" class="absolute right-3 top-1/2 transform -translate-y-1/2 hidden">
+                                            <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div id="password-confirm-hint" class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span id="password-confirm-status" class="text-xs"></span>
+                                        </div>
+                                        <div class="text-xs text-zinc-400 dark:text-zinc-500">
+                                            <span class="block">✅ Deve ser idêntica à senha acima</span>
+                                            <span class="block">🔒 Ambas as senhas serão criptografadas</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -467,23 +546,183 @@
             e.target.value = e.target.value.toUpperCase();
         });
 
-        // Máscara para login (uppercase e apenas letras)
-        document.getElementById('login').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '').toUpperCase();
-        });
+        // Validação em tempo real para LOGIN
+        const loginInput = document.getElementById('login');
+        const loginCheck = document.getElementById('login-check');
+        const loginCount = document.getElementById('login-count');
+        const loginStatus = document.getElementById('login-status');
+        const loginHint = document.getElementById('login-hint');
 
-        // Validação de senha e confirmação
-        document.getElementById('password_confirmation').addEventListener('input', function(e) {
-            const password = document.getElementById('password').value;
-            const confirmation = e.target.value;
+        loginInput.addEventListener('input', function(e) {
+            // Aplicar máscara (uppercase e apenas letras)
+            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '').toUpperCase();
             
-            if (password !== confirmation) {
-                e.target.setCustomValidity('As senhas não coincidem');
-                e.target.reportValidity();
+            const value = e.target.value;
+            const count = value.length;
+            
+            // Atualizar contador
+            loginCount.textContent = count;
+            
+            // Atualizar status
+            if (count === 0) {
+                loginStatus.textContent = '';
+                loginStatus.className = 'text-xs';
+            } else if (count < 6) {
+                loginStatus.textContent = `Faltam ${6 - count} caracteres`;
+                loginStatus.className = 'text-xs text-orange-500';
+            } else if (count === 6 && /^[A-Za-z]{6}$/.test(value)) {
+                loginStatus.textContent = '✅ Perfeito!';
+                loginStatus.className = 'text-xs text-green-600';
             } else {
-                e.target.setCustomValidity('');
+                loginStatus.textContent = '❌ Muito longo';
+                loginStatus.className = 'text-xs text-red-500';
+            }
+            
+            // Validar e mostrar checkmark
+            if (count === 6 && /^[A-Za-z]{6}$/.test(value)) {
+                loginCheck.classList.remove('hidden');
+                loginHint.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+                loginHint.classList.add('text-green-600', 'dark:text-green-400');
+                e.target.classList.remove('border-red-500');
+                e.target.classList.add('border-green-500');
+            } else {
+                loginCheck.classList.add('hidden');
+                loginHint.classList.remove('text-green-600', 'dark:text-green-400');
+                loginHint.classList.add('text-zinc-500', 'dark:text-zinc-400');
+                e.target.classList.remove('border-green-500');
+                if (count > 0) {
+                    e.target.classList.add('border-red-500');
+                } else {
+                    e.target.classList.remove('border-red-500');
+                }
             }
         });
+
+        // Validação em tempo real para SENHA
+        const passwordInput = document.getElementById('password');
+        const passwordCheck = document.getElementById('password-check');
+        const passwordCount = document.getElementById('password-count');
+        const passwordStatus = document.getElementById('password-status');
+        const passwordHint = document.getElementById('password-hint');
+
+        passwordInput.addEventListener('input', function(e) {
+            // Aplicar máscara (apenas letras)
+            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '');
+            
+            const value = e.target.value;
+            const count = value.length;
+            
+            // Atualizar contador
+            passwordCount.textContent = count;
+            
+            // Atualizar status
+            if (count === 0) {
+                passwordStatus.textContent = '';
+                passwordStatus.className = 'text-xs';
+            } else if (count < 8) {
+                passwordStatus.textContent = `Faltam ${8 - count} caracteres`;
+                passwordStatus.className = 'text-xs text-orange-500';
+            } else if (count >= 8 && /^[A-Za-z]{8,}$/.test(value)) {
+                passwordStatus.textContent = '✅ Senha válida!';
+                passwordStatus.className = 'text-xs text-green-600';
+            } else {
+                passwordStatus.textContent = '❌ Use apenas letras';
+                passwordStatus.className = 'text-xs text-red-500';
+            }
+            
+            // Validar e mostrar checkmark
+            if (count >= 8 && /^[A-Za-z]{8,}$/.test(value)) {
+                passwordCheck.classList.remove('hidden');
+                passwordHint.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+                passwordHint.classList.add('text-green-600', 'dark:text-green-400');
+                e.target.classList.remove('border-red-500');
+                e.target.classList.add('border-green-500');
+            } else {
+                passwordCheck.classList.add('hidden');
+                passwordHint.classList.remove('text-green-600', 'dark:text-green-400');
+                passwordHint.classList.add('text-zinc-500', 'dark:text-zinc-400');
+                e.target.classList.remove('border-green-500');
+                if (count > 0) {
+                    e.target.classList.add('border-red-500');
+                } else {
+                    e.target.classList.remove('border-red-500');
+                }
+            }
+            
+            // Revalidar confirmação se já foi preenchida
+            const confirmation = document.getElementById('password_confirmation');
+            if (confirmation.value) {
+                confirmation.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // Validação em tempo real para CONFIRMAÇÃO DE SENHA
+        const passwordConfirmInput = document.getElementById('password_confirmation');
+        const passwordConfirmCheck = document.getElementById('password-confirm-check');
+        const passwordConfirmStatus = document.getElementById('password-confirm-status');
+        const passwordConfirmHint = document.getElementById('password-confirm-hint');
+
+        passwordConfirmInput.addEventListener('input', function(e) {
+            // Aplicar máscara (apenas letras)
+            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '');
+            
+            const password = passwordInput.value;
+            const confirmation = e.target.value;
+            
+            // Atualizar status
+            if (confirmation.length === 0) {
+                passwordConfirmStatus.textContent = '';
+                passwordConfirmStatus.className = 'text-xs';
+            } else if (confirmation.length < 8) {
+                passwordConfirmStatus.textContent = `Faltam ${8 - confirmation.length} caracteres`;
+                passwordConfirmStatus.className = 'text-xs text-orange-500';
+            } else if (password === confirmation && password.length >= 8) {
+                passwordConfirmStatus.textContent = '✅ Senhas coincidem!';
+                passwordConfirmStatus.className = 'text-xs text-green-600';
+            } else {
+                passwordConfirmStatus.textContent = '❌ Senhas não coincidem';
+                passwordConfirmStatus.className = 'text-xs text-red-500';
+            }
+            
+            // Validar e mostrar checkmark
+            if (confirmation.length >= 8 && password === confirmation && password.length >= 8) {
+                passwordConfirmCheck.classList.remove('hidden');
+                passwordConfirmHint.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+                passwordConfirmHint.classList.add('text-green-600', 'dark:text-green-400');
+                e.target.classList.remove('border-red-500');
+                e.target.classList.add('border-green-500');
+                e.target.setCustomValidity('');
+            } else {
+                passwordConfirmCheck.classList.add('hidden');
+                passwordConfirmHint.classList.remove('text-green-600', 'dark:text-green-400');
+                passwordConfirmHint.classList.add('text-zinc-500', 'dark:text-zinc-400');
+                e.target.classList.remove('border-green-500');
+                if (confirmation.length > 0) {
+                    e.target.classList.add('border-red-500');
+                    e.target.setCustomValidity('As senhas não coincidem');
+                } else {
+                    e.target.classList.remove('border-red-500');
+                    e.target.setCustomValidity('');
+                }
+            }
+        });
+
+        // Função para mostrar/ocultar senha
+        function togglePasswordVisibility(fieldId) {
+            const field = document.getElementById(fieldId);
+            const eyeIcon = document.getElementById(fieldId + '-eye');
+            const eyeSlashIcon = document.getElementById(fieldId + '-eye-slash');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                eyeIcon.classList.add('hidden');
+                eyeSlashIcon.classList.remove('hidden');
+            } else {
+                field.type = 'password';
+                eyeIcon.classList.remove('hidden');
+                eyeSlashIcon.classList.add('hidden');
+            }
+        }
 
         // Validação de nome (apenas letras e espaços)
         document.getElementById('name').addEventListener('input', function(e) {
@@ -493,22 +732,6 @@
         // Validação de nome da mãe (apenas letras e espaços)
         document.getElementById('mother_name').addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
-        });
-
-        // Validação de senha (apenas letras)
-        document.getElementById('password').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '');
-            
-            // Revalidar confirmação se já foi preenchida
-            const confirmation = document.getElementById('password_confirmation');
-            if (confirmation.value) {
-                confirmation.dispatchEvent(new Event('input'));
-            }
-        });
-
-        // Validação de confirmação de senha (apenas letras)
-        document.getElementById('password_confirmation').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^A-Za-z]/g, '');
         });
     </script>
 </div>

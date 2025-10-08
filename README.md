@@ -1,312 +1,141 @@
-# FitPlan Academy
+# 🏋️‍♂️ FitPlan Academy
 
-## 📋 Sobre o Projeto
+Sistema completo de gestão de academia com funcionalidades avançadas de treinos, aulas, desafios e comunidade.
 
-Sistema completo de **gestão de academia** com **landing page de vendas**, **checkout brasileiro**, **pagamento** e **área de membros**. Desenvolvido com **Laravel** utilizando **Clean Architecture** (Arquitetura Limpa), organizado por features/módulos para facilitar manutenção e escalabilidade.
+## 🚀 Funcionalidades
 
-## 🎯 Fluxo Completo Implementado
+### 🔐 Sistema de Autenticação
+- **Cadastro completo** com validações brasileiras (CPF, CEP, telefone)
+- **Login seguro** com senhas criptografadas
+- **Validação em tempo real** com feedback visual
+- **Botão mostrar/ocultar senha**
+- **Login automático** após cadastro
+- **Redirecionamento inteligente** baseado no perfil do usuário
 
-```
-Landing Page → Escolha de Plano → Checkout → Pagamento → Confirmação → Success Page
-```
+### 👥 Gestão de Usuários
+- **Perfis diferenciados**: Master e Common
+- **Dados pessoais completos**: nome, data nascimento, gênero, nome da mãe
+- **Documentos**: CPF com validação de dígito verificador
+- **Contato**: email, telefone celular e fixo
+- **Endereço completo**: rua, número, complemento, bairro, cidade, estado, CEP
+- **Credenciais**: login (6 caracteres alfabéticos) e senha (8+ caracteres alfabéticos)
 
-- ✅ **Landing Page** profissional com planos dinâmicos e destaque visual
-- ✅ **Sistema de Checkout** com formulário brasileiro completo
-- ✅ **Modal de Loading** com blur e animações performáticas
-- ✅ **Página de Sucesso** com dados da compra
-- ✅ **3 Planos** (Basic, Smart, Black) com preços e funcionalidades
-- ✅ **API do Brasil** integrada para CEP e endereços
-- ✅ **Formatação brasileira** para CPF, telefone e CEP
+### 🏋️‍♂️ Sistema de Treinos
+- **Dashboard personalizado** para cada aluno
+- **Execução de treinos** com cronômetro integrado
+- **Controle de peso, repetições e tempo de descanso**
+- **Estatísticas de progresso** e metas
+- **Histórico de treinos** completados
+
+### 🎯 Funcionalidades Avançadas
+- **Aulas em grupo** com inscrições
+- **Desafios fitness** com ranking
+- **Comunidade** com posts e interações
+- **Comparação de planos** detalhada
+- **Gestão de unidades** da academia
+- **Sistema de notificações**
+
+### 🎨 Interface e UX
+- **Design responsivo** com Tailwind CSS
+- **Modo escuro/claro** automático
+- **Barra de acessibilidade** (contraste, tamanho da fonte, Libras)
+- **Validações em tempo real** com checkmarks visuais
+- **Feedback visual** claro e intuitivo
+- **Animações suaves** e transições
+
+### 🛡️ Segurança
+- **Senhas criptografadas** com Hash::make()
+- **Validação de CPF** com algoritmo de dígito verificador
+- **Validação de CEP** com API ViaCEP
+- **Middleware de autenticação** robusto
+- **Sanitização de dados** de entrada
 
 ## 🏗️ Arquitetura
 
-Este projeto segue os princípios da **Clean Architecture**, organizando o código em camadas bem definidas:
+### Backend
+- **Laravel 10** com PHP 8.4
+- **Arquitetura limpa** com separação de responsabilidades
+- **Eloquent ORM** para interação com banco de dados
+- **Validações robustas** com mensagens personalizadas
+- **API REST** para funcionalidades AJAX
+
+### Frontend
+- **Tailwind CSS** para estilização
+- **JavaScript vanilla** para interatividade
+- **Componentes Blade** reutilizáveis
+- **Design responsivo** mobile-first
+- **Acessibilidade** seguindo padrões WCAG
+
+### Banco de Dados
+- **SQLite** para desenvolvimento
+- **MySQL** para produção
+- **Migrations** organizadas e versionadas
+- **Modelos Eloquent** com relacionamentos
+- **Índices otimizados** para performance
+
+## 📱 Páginas Principais
+
+### Públicas
+- **Landing Page** com apresentação dos planos
+- **Páginas de planos** individuais (Basic, Smart, Black)
+- **Comparação de planos** (completa, preços, benefícios)
+- **Unidades da academia** com detalhes e equipamentos
+- **Página de contato** com formulário
+
+### Autenticadas
+- **Dashboard do aluno** com estatísticas pessoais
+- **Execução de treinos** com cronômetro
+- **Aulas disponíveis** com inscrições
+- **Desafios ativos** com ranking
+- **Comunidade** com posts e comentários
+- **Gestão de usuários** (apenas Master)
+
+## 🔧 Tecnologias Utilizadas
+
+- **PHP 8.4** - Linguagem principal
+- **Laravel 10** - Framework web
+- **Tailwind CSS** - Framework CSS
+- **JavaScript** - Interatividade frontend
+- **SQLite/MySQL** - Banco de dados
+- **Composer** - Gerenciador de dependências
+- **Git** - Controle de versão
+
+## 📊 Estrutura do Projeto
 
 ```
-app/
-├── Features/                    # Módulos/Features do sistema
-│   ├── Auth/                   # Feature de Autenticação
-│   │   ├── Domain/            # Camada de Domínio (Entidades, Regras de Negócio)
-│   │   ├── Application/       # Camada de Aplicação (Use Cases, DTOs)
-│   │   ├── Infrastructure/    # Camada de Infraestrutura (Repositories, External Services)
-│   │   └── Presentation/      # Camada de Apresentação (Controllers, Requests, Resources)
-│   ├── User/                   # Feature de Usuários
-│   ├── Plan/                   # Feature de Planos
-│   ├── Checkout/               # Feature de Checkout
-│   └── Success/                 # Feature de Página de Sucesso
-├── Shared/                     # Código compartilhado entre features
-│   ├── Domain/                # Interfaces e abstrações comuns
-│   ├── Infrastructure/        # Implementações comuns
-│   └── Exceptions/            # Exceções customizadas
-└── Http/
-    └── Middleware/            # Middlewares globais
+fitplan_acadamy/
+├── app/
+│   ├── Http/Controllers/     # Controllers da aplicação
+│   ├── Features/           # Funcionalidades organizadas
+│   └── Models/             # Modelos Eloquent
+├── database/
+│   ├── migrations/         # Migrations do banco
+│   └── database.sqlite     # Banco SQLite local
+├── resources/
+│   ├── views/              # Templates Blade
+│   └── css/               # Estilos CSS
+├── routes/
+│   └── web.php            # Rotas da aplicação
+└── public/                # Arquivos públicos
 ```
 
-### Princípios Aplicados
+## 🎯 Próximos Passos
 
-- **SOLID**: Cada classe tem uma única responsabilidade
-- **DDD**: Domain-Driven Design para regras de negócio
-- **Repository Pattern**: Abstração da camada de dados
-- **Dependency Injection**: Inversão de controle
-- **DTO Pattern**: Data Transfer Objects para tráfego de dados
-
-## 🚀 Tecnologias
-
-- **PHP 8.1+**
-- **Laravel 10.x**
-- **PostgreSQL** (Banco de dados principal)
-- **Eloquent ORM** (Object-Relational Mapping)
-- **Laravel Sanctum** (Autenticação API)
-- **Redis** (Cache e Sessions)
-- **Docker** (Ambiente de desenvolvimento)
-- **Tailwind CSS** (Styling performático)
-- **ViaCEP API** (Busca de endereços)
-
-## 🎨 Features Implementadas
-
-### 🏠 Landing Page
-- **Design responsivo** com Tailwind CSS
-- **3 planos** com destaque visual para "Smart"
-- **Animações suaves** e transições
-- **Dark mode** nativo
-- **Performance otimizada** com CSS crítico inline
-
-### 💳 Checkout Brasileiro
-- **Formulário completo** com validações brasileiras
-- **CPF** com formatação automática (000.000.000-00)
-- **Telefone** com formatação brasileira ((11) 99999-9999)
-- **CEP** com formatação e busca automática via ViaCEP
-- **Endereço dinâmico** que aparece ao digitar CEP
-- **3 métodos de pagamento**: Cartão, PIX, Boleto
-- **Validações robustas** com mensagens em português
-
-### ⚡ Modal de Loading
-- **Backdrop blur** para efeito de desfoque
-- **Spinner animado** com ícone de pagamento
-- **Steps de progresso** visuais
-- **Animações performáticas** com GPU acceleration
-- **Fallback automático** para garantir redirecionamento
-
-### 🎉 Página de Sucesso
-- **Design moderno** com informações da compra
-- **Dados formatados** do checkout
-- **Botão para conta** do usuário
-- **Link de suporte** integrado
-- **Performance otimizada** com CSS crítico
-
-## 📦 Instalação
-
-### Pré-requisitos
-
-- PHP 8.1 ou superior
-- Composer
-- Docker e Docker Compose (recomendado)
-- PostgreSQL
-- Redis (opcional, mas recomendado)
-
-### Passos
-
-1. Clone o repositório:
-```bash
-git clone <repository-url>
-cd fitplan_acadamy
-```
-
-2. Instale as dependências:
-```bash
-composer install
-```
-
-3. Configure o arquivo `.env`:
-```bash
-cp .env.example .env
-```
-
-4. Gere a chave da aplicação:
-```bash
-php artisan key:generate
-```
-
-5. Configure o banco de dados PostgreSQL no `.env`:
-```env
-DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=fitplan_academy
-DB_USERNAME=seu_usuario
-DB_PASSWORD=sua_senha
-```
-
-6. Execute as migrations:
-```bash
-php artisan migrate
-```
-
-7. (Opcional) Execute os seeders para dados de teste:
-```bash
-php artisan db:seed
-```
-
-8. Inicie o servidor:
-```bash
-php artisan serve
-```
-
-### 🐳 Instalação com Docker
-
-Para desenvolvimento com Docker:
-
-1. Configure o ambiente Docker:
-```bash
-cp .env.docker .env
-```
-
-2. Inicie os containers:
-```bash
-docker-compose up -d
-```
-
-3. Execute as migrations:
-```bash
-docker-compose exec app php artisan migrate
-```
-
-4. Acesse a aplicação:
-```
-http://localhost:8000
-```
-
-## 🔐 Autenticação
-
-O sistema utiliza **Laravel Sanctum** para autenticação de API com tokens.
-
-### Endpoints de Autenticação
-
-```
-POST   /api/auth/register     - Registro de novo usuário
-POST   /api/auth/login        - Login
-POST   /api/auth/logout       - Logout
-GET    /api/auth/me           - Dados do usuário autenticado
-```
-
-## 📚 Documentação da API
-
-### Usuários
-
-```
-GET    /api/users             - Listar usuários (paginado)
-GET    /api/users/{id}        - Buscar usuário específico
-POST   /api/users             - Criar novo usuário
-PUT    /api/users/{id}        - Atualizar usuário
-DELETE /api/users/{id}        - Deletar usuário
-```
-
-### Planos
-
-```
-GET    /api/plans             - Listar planos disponíveis
-GET    /api/plans/{id}        - Buscar plano específico
-```
-
-### Checkout
-
-```
-GET    /checkout/{plan}       - Página de checkout
-POST   /checkout/{plan}       - Processar checkout
-GET    /success/{plan}/{checkout} - Página de sucesso
-```
-
-## 🧪 Testes
-
-Execute os testes com:
-
-```bash
-php artisan test
-```
-
-## 📝 Padrões de Código
-
-### Estrutura de uma Feature
-
-Cada feature segue a estrutura:
-
-```
-Feature/
-├── Domain/
-│   ├── Entities/              # Entidades de domínio
-│   ├── ValueObjects/          # Objetos de valor
-│   ├── Repositories/          # Interfaces de repositórios
-│   └── Services/              # Serviços de domínio
-├── Application/
-│   ├── UseCases/              # Casos de uso
-│   ├── DTOs/                  # Data Transfer Objects
-│   └── Services/              # Serviços de aplicação
-├── Infrastructure/
-│   ├── Repositories/          # Implementação dos repositórios
-│   ├── Models/                # Eloquent Models
-│   ├── Providers/             # Service Providers
-│   └── External/              # Serviços externos
-└── Presentation/
-    ├── Controllers/           # Controllers HTTP
-    ├── Requests/              # Form Requests (validação)
-    ├── Resources/             # API Resources (serialização)
-    └── Views/                 # Blade templates
-```
-
-## 🎯 Funcionalidades Brasileiras
-
-### 🇧🇷 Formatação Automática
-- **CPF**: 000.000.000-00
-- **Telefone**: (11) 99999-9999
-- **CEP**: 00000-000
-
-### 🌐 API do Brasil
-- **ViaCEP** integrada para busca de endereços
-- **Preenchimento automático** de rua, bairro, cidade, estado
-- **Validações brasileiras** rigorosas
-
-### 💰 Métodos de Pagamento
-- **Cartão de Crédito** com validações
-- **PIX** com informações específicas
-- **Boleto** com instruções
-
-## 🚀 Performance
-
-### ⚡ Otimizações Implementadas
-- **CSS crítico** inline para above-the-fold
-- **Preload** de recursos críticos
-- **GPU acceleration** para animações
-- **Lazy loading** de recursos não críticos
-- **Minificação** automática do Tailwind
-
-### 📱 Responsividade
-- **Mobile-first** design
-- **Breakpoints** otimizados
-- **Touch-friendly** interfaces
-- **Performance** em dispositivos móveis
-
-## 🤝 Contribuindo
-
-1. Sempre comente seu código
-2. Siga os princípios SOLID
-3. Escreva testes para novas funcionalidades
-4. Use os padrões estabelecidos na arquitetura
-5. Mantenha a separação por features
-6. Documente novas funcionalidades
+- [ ] Implementar sistema de pagamentos
+- [ ] Adicionar notificações push
+- [ ] Integrar com wearables
+- [ ] Sistema de avaliação física
+- [ ] App mobile nativo
+- [ ] Integração com redes sociais
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## 🎉 Status do Projeto
+## 👨‍💻 Desenvolvido por
 
-- ✅ **Landing Page** - Implementada
-- ✅ **Checkout Brasileiro** - Implementado
-- ✅ **Modal de Loading** - Implementado
-- ✅ **Página de Sucesso** - Implementada
-- ✅ **API do Brasil** - Integrada
-- ✅ **Formatação Brasileira** - Implementada
-- ✅ **Performance** - Otimizada
-- ✅ **Responsividade** - Implementada
+**Eduardo Cruz** - Desenvolvedor Full Stack
 
-**🎯 Projeto completo e funcional com arquitetura limpa, código performático e escalável!**
+---
+
+*Para instruções de instalação e execução, consulte o arquivo [INSTALLATION.md](INSTALLATION.md)*
