@@ -12,7 +12,7 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\UnitController;
-use App\Http\Controllers\ComparisonController;
+use App\Http\Controllers\LegalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,9 +41,10 @@ Route::get('/comparacao', [ComparisonController::class, 'index'])->name('compari
 Route::get('/comparacao/precos', [ComparisonController::class, 'prices'])->name('comparison.prices');
 Route::get('/comparacao/beneficios', [ComparisonController::class, 'benefits'])->name('comparison.benefits');
 
-// Página de contato
-Route::get('/contato', [ContactController::class, 'index'])->name('contact');
-Route::post('/contato', [ContactController::class, 'send'])->name('contact.send');
+// Páginas Legais
+Route::get('/politica-privacidade', [LegalController::class, 'privacyPolicy'])->name('privacy.policy');
+Route::get('/termos-servico', [LegalController::class, 'termsOfService'])->name('terms.service');
+Route::get('/faq', [LegalController::class, 'faq'])->name('faq');
 
 // Checkout (Página de Pagamento)
 Route::get('/checkout/{plan}', [CheckoutController::class, 'show'])->name('checkout');
