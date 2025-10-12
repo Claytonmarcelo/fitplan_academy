@@ -25,7 +25,10 @@ class DatabaseSeeder extends Seeder
         // Cria usuário administrador padrão
         User::create([
             'name' => 'Administrador',
+            'cpf' => '111.111.111-11',
             'email' => 'admin@fitplanacademy.com',
+            'phone' => '(11) 99999-1111',
+            'login' => 'ADMIN',
             'password' => Hash::make('password123'),
             'is_active' => true,
             'email_verified_at' => now(),
@@ -34,7 +37,10 @@ class DatabaseSeeder extends Seeder
         // Cria usuário de teste
         User::create([
             'name' => 'Usuário Teste',
+            'cpf' => '222.222.222-22',
             'email' => 'teste@fitplanacademy.com',
+            'phone' => '(11) 99999-2222',
+            'login' => 'TESTE',
             'password' => Hash::make('password123'),
             'is_active' => true,
             'email_verified_at' => now(),

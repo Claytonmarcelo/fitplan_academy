@@ -195,12 +195,8 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-zinc-900 dark:bg-black py-8">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-zinc-400">
-            <p>&copy; 2024 FitPlan Academy. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    <!-- Rodapé Completo -->
+    <?php echo $__env->make('components.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </div>
 </body>
 </html>

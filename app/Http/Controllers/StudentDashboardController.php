@@ -28,12 +28,11 @@ class StudentDashboardController extends Controller
         // Obter usuário autenticado
         $user = auth()->user();
         
-        // Se for usuário Master, redireciona para o dashboard administrativo
-        if ($user->isMaster()) {
-            return redirect()->route('dashboard');
+        if (!$user) {
+            return redirect()->route('login');
         }
-
-        // Calcular estatísticas do aluno
+        
+        // Calcular estatísticas do usuário (Master ou Comum)
         $stats = $this->getStudentStats($user);
 
         return view('student-dashboard', compact('user', 'stats'));

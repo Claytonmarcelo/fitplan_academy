@@ -43,7 +43,7 @@
     @include('components.accessibility-bar')
     
     <!-- Header -->
-    @include('components.header')
+    @include('components.header-working')
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -191,7 +191,7 @@
                     <a href="{{ route('register') }}" class="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-lg transition-colors">
                         Começar Agora
                     </a>
-                    <a href="{{ route('contact') }}" class="bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-semibold py-3 px-8 rounded-lg transition-colors border border-zinc-300 dark:border-zinc-600">
+                    <a href="{{ route('cadastro') }}" class="bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-semibold py-3 px-8 rounded-lg transition-colors border border-zinc-300 dark:border-zinc-600">
                         Falar com Consultor
                     </a>
                 </div>

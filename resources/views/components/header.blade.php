@@ -173,7 +173,7 @@
                             {{ substr(auth()->user()->name, 0, 1) }}
                         </div>
                         <span class="text-sm font-medium text-zinc-900 dark:text-white">{{ auth()->user()->name }}</span>
-                        <a href="{{ route('logout') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Sair</a>
+                        <a href="{{ route('logout.get') }}" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Sair</a>
                     </div>
                 @else
                     <!-- Visitante -->

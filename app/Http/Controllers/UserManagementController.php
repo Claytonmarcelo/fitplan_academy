@@ -280,13 +280,15 @@ class UserManagementController extends Controller
     {
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|min:8|confirmed',
-            'password_confirmation' => 'required|min:8',
+            'password' => 'required|min:8|confirmed|regex:/^[A-Za-z]{8,}$/',
+            'password_confirmation' => 'required|min:8|regex:/^[A-Za-z]{8,}$/',
         ], [
             'current_password.required' => 'A senha atual é obrigatória.',
             'password.required' => 'A nova senha é obrigatória.',
             'password.min' => 'A nova senha deve ter pelo menos 8 caracteres.',
+            'password.regex' => 'A nova senha deve conter apenas caracteres alfabéticos.',
             'password.confirmed' => 'A confirmação da nova senha não confere.',
+            'password_confirmation.regex' => 'A confirmação da senha deve conter apenas caracteres alfabéticos.',
         ]);
 
         $user = Auth::user();

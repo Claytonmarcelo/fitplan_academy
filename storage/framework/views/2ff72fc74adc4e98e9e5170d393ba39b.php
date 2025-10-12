@@ -56,12 +56,12 @@
         --accessibility-contrast: normal;
     }
 
-    /* Aplicar multiplicador de fonte */
-    * {
+    /* Aplicar multiplicador de fonte apenas aos elementos específicos */
+    .accessibility-font-resize * {
         font-size: calc(1em * var(--font-size-multiplier));
     }
     
-    html {
+    .accessibility-font-resize {
         font-size: calc(16px * var(--font-size-multiplier));
     }
 

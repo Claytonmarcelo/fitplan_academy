@@ -24,8 +24,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-background-light dark:bg-zinc-900">
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
+    
     <!-- Header -->
-    @include('components.header')
+    @include('components.header-working')
     
     <!-- Main Content -->
     <main>

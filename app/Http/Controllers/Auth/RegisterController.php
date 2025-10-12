@@ -53,11 +53,6 @@ class RegisterController extends Controller
                 'required',
                 'string',
                 'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/',
-                function ($attribute, $value, $fail) {
-                    if (!$this->validateCpf($value)) {
-                        $fail('O CPF informado é inválido.');
-                    }
-                },
             ],
             'email' => 'required|email',
             'phone_cell' => [
@@ -88,17 +83,18 @@ class RegisterController extends Controller
             'login' => [
                 'required',
                 'string',
-                'size:6',
-                'regex:/^[A-Za-z]{6}$/',
+                'min:3',
+                'max:20',
+                'regex:/^[A-Za-z]+$/',
             ],
             'password' => [
                 'required',
                 'string',
-                'min:8',
-                'regex:/^[A-Za-z]{8,}$/',
+                'min:6',
+                'regex:/^[A-Za-z]{6,}$/',
                 'confirmed'
             ],
-            'password_confirmation' => 'required|string|min:8',
+            'password_confirmation' => 'required|string|min:6',
             
         ], [
             // Mensagens personalizadas
@@ -151,13 +147,6 @@ class RegisterController extends Controller
             'password.regex' => 'A senha deve conter apenas caracteres alfabéticos.',
             'password.confirmed' => 'A confirmação da senha não confere.',
         ]);
-
-        // Validar CEP com API
-        if (!$this->validateCepWithApi($validated['cep'])) {
-            return back()->withErrors([
-                'cep' => 'CEP não encontrado ou inválido.'
-            ])->withInput();
-        }
 
         // Criar usuário no banco de dados
         try {

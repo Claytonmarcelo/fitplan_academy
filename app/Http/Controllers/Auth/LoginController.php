@@ -33,22 +33,22 @@ class LoginController extends Controller
             'login' => [
                 'required',
                 'string',
-                'size:6',
-                'regex:/^[A-Za-z]{6}$/',
+                'min:3',
+                'max:20',
             ],
             'password' => [
                 'required',
                 'string',
-                'min:8',
-                'regex:/^[A-Za-z]{8,}$/',
+                'min:6',
+                'regex:/^[A-Za-z]{6,}$/',
             ],
         ], [
             'login.required' => 'O login é obrigatório.',
-            'login.size' => 'O login deve ter exatamente 6 caracteres.',
-            'login.regex' => 'O login deve conter apenas letras.',
+            'login.min' => 'O login deve ter pelo menos 3 caracteres.',
+            'login.max' => 'O login deve ter no máximo 20 caracteres.',
             'password.required' => 'A senha é obrigatória.',
-            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
-            'password.regex' => 'A senha deve conter apenas caracteres alfabéticos.',
+            'password.min' => 'A senha deve ter pelo menos 6 caracteres.',
+            'password.regex' => 'A senha deve conter apenas letras.',
         ]);
 
         // Buscar usuário pelo login
@@ -72,14 +72,19 @@ class LoginController extends Controller
         // Fazer login do usuário
         Auth::login($user, $request->filled('remember'));
 
-        // Redirecionar baseado no perfil
-        if ($user->isMaster()) {
-            return redirect()->route('dashboard')
-                            ->with('success', 'Bem-vindo, ' . $user->name . '!');
-        } else {
-            return redirect()->route('student.dashboard')
-                            ->with('success', 'Bem-vindo, ' . $user->name . '!');
+        // Debug: verificar se o usuário está autenticado
+        if (!Auth::check()) {
+            return back()->withErrors([
+                'login' => 'Erro na autenticação. Tente novamente.'
+            ])->withInput();
         }
+
+        // Regenerar sessão para segurança
+        $request->session()->regenerate();
+        
+        // Redirecionar para o dashboard do aluno
+        return redirect()->route('student.dashboard')
+                        ->with('success', 'Bem-vindo, ' . $user->name . '!');
     }
 
     /**

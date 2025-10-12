@@ -49,12 +49,13 @@ class DemoAuthController extends \App\Http\Controllers\Auth\AuthController
     {
         $request->validate([
             'login' => 'required|string|size:6',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|regex:/^[A-Za-z]{8,}$/',
         ], [
             'login.required' => 'O campo login é obrigatório.',
             'login.size' => 'O login deve ter exatamente 6 caracteres.',
             'password.required' => 'O campo senha é obrigatório.',
             'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+            'password.regex' => 'A senha deve conter apenas caracteres alfabéticos.',
         ]);
 
         $login = strtoupper($request->login);

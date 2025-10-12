@@ -35,6 +35,28 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        .dropdown-menu {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-item {
+            transition: all 0.2s ease;
+        }
+        
+        .custom-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .custom-shadow {
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            }
+        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-200">
@@ -42,8 +64,8 @@
     <!-- Barra de Acessibilidade -->
     @include('components.accessibility-bar')
     
-    <!-- Header -->
-    @include('components.header')
+    <!-- Header Completo com Submenus -->
+    @include('components.header-working')
 
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-primary/10 to-primary/5 py-16">
@@ -286,71 +308,8 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-zinc-900 dark:bg-zinc-950 text-white py-12">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="text-primary size-8">
-                            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold">FitPlan Academy</h3>
-                    </div>
-                    <p class="text-zinc-400 text-sm">
-                        Transformando vidas através do fitness com excelência e dedicação.
-                    </p>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">Links Rápidos</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="{{ route('landing') }}" class="text-zinc-400 hover:text-white transition-colors">Home</a></li>
-                        <li><a href="{{ route('landing') }}#planos" class="text-zinc-400 hover:text-white transition-colors">Planos</a></li>
-                        <li><a href="{{ route('units.index') }}" class="text-zinc-400 hover:text-white transition-colors">Unidades</a></li>
-                        <li><a href="{{ route('contact') }}" class="text-zinc-400 hover:text-white transition-colors">Contato</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">Contato</h4>
-                    <ul class="space-y-2 text-sm text-zinc-400">
-                        <li>contato@fitplanacademy.com</li>
-                        <li>(+55) 11 99999-9999</li>
-                        <li>Av. Paulista, 1000</li>
-                        <li>São Paulo - SP</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">Redes Sociais</h4>
-                    <div class="flex gap-4">
-                        <a href="#" class="text-zinc-400 hover:text-white transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="text-zinc-400 hover:text-white transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="text-zinc-400 hover:text-white transition-colors">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-t border-zinc-800 mt-8 pt-8 text-center text-sm text-zinc-400">
-                <p>&copy; 2024 FitPlan Academy. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Rodapé Completo -->
+    @include('components.footer')
 </div>
 
 <!-- JavaScript para máscaras -->
@@ -363,13 +322,13 @@ document.addEventListener('DOMContentLoaded', function() {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 0) {
                 if (value.length <= 2) {
-                    value = `(+55)${value}`;
-                } else if (value.length <= 7) {
-                    value = `(+55)${value.slice(2)}`;
-                } else if (value.length <= 11) {
-                    value = `(+55)${value.slice(2, 4)}-${value.slice(4)}`;
+                    value = `(${value}`;
+                } else if (value.length <= 6) {
+                    value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+                } else if (value.length <= 10) {
+                    value = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
                 } else {
-                    value = `(+55)${value.slice(2, 4)}-${value.slice(4, 9)}-${value.slice(9, 13)}`;
+                    value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7, 11)}`;
                 }
             }
             e.target.value = value;

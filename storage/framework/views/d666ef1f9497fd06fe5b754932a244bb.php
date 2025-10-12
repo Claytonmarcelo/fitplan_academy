@@ -174,7 +174,7 @@
 
                         </div>
                         <span class="text-sm font-medium text-zinc-900 dark:text-white"><?php echo e(auth()->user()->name); ?></span>
-                        <a href="<?php echo e(route('logout')); ?>" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Sair</a>
+                        <a href="<?php echo e(route('logout.get')); ?>" class="px-4 py-2 text-sm font-bold text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Sair</a>
                     </div>
                 <?php else: ?>
                     <!-- Visitante -->

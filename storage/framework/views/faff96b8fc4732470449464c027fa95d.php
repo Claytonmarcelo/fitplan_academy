@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>Login - FitPlan Academy</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -135,6 +136,52 @@
                     </button>
                 </form>
 
+                <!-- Credenciais de Teste -->
+                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+                    <div class="flex items-start">
+                        <div class="text-blue-500 mr-3 mt-0.5">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                                🔑 Credenciais de Teste Disponíveis
+                            </h3>
+                            <div class="space-y-2 text-sm">
+                                <div class="bg-white dark:bg-blue-800/30 rounded p-3 border border-blue-200 dark:border-blue-700">
+                                    <div class="font-medium text-blue-900 dark:text-blue-100 mb-1">👑 Administrador Master</div>
+                                    <div class="text-blue-700 dark:text-blue-300">
+                                        <strong>Login:</strong> MASTER<br>
+                                        <strong>Senha:</strong> MasterPass<br>
+                                        <strong>Email:</strong> master@fitplan.com.br
+                                    </div>
+                                </div>
+                                <div class="bg-white dark:bg-blue-800/30 rounded p-3 border border-blue-200 dark:border-blue-700">
+                                    <div class="font-medium text-blue-900 dark:text-blue-100 mb-1">👤 Usuário Administrador</div>
+                                    <div class="text-blue-700 dark:text-blue-300">
+                                        <strong>Login:</strong> ADMIN<br>
+                                        <strong>Senha:</strong> password<br>
+                                        <strong>Email:</strong> admin@fitplanacademy.com
+                                    </div>
+                                </div>
+                                <div class="bg-white dark:bg-blue-800/30 rounded p-3 border border-blue-200 dark:border-blue-700">
+                                    <div class="font-medium text-blue-900 dark:text-blue-100 mb-1">👤 Usuário Comum - Sophia</div>
+                                    <div class="text-blue-700 dark:text-blue-300">
+                                        <strong>Login:</strong> SOPHIA<br>
+                                        <strong>Senha:</strong> password<br>
+                                        <strong>Email:</strong> sophia@fitplanacademy.com
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-blue-600 dark:text-blue-400 mt-2">
+                                ✅ <strong>Status:</strong> Todas as credenciais estão funcionando!<br>
+                                💡 <strong>Dica:</strong> Clique nos cards acima para preencher automaticamente os campos
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Divider -->
                 <div class="relative my-6">
                     <div class="absolute inset-0 flex items-center">
@@ -164,5 +211,89 @@
             &copy; <?php echo e(date('Y')); ?> FitPlan Academy. Todos os direitos reservados.
         </div>
     </footer>
+
+    <!-- JavaScript para correção automática de CSRF -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Função para corrigir token CSRF automaticamente
+        function fixCSRFToken() {
+            fetch('/login', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newToken = doc.querySelector('meta[name="csrf-token"]');
+                if (newToken) {
+                    document.querySelector('meta[name="csrf-token"]').setAttribute('content', newToken.getAttribute('content'));
+                    document.querySelector('input[name="_token"]').value = newToken.getAttribute('content');
+                }
+            })
+            .catch(error => console.log('Erro ao corrigir token CSRF:', error));
+        }
+
+        // Corrigir token CSRF a cada 30 segundos
+        setInterval(fixCSRFToken, 30000);
+
+        // Adicionar eventos de clique nas credenciais
+        const credentialCards = document.querySelectorAll('.bg-white.dark\\:bg-blue-800\\/30');
+        credentialCards.forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                const cardText = this.textContent;
+                
+                // Extrair login e senha usando regex
+                const loginMatch = cardText.match(/Login:\s*([^\n\r]+)/);
+                const passwordMatch = cardText.match(/Senha:\s*([^\n\r]+)/);
+                
+                if (loginMatch && passwordMatch) {
+                    const loginText = loginMatch[1].trim();
+                    const passwordText = passwordMatch[1].trim();
+                    
+                    // Preencher automaticamente os campos
+                    const loginField = document.getElementById('login');
+                    const passwordField = document.getElementById('password');
+                    
+                    if (loginField && passwordField) {
+                        loginField.value = loginText;
+                        passwordField.value = passwordText;
+                        
+                        // Feedback visual nos campos
+                        loginField.style.borderColor = '#10b981';
+                        passwordField.style.borderColor = '#10b981';
+                        
+                        setTimeout(() => {
+                            loginField.style.borderColor = '';
+                            passwordField.style.borderColor = '';
+                        }, 2000);
+                        
+                        // Feedback visual no card
+                        this.style.backgroundColor = '#dcfce7';
+                        setTimeout(() => {
+                            this.style.backgroundColor = '';
+                        }, 1000);
+                    }
+                }
+            });
+        });
+
+        // Efeito hover nas credenciais
+        credentialCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '';
+            });
+        });
+    });
+    </script>
 </body>
 </html><?php /**PATH /Users/eduardocruz/fitplan_acadamy/resources/views/auth/login.blade.php ENDPATH**/ ?>

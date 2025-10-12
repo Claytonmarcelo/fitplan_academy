@@ -43,7 +43,7 @@
     @include('components.accessibility-bar')
     
     <!-- Header -->
-    @include('components.header')
+    @include('components.header-working')
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

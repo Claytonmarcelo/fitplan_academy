@@ -33,6 +33,36 @@
         }
     </script>
     <style>
+        /* CSS adicional para garantir que as cores funcionem */
+        .bg-background-light {
+            background-color: #f8f7f5;
+        }
+        .bg-background-dark {
+            background-color: #23170f;
+        }
+        .text-primary {
+            color: #ff6b35;
+        }
+        .bg-primary {
+            background-color: #ff6b35;
+        }
+        .border-primary {
+            border-color: #ff6b35;
+        }
+        .hover\\:bg-primary\\/90:hover {
+            background-color: rgba(255, 107, 53, 0.9);
+        }
+        .hover\\:text-primary:hover {
+            color: #ff6b35;
+        }
+        .hover\\:border-primary\\/30:hover {
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+        .hover\\:border-primary\\/40:hover {
+            border-color: rgba(255, 107, 53, 0.4);
+        }
+    </style>
+    <style>
         .sparkline {
             width: 100%;
             height: 50px;
@@ -40,9 +70,6 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-100">
-    <!-- Barra de Acessibilidade -->
-    @include('components.accessibility-bar')
-    
     <!-- Header -->
     @include('components.header')
 

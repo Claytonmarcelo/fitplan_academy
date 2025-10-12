@@ -43,7 +43,7 @@
     <?php echo $__env->make('components.accessibility-bar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     
     <!-- Header -->
-    <?php echo $__env->make('components.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make('components.header-working', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -193,7 +193,7 @@
                     <a href="<?php echo e(route('register')); ?>" class="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-lg transition-colors">
                         Começar Agora
                     </a>
-                    <a href="<?php echo e(route('contact')); ?>" class="bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-semibold py-3 px-8 rounded-lg transition-colors border border-zinc-300 dark:border-zinc-600">
+                    <a href="<?php echo e(route('cadastro')); ?>" class="bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-semibold py-3 px-8 rounded-lg transition-colors border border-zinc-300 dark:border-zinc-600">
                         Falar com Consultor
                     </a>
                 </div>
