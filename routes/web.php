@@ -27,11 +27,6 @@ use Illuminate\Support\Facades\Route;
 // Landing Page (Página de Vendas)
 Route::get('/', [PlanController::class, 'landing'])->name('landing');
 
-// Rota de teste
-Route::get('/teste', function() {
-    return view('test');
-})->name('test');
-
 // Páginas individuais dos planos
 Route::get('/planos/basic', [PlanController::class, 'show'])->defaults('plan_name', 'Basic')->name('plan.basic');
 Route::get('/planos/smart', [PlanController::class, 'show'])->defaults('plan_name', 'Smart')->name('plan.smart');
