@@ -44,12 +44,12 @@
             <div>
                 <h4 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Planos</h4>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('plan.basic') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Plano Basic</a></li>
-                    <li><a href="{{ route('plan.smart') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Plano Smart</a></li>
-                    <li><a href="{{ route('plan.black') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Plano Black</a></li>
-                    <li><a href="{{ route('comparison.index') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Comparação Completa</a></li>
-                    <li><a href="{{ route('comparison.prices') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Preços</a></li>
-                    <li><a href="{{ route('comparison.benefits') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Benefícios</a></li>
+                    <li><a href="<?php echo e(route('plan.basic')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Plano Basic</a></li>
+                    <li><a href="<?php echo e(route('plan.smart')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Plano Smart</a></li>
+                    <li><a href="<?php echo e(route('plan.black')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Plano Black</a></li>
+                    <li><a href="<?php echo e(route('comparison.index')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Comparação Completa</a></li>
+                    <li><a href="<?php echo e(route('comparison.prices')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Preços</a></li>
+                    <li><a href="<?php echo e(route('comparison.benefits')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Benefícios</a></li>
                 </ul>
             </div>
 
@@ -57,10 +57,11 @@
             <div>
                 <h4 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Unidades</h4>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('units.index') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Todas as Unidades</a></li>
-                    <li><a href="{{ route('unit.show', 'centro') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Centro</a></li>
-                    <li><a href="{{ route('unit.show', 'zona-sul') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Zona Sul</a></li>
-                    <li><a href="{{ route('unit.show', 'zona-oeste') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Zona Oeste</a></li>
+                    <li><a href="<?php echo e(route('units.index')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Todas as Unidades</a></li>
+                    <li><a href="<?php echo e(route('unit.show', 'centro')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Centro</a></li>
+                    <li><a href="<?php echo e(route('unit.show', 'zona-sul')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Zona Sul</a></li>
+                    <li><a href="<?php echo e(route('unit.show', 'zona-oeste')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Zona Norte</a></li>
+                    <li><a href="<?php echo e(route('unit.show', 'zona-oeste')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Zona Oeste</a></li>
                 </ul>
             </div>
 
@@ -68,9 +69,9 @@
             <div>
                 <h4 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Links Úteis</h4>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('contact') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Contato</a></li>
-                    <li><a href="{{ route('login') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Login</a></li>
-                    <li><a href="{{ route('cadastro') }}" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Cadastro</a></li>
+                    <li><a href="<?php echo e(route('contact')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Contato</a></li>
+                    <li><a href="<?php echo e(route('login')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Login</a></li>
+                    <li><a href="<?php echo e(route('cadastro')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Cadastro</a></li>
                     <li><a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
                     <li><a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
                     <li><a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">FAQ</a></li>
@@ -82,14 +83,15 @@
         <div class="border-t border-zinc-200 dark:border-zinc-700 mt-8 pt-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4 md:mb-0">
-                    © {{ date('Y') }} FitPlan Academy. Todos os direitos reservados.
+                    © <?php echo e(date('Y')); ?> FitPlan Academy. Todos os direitos reservados.
                 </p>
                 <div class="flex gap-6 text-sm">
                     <a href="#" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Política de Privacidade</a>
                     <a href="#" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Termos de Serviço</a>
-                    <a href="{{ route('contact') }}" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Contato</a>
+                    <a href="<?php echo e(route('contact')); ?>" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Contato</a>
                 </div>
             </div>
         </div>
     </div>
 </footer>
+<?php /**PATH /Users/eduardocruz/fitplan_acadamy/resources/views/components/footer.blade.php ENDPATH**/ ?>

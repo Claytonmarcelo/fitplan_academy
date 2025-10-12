@@ -61,7 +61,7 @@ class UnitController extends Controller
                 'name' => 'FitPlan Centro',
                 'description' => 'Nossa unidade principal no coração da cidade',
                 'address' => 'Av. Paulista, 1000 - Bela Vista, São Paulo - SP',
-                'image' => '/images/units/centro.jpg',
+                'image' => 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center',
                 'features' => [
                     'Academia completa com equipamentos modernos',
                     'Salas de aula em grupo',
@@ -102,7 +102,7 @@ class UnitController extends Controller
                 'name' => 'FitPlan Zona Sul',
                 'description' => 'Unidade focada em aulas em grupo e pilates',
                 'address' => 'Rua Augusta, 500 - Jardins, São Paulo - SP',
-                'image' => '/images/units/zona-sul.jpg',
+                'image' => 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center',
                 'features' => [
                     'Foco em aulas em grupo',
                     'Estúdio de pilates completo',
@@ -143,7 +143,7 @@ class UnitController extends Controller
                 'name' => 'FitPlan Zona Oeste',
                 'description' => 'Instalações premium com personal trainers',
                 'address' => 'Av. Faria Lima, 2000 - Itaim Bibi, São Paulo - SP',
-                'image' => '/images/units/zona-oeste.jpg',
+                'image' => 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center',
                 'features' => [
                     'Instalações premium',
                     'Personal trainers exclusivos',
