@@ -27,6 +27,6 @@ class LegalController extends Controller
      */
     public function faq()
     {
-        return view('legal.faq');
+        return view('legal.faq-simple');
     }
 }

@@ -85,9 +85,9 @@
                     <li><a href="<?php echo e(route('contact')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Contato</a></li>
                     <li><a href="<?php echo e(route('login')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Login</a></li>
                     <li><a href="<?php echo e(route('cadastro')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Cadastro</a></li>
-                    <li><a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
-                    <li><a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
-                    <li><a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">FAQ</a></li>
+                    <li><a href="<?php echo e(route('privacy.policy')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
+                    <li><a href="<?php echo e(route('terms.service')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
+                    <li><a href="<?php echo e(route('faq')); ?>" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">FAQ</a></li>
                 </ul>
             </div>
         </div>
@@ -99,8 +99,8 @@
                     © <?php echo e(date('Y')); ?> FitPlan Academy. Todos os direitos reservados.
                 </p>
                 <div class="flex gap-6 text-sm">
-                    <a href="#" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Política de Privacidade</a>
-                    <a href="#" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Termos de Serviço</a>
+                    <a href="<?php echo e(route('privacy.policy')); ?>" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Política de Privacidade</a>
+                    <a href="<?php echo e(route('terms.service')); ?>" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Termos de Serviço</a>
                     <a href="<?php echo e(route('contact')); ?>" class="text-zinc-600 dark:text-zinc-400 hover:text-primary transition-colors">Contato</a>
                 </div>
             </div>
