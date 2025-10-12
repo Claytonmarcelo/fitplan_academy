@@ -45,7 +45,13 @@ class UnitController extends Controller
             abort(404, 'Unidade não encontrada');
         }
         
-        return view('units.show', compact('unit'));
+        // Obter outras unidades (excluindo a atual)
+        $allUnits = $this->getAllUnits();
+        $otherUnits = array_filter($allUnits, function($u) use ($unitId) {
+            return $u['id'] !== $unitId;
+        });
+        
+        return view('units.show', compact('unit', 'otherUnits'));
     }
 
     /**
