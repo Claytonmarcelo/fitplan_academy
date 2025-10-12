@@ -111,12 +111,8 @@
             </div>
         </main>
 
-        <!-- Footer minimalista -->
-        <footer class="bg-background-light dark:bg-background-dark border-t border-primary/20 dark:border-primary/30 py-6">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500 dark:text-gray-400">
-                <p>© {{ date('Y') }} FitFlex. Todos os direitos reservados.</p>
-            </div>
-        </footer>
+        <!-- Footer -->
+        @include('components.footer')
     </div>
     
     <!-- Performance monitoring (optional) -->

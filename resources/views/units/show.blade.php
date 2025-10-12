@@ -185,16 +185,7 @@
         @endif
     </main>
 
-    <footer class="bg-background-light dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-zinc-600 dark:text-zinc-400">
-            <div class="flex justify-center gap-6 mb-8">
-                <a class="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
-                <a class="hover:text-primary transition-colors" href="#">Termos de Serviço</a>
-                <a class="hover:text-primary transition-colors" href="#">Contato</a>
-            </div>
-            <p class="text-sm">© 2024 FitPlan Academy. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    @include('components.footer')
 </div>
 </body>
 </html>
