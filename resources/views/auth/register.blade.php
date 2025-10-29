@@ -136,7 +136,6 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <p id="birth-date-hint" class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Idade entre 18 e 100 anos</p>
                                 <p id="birth-date-status" class="text-xs mt-1"></p>
                             </div>
 
@@ -746,7 +745,6 @@
         const birthDateInput = document.getElementById('birth_date');
         const birthDateCheck = document.getElementById('birth-date-check');
         const birthDateStatus = document.getElementById('birth-date-status');
-        const birthDateHint = document.getElementById('birth-date-hint');
 
         birthDateInput.addEventListener('change', function(e) {
             const birthDate = new Date(e.target.value);
@@ -775,15 +773,11 @@
             // Validar e mostrar checkmark
             if (actualAge >= 18 && actualAge <= 100) {
                 birthDateCheck.classList.remove('hidden');
-                birthDateHint.classList.remove('text-zinc-500', 'dark:text-zinc-400');
-                birthDateHint.classList.add('text-green-600', 'dark:text-green-400');
                 e.target.classList.remove('border-red-500');
                 e.target.classList.add('border-green-500');
                 e.target.setCustomValidity('');
             } else {
                 birthDateCheck.classList.add('hidden');
-                birthDateHint.classList.remove('text-green-600', 'dark:text-green-400');
-                birthDateHint.classList.add('text-zinc-500', 'dark:text-zinc-400');
                 e.target.classList.remove('border-green-500');
                 if (e.target.value !== '') {
                     e.target.classList.add('border-red-500');
