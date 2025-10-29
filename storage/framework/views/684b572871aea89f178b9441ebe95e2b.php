@@ -125,12 +125,21 @@
 
                             <div>
                                 <label for="birth_date" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Data de Nascimento *</label>
-                                <input type="date" 
-                                       id="birth_date" 
-                                       name="birth_date" 
-                                       value="<?php echo e(old('birth_date')); ?>"
-                                       required
-                                       class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                <div class="relative">
+                                    <input type="date" 
+                                           id="birth_date" 
+                                           name="birth_date" 
+                                           value="<?php echo e(old('birth_date')); ?>"
+                                           required
+                                           class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                    <div id="birth-date-check" class="absolute right-3 top-1/2 transform -translate-y-1/2 hidden">
+                                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p id="birth-date-hint" class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Idade entre 18 e 100 anos</p>
+                                <p id="birth-date-status" class="text-xs mt-1"></p>
                             </div>
 
                             <div>
@@ -733,6 +742,59 @@
         // Validação de nome da mãe (apenas letras e espaços)
         document.getElementById('mother_name').addEventListener('input', function(e) {
             e.target.value = e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+        });
+
+        // Validação em tempo real para DATA DE NASCIMENTO (idade 18-100 anos)
+        const birthDateInput = document.getElementById('birth_date');
+        const birthDateCheck = document.getElementById('birth-date-check');
+        const birthDateStatus = document.getElementById('birth-date-status');
+        const birthDateHint = document.getElementById('birth-date-hint');
+
+        birthDateInput.addEventListener('change', function(e) {
+            const birthDate = new Date(e.target.value);
+            const today = new Date();
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            // Ajustar idade se ainda não fez aniversário este ano
+            const actualAge = (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) ? age - 1 : age;
+            
+            // Atualizar status
+            if (e.target.value === '') {
+                birthDateStatus.textContent = '';
+                birthDateStatus.className = 'text-xs';
+            } else if (actualAge < 18) {
+                birthDateStatus.textContent = `❌ Idade mínima: 18 anos (atual: ${actualAge} anos)`;
+                birthDateStatus.className = 'text-xs text-red-500';
+            } else if (actualAge > 100) {
+                birthDateStatus.textContent = `❌ Idade máxima: 100 anos (atual: ${actualAge} anos)`;
+                birthDateStatus.className = 'text-xs text-red-500';
+            } else {
+                birthDateStatus.textContent = `✅ Idade válida: ${actualAge} anos`;
+                birthDateStatus.className = 'text-xs text-green-600';
+            }
+            
+            // Validar e mostrar checkmark
+            if (actualAge >= 18 && actualAge <= 100) {
+                birthDateCheck.classList.remove('hidden');
+                birthDateHint.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+                birthDateHint.classList.add('text-green-600', 'dark:text-green-400');
+                e.target.classList.remove('border-red-500');
+                e.target.classList.add('border-green-500');
+                e.target.setCustomValidity('');
+            } else {
+                birthDateCheck.classList.add('hidden');
+                birthDateHint.classList.remove('text-green-600', 'dark:text-green-400');
+                birthDateHint.classList.add('text-zinc-500', 'dark:text-zinc-400');
+                e.target.classList.remove('border-green-500');
+                if (e.target.value !== '') {
+                    e.target.classList.add('border-red-500');
+                    e.target.setCustomValidity('A idade deve estar entre 18 e 100 anos');
+                } else {
+                    e.target.classList.remove('border-red-500');
+                    e.target.setCustomValidity('');
+                }
+            }
         });
     </script>
 </div>

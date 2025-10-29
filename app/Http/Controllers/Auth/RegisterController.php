@@ -40,7 +40,13 @@ class RegisterController extends Controller
                 'max:60',
                 'regex:/^[a-zA-ZÀ-ÿ\s]+$/'
             ],
-            'birth_date' => 'required|date|before:today',
+            'birth_date' => [
+                'required',
+                'date',
+                'before:today',
+                'after:' . date('Y-m-d', strtotime('-100 years')),
+                'before:' . date('Y-m-d', strtotime('-18 years'))
+            ],
             'gender' => 'required|in:M,F,O',
             'mother_name' => [
                 'required',
@@ -106,6 +112,8 @@ class RegisterController extends Controller
             'birth_date.required' => 'A data de nascimento é obrigatória.',
             'birth_date.date' => 'A data de nascimento deve ser uma data válida.',
             'birth_date.before' => 'A data de nascimento deve ser anterior a hoje.',
+            'birth_date.after' => 'A idade deve ser de no máximo 100 anos.',
+            'birth_date.before' => 'A idade deve ser de no mínimo 18 anos.',
             
             'gender.required' => 'O sexo é obrigatório.',
             'gender.in' => 'O sexo deve ser Masculino, Feminino ou Outro.',
