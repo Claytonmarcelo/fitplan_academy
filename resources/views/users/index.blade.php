@@ -58,6 +58,8 @@
     </style>
 </head>
 <body>
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">

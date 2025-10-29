@@ -144,6 +144,8 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-text-dark dark:text-text-light">
+        <!-- Barra de Acessibilidade -->
+        @include('components.accessibility-bar')
         <!-- Modal de Loading -->
         <div id="loading-modal" class="fixed inset-0 z-50 hidden">
             <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>

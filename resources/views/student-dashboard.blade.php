@@ -70,6 +70,8 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-100">
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
     <!-- Header -->
     @include('components.header')
 

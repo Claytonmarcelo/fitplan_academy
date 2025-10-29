@@ -73,6 +73,8 @@
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-text-dark dark:text-text-light antialiased">
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
     <!-- Layout conforme design fornecido -->
     <div class="flex flex-col min-h-screen">
         <!-- Header simples com borda -->

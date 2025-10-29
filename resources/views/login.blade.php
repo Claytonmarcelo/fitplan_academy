@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
 </head>
 <body class="bg-gray-50 font-['Inter']">
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
     <div class="min-h-screen flex items-center justify-center px-4">
         <div class="max-w-md w-full">
             <div class="text-center mb-8">

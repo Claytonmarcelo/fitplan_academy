@@ -40,6 +40,8 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-200">
 <div class="min-h-screen">
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
     @include('components.header')
 
     <main>

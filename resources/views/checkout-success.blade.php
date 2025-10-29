@@ -40,6 +40,8 @@
     </script>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-text-dark dark:text-text-light">
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
     <div class="min-h-screen flex items-center justify-center px-4">
         <div class="max-w-md w-full">
             <!-- Card de Sucesso -->

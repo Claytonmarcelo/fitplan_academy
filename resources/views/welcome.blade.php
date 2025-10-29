@@ -114,6 +114,8 @@
     </style>
 </head>
 <body>
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
     <div class="container">
         <h1>🚀 FitPlan Academy</h1>
         <p class="subtitle">API REST com Clean Architecture + Laravel + PostgreSQL</p>

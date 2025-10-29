@@ -155,6 +155,8 @@
     </style>
 </head>
 <body>
+    <!-- Barra de Acessibilidade -->
+    @include('components.accessibility-bar')
     <div class="auth-container">
         <div class="auth-card">
             <div class="auth-header">
