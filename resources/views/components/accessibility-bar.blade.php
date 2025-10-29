@@ -56,13 +56,19 @@
         --accessibility-contrast: normal;
     }
 
-    /* Aplicar multiplicador de fonte apenas aos elementos específicos */
-    .accessibility-font-resize * {
+    /* Aplicar multiplicador de fonte globalmente */
+    html {
+        font-size: calc(16px * var(--font-size-multiplier));
+    }
+    
+    /* Aplicar redimensionamento a todos os elementos de texto */
+    * {
         font-size: calc(1em * var(--font-size-multiplier));
     }
     
-    .accessibility-font-resize {
-        font-size: calc(16px * var(--font-size-multiplier));
+    /* Garantir que elementos específicos sejam redimensionados */
+    body, p, h1, h2, h3, h4, h5, h6, span, div, a, button, input, textarea, select, label, li, td, th, small, strong, em, b, i {
+        font-size: calc(1em * var(--font-size-multiplier)) !important;
     }
 
     /* Modo alto contraste - Padrão Gov.br */
@@ -184,6 +190,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const fontSizeDisplay = document.getElementById('font-size-display');
     const resetButton = document.getElementById('accessibility-reset');
 
+    // Verificar se os elementos existem
+    if (!fontDecrease || !fontIncrease || !fontSizeDisplay) {
+        console.error('Elementos de acessibilidade não encontrados!');
+        return;
+    }
+
     // Valores padrão
     const defaultFontSize = 1;
     const minFontSize = 0.8;
@@ -195,14 +207,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const savedFontSize = localStorage.getItem('accessibility-font-size');
         const savedContrast = localStorage.getItem('accessibility-contrast');
         
+        console.log('Carregando configurações:', { savedFontSize, savedContrast });
+        
         if (savedFontSize) {
-            document.documentElement.style.setProperty('--font-size-multiplier', savedFontSize);
-            updateFontDisplay(parseFloat(savedFontSize));
+            const fontSize = parseFloat(savedFontSize);
+            document.documentElement.style.setProperty('--font-size-multiplier', fontSize);
+            updateFontDisplay(fontSize);
+            console.log('Fonte carregada:', fontSize);
+        } else {
+            // Definir valor padrão se não houver configuração salva
+            document.documentElement.style.setProperty('--font-size-multiplier', '1');
+            updateFontDisplay(1);
         }
         
         if (savedContrast === 'high') {
             document.body.classList.add('high-contrast');
             updateContrastUI(true);
+            console.log('Alto contraste ativado');
         }
     }
 
@@ -217,12 +238,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Atualizar display do tamanho da fonte
     function updateFontDisplay(size) {
+        console.log('Atualizando display da fonte:', size);
         if (size === 1) {
             fontSizeDisplay.textContent = 'A';
         } else if (size < 1) {
             fontSizeDisplay.textContent = 'A-';
         } else {
             fontSizeDisplay.textContent = 'A+';
+        }
+        
+        // Adicionar classe para indicar estado
+        fontSizeDisplay.className = 'flex items-center justify-center w-12 h-8 bg-gray-800 text-white text-xs rounded-full shadow-lg';
+        if (size < 1) {
+            fontSizeDisplay.classList.add('text-orange-400');
+        } else if (size > 1) {
+            fontSizeDisplay.classList.add('text-green-400');
         }
     }
 
@@ -261,9 +291,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentSize = parseFloat(document.documentElement.style.getPropertyValue('--font-size-multiplier') || '1');
         const newSize = Math.max(currentSize - fontSizeStep, minFontSize);
         
+        console.log('Diminuindo fonte:', currentSize, '->', newSize);
         document.documentElement.style.setProperty('--font-size-multiplier', newSize);
         updateFontDisplay(newSize);
         saveSettings();
+        
+        // Feedback visual
+        this.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+        }, 150);
     });
 
     // Aumentar fonte
@@ -271,9 +308,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentSize = parseFloat(document.documentElement.style.getPropertyValue('--font-size-multiplier') || '1');
         const newSize = Math.min(currentSize + fontSizeStep, maxFontSize);
         
+        console.log('Aumentando fonte:', currentSize, '->', newSize);
         document.documentElement.style.setProperty('--font-size-multiplier', newSize);
         updateFontDisplay(newSize);
         saveSettings();
+        
+        // Feedback visual
+        this.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+        }, 150);
     });
 
     // Reset configurações
