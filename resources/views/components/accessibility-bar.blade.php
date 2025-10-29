@@ -191,10 +191,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetButton = document.getElementById('accessibility-reset');
 
     // Verificar se os elementos existem
-    if (!fontDecrease || !fontIncrease || !fontSizeDisplay) {
-        console.error('Elementos de acessibilidade não encontrados!');
+    const requiredElements = {
+        fontDecrease,
+        fontIncrease,
+        fontSizeDisplay,
+        resetButton,
+        contrastToggle,
+        contrastIcon,
+        librasToggle
+    };
+    
+    const missingElements = Object.entries(requiredElements)
+        .filter(([name, element]) => !element)
+        .map(([name]) => name);
+    
+    if (missingElements.length > 0) {
+        console.error('Elementos de acessibilidade não encontrados:', missingElements);
         return;
     }
+    
+    console.log('Todos os elementos de acessibilidade carregados com sucesso');
 
     // Valores padrão
     const defaultFontSize = 1;
@@ -232,8 +248,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const fontSize = document.documentElement.style.getPropertyValue('--font-size-multiplier') || '1';
         const isHighContrast = document.body.classList.contains('high-contrast');
         
+        console.log('Salvando configurações:', { fontSize, isHighContrast });
+        
         localStorage.setItem('accessibility-font-size', fontSize);
         localStorage.setItem('accessibility-contrast', isHighContrast ? 'high' : 'normal');
+        
+        console.log('Configurações salvas com sucesso');
     }
 
     // Atualizar display do tamanho da fonte
@@ -258,10 +278,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Atualizar UI do contraste
     function updateContrastUI(isHighContrast) {
-        if (isHighContrast) {
-            contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+        console.log('Atualizando UI do contraste:', isHighContrast);
+        if (contrastIcon) {
+            if (isHighContrast) {
+                contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            } else {
+                contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            }
         } else {
-            contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            console.error('Ícone de contraste não encontrado!');
         }
     }
 
@@ -322,23 +347,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Reset configurações
     resetButton.addEventListener('click', function() {
+        console.log('Reset de configurações de acessibilidade iniciado');
+        
         // Reset fonte
         document.documentElement.style.setProperty('--font-size-multiplier', defaultFontSize);
         updateFontDisplay(defaultFontSize);
+        console.log('Fonte resetada para:', defaultFontSize);
         
         // Reset contraste
         document.body.classList.remove('high-contrast');
         updateContrastUI(false);
+        console.log('Contraste resetado');
         
         // Limpar localStorage
         localStorage.removeItem('accessibility-font-size');
         localStorage.removeItem('accessibility-contrast');
+        console.log('LocalStorage limpo');
         
         // Feedback visual
-        resetButton.style.transform = 'scale(1.2)';
+        this.style.transform = 'scale(1.2)';
         setTimeout(() => {
-            resetButton.style.transform = 'scale(1)';
+            this.style.transform = 'scale(1)';
         }, 200);
+        
+        // Mostrar confirmação
+        alert('Configurações de acessibilidade resetadas!');
+        console.log('Reset concluído com sucesso');
     });
 
     // Carregar configurações ao inicializar
