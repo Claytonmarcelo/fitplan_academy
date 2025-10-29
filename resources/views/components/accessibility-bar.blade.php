@@ -61,14 +61,56 @@
         font-size: calc(16px * var(--font-size-multiplier));
     }
     
-    /* Aplicar redimensionamento a todos os elementos de texto */
-    * {
-        font-size: calc(1em * var(--font-size-multiplier));
+    /* Aplicar redimensionamento apenas aos elementos de texto */
+    body {
+        font-size: calc(1rem * var(--font-size-multiplier));
     }
     
-    /* Garantir que elementos específicos sejam redimensionados */
-    body, p, h1, h2, h3, h4, h5, h6, span, div, a, button, input, textarea, select, label, li, td, th, small, strong, em, b, i {
+    /* Redimensionar elementos de texto específicos */
+    p, span, div, a, button, input, textarea, select, label, li, td, th, small, strong, em, b, i {
         font-size: calc(1em * var(--font-size-multiplier)) !important;
+    }
+    
+    /* Redimensionar títulos com proporções adequadas */
+    h1 {
+        font-size: calc(2.25rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h2 {
+        font-size: calc(1.875rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h3 {
+        font-size: calc(1.5rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h4 {
+        font-size: calc(1.25rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h5 {
+        font-size: calc(1.125rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h6 {
+        font-size: calc(1rem * var(--font-size-multiplier)) !important;
+    }
+    
+    /* Classes de tamanho do Tailwind */
+    .text-xs { font-size: calc(0.75rem * var(--font-size-multiplier)) !important; }
+    .text-sm { font-size: calc(0.875rem * var(--font-size-multiplier)) !important; }
+    .text-base { font-size: calc(1rem * var(--font-size-multiplier)) !important; }
+    .text-lg { font-size: calc(1.125rem * var(--font-size-multiplier)) !important; }
+    .text-xl { font-size: calc(1.25rem * var(--font-size-multiplier)) !important; }
+    .text-2xl { font-size: calc(1.5rem * var(--font-size-multiplier)) !important; }
+    .text-3xl { font-size: calc(1.875rem * var(--font-size-multiplier)) !important; }
+    .text-4xl { font-size: calc(2.25rem * var(--font-size-multiplier)) !important; }
+    .text-5xl { font-size: calc(3rem * var(--font-size-multiplier)) !important; }
+    .text-6xl { font-size: calc(3.75rem * var(--font-size-multiplier)) !important; }
+    
+    /* Preservar tamanhos de ícones e elementos não-texto */
+    svg, .icon, .material-symbols-outlined, .fas, .far, .fab, .fa, .w-4, .w-5, .w-6, .w-8, .w-12, .h-4, .h-5, .h-6, .h-8, .h-12 {
+        font-size: inherit !important;
     }
 
     /* Modo alto contraste - Padrão Gov.br */
