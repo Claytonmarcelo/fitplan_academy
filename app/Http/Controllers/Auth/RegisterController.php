@@ -64,12 +64,12 @@ class RegisterController extends Controller
             'phone_cell' => [
                 'required',
                 'string',
-                'regex:/^\(\+55\)\d{2}-\d{5}-\d{4}$/'
+                'regex:/^\(\d{2}\) \d{5}-\d{4}$/'
             ],
             'phone_fixed' => [
                 'required',
                 'string',
-                'regex:/^\(\+55\)\d{2}-\d{4}-\d{4}$/'
+                'regex:/^\(\d{2}\) \d{4}-\d{4}$/'
             ],
             
             // Endereço completo
@@ -130,10 +130,10 @@ class RegisterController extends Controller
             'email.email' => 'O email deve ter um formato válido.',
             
             'phone_cell.required' => 'O telefone celular é obrigatório.',
-            'phone_cell.regex' => 'O telefone celular deve estar no formato (+55)XX-XXXXX-XXXX.',
+            'phone_cell.regex' => 'O telefone celular deve estar no formato (XX) XXXXX-XXXX.',
             
             'phone_fixed.required' => 'O telefone fixo é obrigatório.',
-            'phone_fixed.regex' => 'O telefone fixo deve estar no formato (+55)XX-XXXX-XXXX.',
+            'phone_fixed.regex' => 'O telefone fixo deve estar no formato (XX) XXXX-XXXX.',
             
             'cep.required' => 'O CEP é obrigatório.',
             'cep.regex' => 'O CEP deve estar no formato 00000-000.',

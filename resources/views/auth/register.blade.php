@@ -196,8 +196,8 @@
                                            id="phone_cell" 
                                            name="phone_cell" 
                                            value="{{ old('phone_cell') }}"
-                                           placeholder="(+55)11-99999-9999"
-                                           maxlength="16"
+                                           placeholder="(11) 99999-9999"
+                                           maxlength="15"
                                            required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 </div>
@@ -207,8 +207,8 @@
                                            id="phone_fixed" 
                                            name="phone_fixed" 
                                            value="{{ old('phone_fixed') }}"
-                                           placeholder="(+55)11-3333-4444"
-                                           maxlength="16"
+                                           placeholder="(11) 3333-4444"
+                                           maxlength="14"
                                            required
                                            class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 </div>
@@ -507,7 +507,7 @@
         document.getElementById('phone_cell').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length <= 11) {
-                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '(+55)$1-$2-$3');
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
             }
             e.target.value = value;
         });
@@ -516,7 +516,7 @@
         document.getElementById('phone_fixed').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length <= 10) {
-                value = value.replace(/(\d{2})(\d{4})(\d{4})/, '(+55)$1-$2-$3');
+                value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
             }
             e.target.value = value;
         });
