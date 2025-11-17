@@ -249,7 +249,7 @@
                         </div>
                     </a>
 
-                    <a href="{{ route('access-logs') }}" class="bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
+                    <a href="{{ route('system-logs.index') }}" class="bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
                         <div class="flex items-center gap-4">
                             <div class="text-blue-500">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -257,8 +257,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-zinc-900 dark:text-white">Logs de Acesso</h3>
-                                <p class="text-sm text-zinc-600 dark:text-zinc-400">Visualizar histórico de acessos</p>
+                                <h3 class="font-semibold text-zinc-900 dark:text-white">Logs do Sistema</h3>
+                                <p class="text-sm text-zinc-600 dark:text-zinc-400">Visualizar todas as atividades do sistema</p>
                             </div>
                         </div>
                     </a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Features\User\Infrastructure\Models\User;
+use App\Models\AccessLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -57,6 +58,9 @@ class LoginController extends Controller
                    ->first();
 
         if (!$user) {
+            // Registrar tentativa de login falhada (usuário não encontrado)
+            $this->logAccess($request, $validated['login'], false, false);
+            
             return back()->withErrors([
                 'login' => 'Login não encontrado ou usuário inativo.'
             ])->withInput();
@@ -64,6 +68,9 @@ class LoginController extends Controller
 
         // Verificar senha
         if (!Hash::check($validated['password'], $user->password)) {
+            // Registrar tentativa de login falhada (senha incorreta)
+            $this->logAccess($request, $user, false, false);
+            
             return back()->withErrors([
                 'password' => 'Senha incorreta.'
             ])->withInput();
@@ -79,6 +86,9 @@ class LoginController extends Controller
             ])->withInput();
         }
 
+        // Registrar login bem-sucedido
+        $this->logAccess($request, $user, true, false);
+        
         // Regenerar sessão para segurança
         $request->session()->regenerate();
         
@@ -104,5 +114,38 @@ class LoginController extends Controller
 
         return redirect()->route('landing')
                         ->with('success', 'Logout realizado com sucesso!');
+    }
+
+    /**
+     * Registra log de acesso
+     */
+    private function logAccess(Request $request, $userOrLogin, bool $successful, bool $twoFactorUsed = false)
+    {
+        try {
+            // Se for string (login), tentar buscar usuário
+            if (is_string($userOrLogin)) {
+                $user = User::where('login', strtoupper($userOrLogin))->first();
+                if (!$user) {
+                    // Não registrar log se usuário não existir
+                    return;
+                }
+            } else {
+                $user = $userOrLogin;
+            }
+
+            AccessLog::create([
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+                'user_cpf' => $user->cpf,
+                'user_login' => $user->login,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'two_factor_used' => $twoFactorUsed,
+                'login_successful' => $successful,
+            ]);
+        } catch (\Exception $e) {
+            // Silenciosamente falhar se não conseguir registrar log
+            // Não queremos que erros de log quebrem o fluxo de login
+        }
     }
 }

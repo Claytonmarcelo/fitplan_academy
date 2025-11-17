@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Features\User\Infrastructure\Models\User;
+use App\Models\AccessLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -184,6 +185,22 @@ class RegisterController extends Controller
                 'role' => $validated['user_type'], // 'common' ou 'master'
                 'is_active' => true,
             ]);
+
+            // Registrar log de cadastro (como login automático)
+            try {
+                AccessLog::create([
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                    'user_cpf' => $user->cpf,
+                    'user_login' => $user->login,
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                    'two_factor_used' => false,
+                    'login_successful' => true,
+                ]);
+            } catch (\Exception $e) {
+                // Silenciosamente falhar se não conseguir registrar log
+            }
 
             // Fazer login automático do usuário
             auth()->login($user);

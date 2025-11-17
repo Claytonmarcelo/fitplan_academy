@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\SystemLogsController;
 use App\Http\Controllers\Auth\DemoAuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UnitController;
@@ -100,6 +101,10 @@ Route::middleware('auth')->group(function () {
     
     // Dashboard do Administrador
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    
+    // Logs do Sistema
+    Route::get('/admin/system-logs', [SystemLogsController::class, 'index'])->name('system-logs.index');
+    Route::get('/admin/system-logs/export', [SystemLogsController::class, 'export'])->name('system-logs.export');
 });
 
 // Rotas protegidas por autenticação demo (sem banco de dados) - MANTIDAS PARA COMPATIBILIDADE
