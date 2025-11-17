@@ -231,6 +231,105 @@
                 </div>
             </div>
 
+            <!-- Users Section -->
+            <div class="mt-8 bg-white dark:bg-zinc-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="p-6 border-b border-zinc-200 dark:border-zinc-700 flex items-center justify-between">
+                    <h2 class="text-xl font-bold text-zinc-900 dark:text-white">Usuários do Sistema</h2>
+                    <a href="{{ route('users.index') }}" class="text-sm text-primary hover:text-primary/80 font-medium">
+                        Ver todos →
+                    </a>
+                </div>
+                <div class="p-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-zinc-50 dark:bg-zinc-700">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Nome</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Email</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Login</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Tipo</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Status</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
+                                @forelse($allUsers as $userItem)
+                                <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors">
+                                    <td class="px-4 py-3 text-sm font-medium text-zinc-900 dark:text-zinc-200">{{ $userItem->name }}</td>
+                                    <td class="px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400">{{ $userItem->email }}</td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <code class="px-2 py-1 bg-zinc-100 dark:bg-zinc-700 rounded text-zinc-900 dark:text-zinc-200">{{ $userItem->login }}</code>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        @if($userItem->role === 'master')
+                                            <span class="px-2 py-1 text-xs font-medium bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full">Admin</span>
+                                        @else
+                                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full">Comum</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        @if($userItem->is_active)
+                                            <span class="px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full">Ativo</span>
+                                        @else
+                                            <span class="px-2 py-1 text-xs font-medium bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full">Inativo</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        <a href="{{ route('users.edit', $userItem) }}" class="text-primary hover:text-primary/80 font-medium">
+                                            ✏️ Editar
+                                        </a>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="px-4 py-8 text-center text-zinc-600 dark:text-zinc-400">
+                                        Nenhum usuário encontrado.
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plans Section -->
+            <div class="mt-8 bg-white dark:bg-zinc-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="p-6 border-b border-zinc-200 dark:border-zinc-700 flex items-center justify-between">
+                    <h2 class="text-xl font-bold text-zinc-900 dark:text-white">Planos da Academia</h2>
+                    <a href="{{ route('admin.plans.index') }}" class="text-sm text-primary hover:text-primary/80 font-medium">
+                        Gerenciar →
+                    </a>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        @forelse($plans as $planItem)
+                        <div class="border border-zinc-200 dark:border-zinc-700 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-lg font-bold text-zinc-900 dark:text-white">{{ $planItem->name }}</h3>
+                                @if($planItem->is_active)
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full">Ativo</span>
+                                @else
+                                    <span class="px-2 py-1 text-xs font-medium bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full">Inativo</span>
+                                @endif
+                            </div>
+                            <p class="text-2xl font-bold text-primary mb-2">
+                                R$ {{ number_format($planItem->price, 2, ',', '.') }}
+                            </p>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-3">{{ $planItem->description }}</p>
+                            <a href="{{ route('admin.plans.edit', $planItem) }}" class="text-sm text-primary hover:text-primary/80 font-medium">
+                                ✏️ Editar Preço →
+                            </a>
+                        </div>
+                        @empty
+                        <div class="col-span-3 text-center py-8 text-zinc-600 dark:text-zinc-400">
+                            Nenhum plano encontrado.
+                        </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
             <!-- Quick Actions -->
             <div class="mt-8">
                 <h2 class="text-xl font-bold text-zinc-900 dark:text-white mb-6">Ações Rápidas</h2>

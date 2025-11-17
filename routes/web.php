@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\SystemLogsController;
+use App\Http\Controllers\PlanManagementController;
+use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\Auth\DemoAuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UnitController;
@@ -107,6 +109,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/system-logs/export', [SystemLogsController::class, 'export'])->name('system-logs.export');
     Route::get('/admin/system-logs/export-pdf', [SystemLogsController::class, 'exportPdf'])->name('system-logs.export-pdf');
     Route::get('/admin/system-logs/export-excel', [SystemLogsController::class, 'exportExcel'])->name('system-logs.export-excel');
+    
+    // Gerenciamento de Usuários
+    Route::get('/admin/users', [UserManagementController::class, 'index'])->name('users.index');
+    Route::get('/admin/users/{user}', [UserManagementController::class, 'show'])->name('users.show');
+    Route::get('/admin/users/{user}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/users/{user}', [UserManagementController::class, 'update'])->name('users.update');
+    Route::delete('/admin/users/{user}', [UserManagementController::class, 'destroy'])->name('users.destroy');
+    
+    // Gerenciamento de Planos
+    Route::get('/admin/plans', [PlanManagementController::class, 'index'])->name('admin.plans.index');
+    Route::get('/admin/plans/{plan}/edit', [PlanManagementController::class, 'edit'])->name('admin.plans.edit');
+    Route::put('/admin/plans/{plan}', [PlanManagementController::class, 'update'])->name('admin.plans.update');
 });
 
 // Rotas protegidas por autenticação demo (sem banco de dados) - MANTIDAS PARA COMPATIBILIDADE

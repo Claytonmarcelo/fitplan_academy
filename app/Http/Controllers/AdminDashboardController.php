@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Features\User\Infrastructure\Models\User;
+use App\Features\Plan\Infrastructure\Models\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,7 +63,15 @@ class AdminDashboardController extends Controller
         // Logs recentes (se houver tabela de logs)
         $recentLogs = $this->getRecentLogs();
 
-        return view('admin-dashboard', compact('user', 'stats', 'recentUsers', 'recentLogs'));
+        // Obter todos os usuários para a seção de usuários
+        $allUsers = User::orderBy('created_at', 'desc')
+                       ->limit(10)
+                       ->get();
+
+        // Obter todos os planos
+        $plans = Plan::orderBy('price', 'asc')->get();
+
+        return view('admin-dashboard', compact('user', 'stats', 'recentUsers', 'recentLogs', 'allUsers', 'plans'));
     }
 
     /**

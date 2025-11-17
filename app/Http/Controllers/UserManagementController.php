@@ -39,9 +39,9 @@ class UserManagementController extends Controller
                   ->orWhere('login', 'LIKE', "%{$search}%");
         }
 
-        // Filtro por perfil
-        if ($request->filled('profile')) {
-            $query->where('profile', $request->profile);
+        // Filtro por perfil (role)
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
         }
 
         // Filtro por status
@@ -93,7 +93,11 @@ class UserManagementController extends Controller
         $rules = [
             'name' => 'required|string|min:8|max:60|regex:/^[a-zA-ZÀ-ÿ\s]+$/',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'required|string|regex:/^\(\d{2}\) \d{4,5}-\d{4}$/',
+            'phone' => [
+                'required',
+                'string',
+                'regex:/^\(\d{2}\) \d{5}-\d{4}$/'
+            ],
             'cep' => 'required|string|regex:/^\d{5}-\d{3}$/',
             'street' => 'required|string|max:255',
             'number' => 'required|string|max:10',
@@ -103,9 +107,9 @@ class UserManagementController extends Controller
             'state' => 'required|string|size:2',
         ];
 
-        // Só Master pode alterar perfil e status
+        // Só Master pode alterar role e status
         if (Auth::user()->isMaster()) {
-            $rules['profile'] = 'required|in:master,comum';
+            $rules['role'] = 'required|in:master,common';
             $rules['is_active'] = 'required|boolean';
         }
 
@@ -113,12 +117,12 @@ class UserManagementController extends Controller
 
         // Remove campos que usuário comum não pode alterar
         if (!Auth::user()->isMaster()) {
-            unset($validated['profile'], $validated['is_active']);
+            unset($validated['role'], $validated['is_active']);
         }
 
         $user->update($validated);
 
-        return redirect()->route('users.show', $user)
+        return redirect()->route('users.index')
                         ->with('success', 'Usuário atualizado com sucesso!');
     }
 

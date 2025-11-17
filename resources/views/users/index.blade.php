@@ -102,10 +102,10 @@
                            value="{{ request('search') }}">
                 </div>
                 <div class="col-md-2">
-                    <select class="form-select" name="profile">
+                    <select class="form-select" name="role">
                         <option value="">Todos os Perfis</option>
-                        <option value="master" {{ request('profile') === 'master' ? 'selected' : '' }}>Master</option>
-                        <option value="comum" {{ request('profile') === 'comum' ? 'selected' : '' }}>Comum</option>
+                        <option value="master" {{ request('role') === 'master' ? 'selected' : '' }}>Master</option>
+                        <option value="common" {{ request('role') === 'common' ? 'selected' : '' }}>Comum</option>
                     </select>
                 </div>
                 <div class="col-md-2">
