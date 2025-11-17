@@ -5,6 +5,7 @@ use App\Features\Plan\Presentation\Controllers\PlanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\DemoAuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UnitController;
@@ -96,6 +97,9 @@ Route::middleware('auth')->group(function () {
     
     // Dashboard do Aluno (usuários Comum)
     Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+    
+    // Dashboard do Administrador
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
 
 // Rotas protegidas por autenticação demo (sem banco de dados) - MANTIDAS PARA COMPATIBILIDADE

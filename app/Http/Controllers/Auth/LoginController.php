@@ -82,9 +82,14 @@ class LoginController extends Controller
         // Regenerar sessão para segurança
         $request->session()->regenerate();
         
-        // Redirecionar para o dashboard do aluno
-        return redirect()->route('student.dashboard')
-                        ->with('success', 'Bem-vindo, ' . $user->name . '!');
+        // Redirecionar baseado no tipo de usuário
+        if ($user->isMaster()) {
+            return redirect()->route('admin.dashboard')
+                            ->with('success', 'Bem-vindo, ' . $user->name . '!');
+        } else {
+            return redirect()->route('student.dashboard')
+                            ->with('success', 'Bem-vindo, ' . $user->name . '!');
+        }
     }
 
     /**

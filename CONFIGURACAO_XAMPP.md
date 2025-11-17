@@ -344,3 +344,4 @@ Agora o FitPlan Academy está configurado para funcionar com XAMPP e permitir ac
 
 Para mais informações, consulte a documentação do Laravel: https://laravel.com/docs
 
+

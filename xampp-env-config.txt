@@ -93,3 +93,4 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 # 6. Execute: start-xampp.bat (Windows) ou ./start-xampp.sh (Linux/macOS)
 # 7. Acesse: http://SEU_IP:8000 de outra máquina na rede
 
+

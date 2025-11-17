@@ -42,3 +42,4 @@ SELECT user, host FROM mysql.user WHERE user='root';
 -- - Para produção, crie usuários específicos com privilégios limitados
 -- - Configure o firewall para proteger o MySQL
 
+

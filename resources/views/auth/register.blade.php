@@ -428,6 +428,24 @@
                             </div>
                         </div>
 
+                        <!-- Tipo de Usuário -->
+                        <div class="mb-6">
+                            <label for="user_type" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">Tipo de Usuário *</label>
+                            <select 
+                                id="user_type" 
+                                name="user_type"
+                                required
+                                class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                <option value="">Selecione o tipo de usuário</option>
+                                <option value="common" {{ old('user_type') === 'common' ? 'selected' : '' }}>Usuário Comum</option>
+                                <option value="master" {{ old('user_type') === 'master' ? 'selected' : '' }}>Administrador</option>
+                            </select>
+                            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                                <span class="block">👤 <strong>Usuário Comum:</strong> Acesso ao dashboard do aluno</span>
+                                <span class="block">👨‍💼 <strong>Administrador:</strong> Acesso ao painel administrativo</span>
+                            </p>
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="pt-6">
                             <button type="submit" class="w-full bg-primary text-white font-semibold py-4 px-6 rounded-lg hover:bg-primary/90 transition-colors">

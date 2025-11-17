@@ -101,6 +101,7 @@ class RegisterController extends Controller
                 'confirmed'
             ],
             'password_confirmation' => 'required|string|min:6',
+            'user_type' => 'required|in:common,master',
             
         ], [
             // Mensagens personalizadas
@@ -154,6 +155,9 @@ class RegisterController extends Controller
             'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
             'password.regex' => 'A senha deve conter apenas caracteres alfabéticos.',
             'password.confirmed' => 'A confirmação da senha não confere.',
+            
+            'user_type.required' => 'O tipo de usuário é obrigatório.',
+            'user_type.in' => 'O tipo de usuário deve ser Comum ou Administrador.',
         ]);
 
         // Criar usuário no banco de dados
@@ -177,15 +181,21 @@ class RegisterController extends Controller
                 'zip_code' => $validated['cep'], // Mesmo valor do CEP
                 'login' => strtoupper($validated['login']),
                 'password' => Hash::make($validated['password']), // Senha criptografada
-                'role' => 'common',
+                'role' => $validated['user_type'], // 'common' ou 'master'
                 'is_active' => true,
             ]);
 
             // Fazer login automático do usuário
             auth()->login($user);
 
-            return redirect()->route('student.dashboard')
-                            ->with('success', 'Cadastro realizado com sucesso! Bem-vindo, ' . $user->name . '!');
+            // Redirecionar baseado no tipo de usuário
+            if ($user->role === 'master') {
+                return redirect()->route('admin.dashboard')
+                                ->with('success', 'Cadastro realizado com sucesso! Bem-vindo, ' . $user->name . '!');
+            } else {
+                return redirect()->route('student.dashboard')
+                                ->with('success', 'Cadastro realizado com sucesso! Bem-vindo, ' . $user->name . '!');
+            }
 
         } catch (\Exception $e) {
             return back()->withErrors([
