@@ -66,6 +66,12 @@
                         <a href="{{ route('system-logs.export', request()->query()) }}" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
                             📥 Exportar CSV
                         </a>
+                        <a href="{{ route('system-logs.export-pdf', request()->query()) }}" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                            📄 Gerar PDF
+                        </a>
+                        <a href="{{ route('system-logs.export-excel', request()->query()) }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            📊 Gerar Excel
+                        </a>
                     </div>
                 </div>
             </div>

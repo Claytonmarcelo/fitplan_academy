@@ -7,6 +7,9 @@ use App\Features\User\Infrastructure\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SystemLogsExport;
 
 /**
  * SystemLogsController
@@ -232,6 +235,97 @@ class SystemLogsController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    /**
+     * Exporta logs em PDF
+     */
+    public function exportPdf(Request $request)
+    {
+        if (!Auth::user()->isMaster()) {
+            abort(403, 'Apenas administradores podem exportar logs.');
+        }
+
+        $accessLogsQuery = AccessLog::with('user');
+
+        // Aplicar mesmos filtros
+        if ($request->filled('user_name')) {
+            $accessLogsQuery->where('user_name', 'LIKE', '%' . $request->user_name . '%');
+        }
+
+        if ($request->filled('user_cpf')) {
+            $accessLogsQuery->where('user_cpf', 'LIKE', '%' . $request->user_cpf . '%');
+        }
+
+        if ($request->filled('date_from')) {
+            $accessLogsQuery->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $accessLogsQuery->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        if ($request->filled('successful')) {
+            $accessLogsQuery->where('login_successful', $request->successful === '1');
+        }
+
+        if ($request->filled('two_factor')) {
+            $accessLogsQuery->where('two_factor_used', $request->two_factor === '1');
+        }
+
+        $logs = $accessLogsQuery->orderBy('created_at', 'desc')->get();
+
+        $stats = [
+            'total' => $logs->count(),
+            'successful' => $logs->where('login_successful', true)->count(),
+            'failed' => $logs->where('login_successful', false)->count(),
+            'with_2fa' => $logs->where('two_factor_used', true)->count(),
+        ];
+
+        $pdf = Pdf::loadView('admin.system-logs-pdf', compact('logs', 'stats'));
+        
+        return $pdf->download('logs-sistema-' . date('Y-m-d') . '.pdf');
+    }
+
+    /**
+     * Exporta logs em Excel
+     */
+    public function exportExcel(Request $request)
+    {
+        if (!Auth::user()->isMaster()) {
+            abort(403, 'Apenas administradores podem exportar logs.');
+        }
+
+        $accessLogsQuery = AccessLog::with('user');
+
+        // Aplicar mesmos filtros
+        if ($request->filled('user_name')) {
+            $accessLogsQuery->where('user_name', 'LIKE', '%' . $request->user_name . '%');
+        }
+
+        if ($request->filled('user_cpf')) {
+            $accessLogsQuery->where('user_cpf', 'LIKE', '%' . $request->user_cpf . '%');
+        }
+
+        if ($request->filled('date_from')) {
+            $accessLogsQuery->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $accessLogsQuery->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        if ($request->filled('successful')) {
+            $accessLogsQuery->where('login_successful', $request->successful === '1');
+        }
+
+        if ($request->filled('two_factor')) {
+            $accessLogsQuery->where('two_factor_used', $request->two_factor === '1');
+        }
+
+        $logs = $accessLogsQuery->orderBy('created_at', 'desc')->get();
+
+        return Excel::download(new SystemLogsExport($logs), 'logs-sistema-' . date('Y-m-d') . '.xlsx');
     }
 }
 

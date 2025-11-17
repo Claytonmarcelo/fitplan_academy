@@ -105,6 +105,8 @@ Route::middleware('auth')->group(function () {
     // Logs do Sistema
     Route::get('/admin/system-logs', [SystemLogsController::class, 'index'])->name('system-logs.index');
     Route::get('/admin/system-logs/export', [SystemLogsController::class, 'export'])->name('system-logs.export');
+    Route::get('/admin/system-logs/export-pdf', [SystemLogsController::class, 'exportPdf'])->name('system-logs.export-pdf');
+    Route::get('/admin/system-logs/export-excel', [SystemLogsController::class, 'exportExcel'])->name('system-logs.export-excel');
 });
 
 // Rotas protegidas por autenticação demo (sem banco de dados) - MANTIDAS PARA COMPATIBILIDADE
