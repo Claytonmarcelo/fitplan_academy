@@ -116,6 +116,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/users/{user}/edit', [UserManagementController::class, 'edit'])->name('users.edit');
     Route::put('/admin/users/{user}', [UserManagementController::class, 'update'])->name('users.update');
     Route::delete('/admin/users/{user}', [UserManagementController::class, 'destroy'])->name('users.destroy');
+    Route::get('/admin/users/export/pdf', [UserManagementController::class, 'exportPdf'])->name('users.pdf');
     
     // Gerenciamento de Planos
     Route::get('/admin/plans', [PlanManagementController::class, 'index'])->name('admin.plans.index');

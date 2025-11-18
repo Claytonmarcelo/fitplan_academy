@@ -173,8 +173,8 @@ class UserManagementController extends Controller
                   ->orWhere('email', 'LIKE', "%{$search}%");
         }
 
-        if ($request->filled('profile')) {
-            $query->where('profile', $request->profile);
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
         }
 
         if ($request->filled('status')) {
