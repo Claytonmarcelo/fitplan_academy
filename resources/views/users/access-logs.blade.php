@@ -67,7 +67,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <a class="navbar-brand" href="{{ Auth::user()->isMaster() ? route('admin.dashboard') : route('student.dashboard') }}">
                 <i class="fas fa-dumbbell"></i> FitPlan Academy
             </a>
             
@@ -86,7 +86,7 @@
         <div class="content-card">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3><i class="fas fa-history"></i> Logs de Acesso</h3>
-                <a href="{{ route('dashboard') }}" class="btn btn-secondary">
+                <a href="{{ Auth::user()->isMaster() ? route('admin.dashboard') : route('student.dashboard') }}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Voltar
                 </a>
             </div>

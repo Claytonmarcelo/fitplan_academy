@@ -63,7 +63,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
                 <i class="fas fa-dumbbell"></i> FitPlan Academy
             </a>
             
@@ -86,7 +86,7 @@
                     <a href="{{ route('users.pdf') }}" class="btn btn-primary me-2">
                         <i class="fas fa-file-pdf"></i> Exportar PDF
                     </a>
-                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Voltar
                     </a>
                 </div>

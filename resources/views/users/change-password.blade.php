@@ -112,7 +112,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <a class="navbar-brand" href="{{ Auth::user()->isMaster() ? route('admin.dashboard') : route('student.dashboard') }}">
                 <i class="fas fa-dumbbell"></i> FitPlan Academy
             </a>
             
@@ -202,7 +202,7 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Alterar Senha
                         </button>
-                        <a href="{{ route('dashboard') }}" class="btn btn-secondary">
+                        <a href="{{ Auth::user()->isMaster() ? route('admin.dashboard') : route('student.dashboard') }}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
                         </a>
                     </div>
