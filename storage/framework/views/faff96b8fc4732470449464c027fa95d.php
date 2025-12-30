@@ -39,6 +39,8 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-200 min-h-screen flex flex-col">
+    <!-- Barra de Acessibilidade -->
+    <?php echo $__env->make('components.accessibility-bar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -155,14 +157,6 @@
                                         <strong>Login:</strong> MASTER<br>
                                         <strong>Senha:</strong> MasterPass<br>
                                         <strong>Email:</strong> master@fitplan.com.br
-                                    </div>
-                                </div>
-                                <div class="bg-white dark:bg-blue-800/30 rounded p-3 border border-blue-200 dark:border-blue-700">
-                                    <div class="font-medium text-blue-900 dark:text-blue-100 mb-1">👤 Usuário Administrador</div>
-                                    <div class="text-blue-700 dark:text-blue-300">
-                                        <strong>Login:</strong> ADMIN<br>
-                                        <strong>Senha:</strong> password<br>
-                                        <strong>Email:</strong> admin@fitplanacademy.com
                                     </div>
                                 </div>
                                 <div class="bg-white dark:bg-blue-800/30 rounded p-3 border border-blue-200 dark:border-blue-700">

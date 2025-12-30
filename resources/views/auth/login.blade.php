@@ -160,14 +160,6 @@
                                     </div>
                                 </div>
                                 <div class="bg-white dark:bg-blue-800/30 rounded p-3 border border-blue-200 dark:border-blue-700">
-                                    <div class="font-medium text-blue-900 dark:text-blue-100 mb-1">👤 Usuário Administrador</div>
-                                    <div class="text-blue-700 dark:text-blue-300">
-                                        <strong>Login:</strong> ADMIN<br>
-                                        <strong>Senha:</strong> password<br>
-                                        <strong>Email:</strong> admin@fitplanacademy.com
-                                    </div>
-                                </div>
-                                <div class="bg-white dark:bg-blue-800/30 rounded p-3 border border-blue-200 dark:border-blue-700">
                                     <div class="font-medium text-blue-900 dark:text-blue-100 mb-1">👤 Usuário Comum - Sophia</div>
                                     <div class="text-blue-700 dark:text-blue-300">
                                         <strong>Login:</strong> SOPHIA<br>

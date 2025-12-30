@@ -56,13 +56,61 @@
         --accessibility-contrast: normal;
     }
 
-    /* Aplicar multiplicador de fonte apenas aos elementos específicos */
-    .accessibility-font-resize * {
-        font-size: calc(1em * var(--font-size-multiplier));
+    /* Aplicar multiplicador de fonte globalmente */
+    html {
+        font-size: calc(16px * var(--font-size-multiplier));
     }
     
-    .accessibility-font-resize {
-        font-size: calc(16px * var(--font-size-multiplier));
+    /* Aplicar redimensionamento apenas aos elementos de texto */
+    body {
+        font-size: calc(1rem * var(--font-size-multiplier));
+    }
+    
+    /* Redimensionar elementos de texto específicos */
+    p, span, div, a, button, input, textarea, select, label, li, td, th, small, strong, em, b, i {
+        font-size: calc(1em * var(--font-size-multiplier)) !important;
+    }
+    
+    /* Redimensionar títulos com proporções adequadas */
+    h1 {
+        font-size: calc(2.25rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h2 {
+        font-size: calc(1.875rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h3 {
+        font-size: calc(1.5rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h4 {
+        font-size: calc(1.25rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h5 {
+        font-size: calc(1.125rem * var(--font-size-multiplier)) !important;
+    }
+    
+    h6 {
+        font-size: calc(1rem * var(--font-size-multiplier)) !important;
+    }
+    
+    /* Classes de tamanho do Tailwind */
+    .text-xs { font-size: calc(0.75rem * var(--font-size-multiplier)) !important; }
+    .text-sm { font-size: calc(0.875rem * var(--font-size-multiplier)) !important; }
+    .text-base { font-size: calc(1rem * var(--font-size-multiplier)) !important; }
+    .text-lg { font-size: calc(1.125rem * var(--font-size-multiplier)) !important; }
+    .text-xl { font-size: calc(1.25rem * var(--font-size-multiplier)) !important; }
+    .text-2xl { font-size: calc(1.5rem * var(--font-size-multiplier)) !important; }
+    .text-3xl { font-size: calc(1.875rem * var(--font-size-multiplier)) !important; }
+    .text-4xl { font-size: calc(2.25rem * var(--font-size-multiplier)) !important; }
+    .text-5xl { font-size: calc(3rem * var(--font-size-multiplier)) !important; }
+    .text-6xl { font-size: calc(3.75rem * var(--font-size-multiplier)) !important; }
+    
+    /* Preservar tamanhos de ícones e elementos não-texto */
+    svg, .icon, .material-symbols-outlined, .fas, .far, .fab, .fa, .w-4, .w-5, .w-6, .w-8, .w-12, .h-4, .h-5, .h-6, .h-8, .h-12 {
+        font-size: inherit !important;
     }
 
     /* Modo alto contraste - Padrão Gov.br */
@@ -184,6 +232,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const fontSizeDisplay = document.getElementById('font-size-display');
     const resetButton = document.getElementById('accessibility-reset');
 
+    // Verificar se os elementos existem
+    const requiredElements = {
+        fontDecrease,
+        fontIncrease,
+        fontSizeDisplay,
+        resetButton,
+        contrastToggle,
+        contrastIcon,
+        librasToggle
+    };
+    
+    const missingElements = Object.entries(requiredElements)
+        .filter(([name, element]) => !element)
+        .map(([name]) => name);
+    
+    if (missingElements.length > 0) {
+        console.error('Elementos de acessibilidade não encontrados:', missingElements);
+        return;
+    }
+    
+    console.log('Todos os elementos de acessibilidade carregados com sucesso');
+
     // Valores padrão
     const defaultFontSize = 1;
     const minFontSize = 0.8;
@@ -195,14 +265,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const savedFontSize = localStorage.getItem('accessibility-font-size');
         const savedContrast = localStorage.getItem('accessibility-contrast');
         
+        console.log('Carregando configurações:', { savedFontSize, savedContrast });
+        
         if (savedFontSize) {
-            document.documentElement.style.setProperty('--font-size-multiplier', savedFontSize);
-            updateFontDisplay(parseFloat(savedFontSize));
+            const fontSize = parseFloat(savedFontSize);
+            document.documentElement.style.setProperty('--font-size-multiplier', fontSize);
+            updateFontDisplay(fontSize);
+            console.log('Fonte carregada:', fontSize);
+        } else {
+            // Definir valor padrão se não houver configuração salva
+            document.documentElement.style.setProperty('--font-size-multiplier', '1');
+            updateFontDisplay(1);
         }
         
         if (savedContrast === 'high') {
             document.body.classList.add('high-contrast');
             updateContrastUI(true);
+            console.log('Alto contraste ativado');
         }
     }
 
@@ -211,12 +290,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const fontSize = document.documentElement.style.getPropertyValue('--font-size-multiplier') || '1';
         const isHighContrast = document.body.classList.contains('high-contrast');
         
+        console.log('Salvando configurações:', { fontSize, isHighContrast });
+        
         localStorage.setItem('accessibility-font-size', fontSize);
         localStorage.setItem('accessibility-contrast', isHighContrast ? 'high' : 'normal');
+        
+        console.log('Configurações salvas com sucesso');
     }
 
     // Atualizar display do tamanho da fonte
     function updateFontDisplay(size) {
+        console.log('Atualizando display da fonte:', size);
         if (size === 1) {
             fontSizeDisplay.textContent = 'A';
         } else if (size < 1) {
@@ -224,14 +308,27 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             fontSizeDisplay.textContent = 'A+';
         }
+        
+        // Adicionar classe para indicar estado
+        fontSizeDisplay.className = 'flex items-center justify-center w-12 h-8 bg-gray-800 text-white text-xs rounded-full shadow-lg';
+        if (size < 1) {
+            fontSizeDisplay.classList.add('text-orange-400');
+        } else if (size > 1) {
+            fontSizeDisplay.classList.add('text-green-400');
+        }
     }
 
     // Atualizar UI do contraste
     function updateContrastUI(isHighContrast) {
-        if (isHighContrast) {
-            contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+        console.log('Atualizando UI do contraste:', isHighContrast);
+        if (contrastIcon) {
+            if (isHighContrast) {
+                contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            } else {
+                contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            }
         } else {
-            contrastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            console.error('Ícone de contraste não encontrado!');
         }
     }
 
@@ -261,9 +358,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentSize = parseFloat(document.documentElement.style.getPropertyValue('--font-size-multiplier') || '1');
         const newSize = Math.max(currentSize - fontSizeStep, minFontSize);
         
+        console.log('Diminuindo fonte:', currentSize, '->', newSize);
         document.documentElement.style.setProperty('--font-size-multiplier', newSize);
         updateFontDisplay(newSize);
         saveSettings();
+        
+        // Feedback visual
+        this.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+        }, 150);
     });
 
     // Aumentar fonte
@@ -271,30 +375,46 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentSize = parseFloat(document.documentElement.style.getPropertyValue('--font-size-multiplier') || '1');
         const newSize = Math.min(currentSize + fontSizeStep, maxFontSize);
         
+        console.log('Aumentando fonte:', currentSize, '->', newSize);
         document.documentElement.style.setProperty('--font-size-multiplier', newSize);
         updateFontDisplay(newSize);
         saveSettings();
+        
+        // Feedback visual
+        this.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+        }, 150);
     });
 
     // Reset configurações
     resetButton.addEventListener('click', function() {
+        console.log('Reset de configurações de acessibilidade iniciado');
+        
         // Reset fonte
         document.documentElement.style.setProperty('--font-size-multiplier', defaultFontSize);
         updateFontDisplay(defaultFontSize);
+        console.log('Fonte resetada para:', defaultFontSize);
         
         // Reset contraste
         document.body.classList.remove('high-contrast');
         updateContrastUI(false);
+        console.log('Contraste resetado');
         
         // Limpar localStorage
         localStorage.removeItem('accessibility-font-size');
         localStorage.removeItem('accessibility-contrast');
+        console.log('LocalStorage limpo');
         
         // Feedback visual
-        resetButton.style.transform = 'scale(1.2)';
+        this.style.transform = 'scale(1.2)';
         setTimeout(() => {
-            resetButton.style.transform = 'scale(1)';
+            this.style.transform = 'scale(1)';
         }, 200);
+        
+        // Mostrar confirmação
+        alert('Configurações de acessibilidade resetadas!');
+        console.log('Reset concluído com sucesso');
     });
 
     // Carregar configurações ao inicializar

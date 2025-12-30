@@ -14,7 +14,7 @@ services:
     networks:
       - fitplan
     depends_on:
-      - postgres
+      - mysql
       - redis
 
   # Servidor Nginx
@@ -26,28 +26,29 @@ services:
       - "8000:80"
     volumes:
       - ./:/var/www
-      - ./docker/nginx:/etc/nginx/conf.d
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - fitplan
     depends_on:
       - app
 
-  # PostgreSQL
-  postgres:
-    image: postgres:15-alpine
-    container_name: fitplan_postgres
+  # MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: fitplan_mysql
     restart: unless-stopped
     environment:
-      POSTGRES_DB: fitplan_academy
-      POSTGRES_USER: fitplan
-      POSTGRES_PASSWORD: fitplan123
-      PGDATA: /var/lib/postgresql/data/pgdata
+      MYSQL_DATABASE: fitplan_academy
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: fitplan
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     ports:
-      - "5433:5432"  # Mudou para 5433 para evitar conflito
+      - "3306:3306"
     networks:
       - fitplan
+    command: --default-authentication-plugin=mysql_native_password
 
   # Redis
   redis:
@@ -55,30 +56,30 @@ services:
     container_name: fitplan_redis
     restart: unless-stopped
     ports:
-      - "6380:6379"  # Mudou para 6380 para evitar conflito
+      - "6380:6379"
     networks:
       - fitplan
 
-  # PgAdmin (Gerenciador visual do PostgreSQL)
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: fitplan_pgadmin
+  # phpMyAdmin (Gerenciador visual do MySQL)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: fitplan_phpmyadmin
     restart: unless-stopped
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@fitplanacademy.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root
     ports:
-      - "5050:80"
+      - "8080:80"
     networks:
       - fitplan
     depends_on:
-      - postgres
+      - mysql
 
 networks:
   fitplan:
     driver: bridge
 
 volumes:
-  postgres_data:
+  mysql_data:
     driver: local
-
