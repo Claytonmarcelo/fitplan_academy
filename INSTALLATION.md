@@ -19,7 +19,7 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 
 Se você tiver o Git instalado:
 ```bash
-git clone https://github.com/edufilhocruz/fitplan_acadamy.git
+git clone https://github.com/claytonmarcelo/fitplan_acadamy.git
 cd fitplan_acadamy
 ```
 
