@@ -42,7 +42,7 @@ class MasterUserSeeder extends Seeder
             'city' => 'São Paulo',
             'state' => 'SP',
             'login' => 'MASTER',
-            'password' => Hash::make('Master123'), // Senha padrão: Master123
+            'password' => Hash::make('MasterPass'), // Senha padrão: MasterPass
             'role' => 'master',
             'is_active' => true,
             'email_verified_at' => now(),

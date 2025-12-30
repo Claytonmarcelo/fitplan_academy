@@ -19086,6 +19086,7 @@ DST Off\">2025-10-14 16:41:58.422687 UTC (+00:00)</span>
 #53 /Users/eduardocruz/fitplan_acadamy/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #54 {main}
 "} 
+<<<<<<< HEAD
 [2025-11-22 19:45:09] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): Log [] is not defined. at /var/www/vendor/laravel/framework/src/Illuminate/Log/LogManager.php:212)
 [stacktrace]
 #0 /var/www/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(137): Illuminate\\Log\\LogManager->resolve(NULL, NULL)
@@ -20257,3 +20258,5 @@ DST Off\">2025-10-14 16:41:58.422687 UTC (+00:00)</span>
 #39 /Users/eduardocruz/fitplan_acadamy/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #40 {main}
 "} 
+=======
+>>>>>>> 15e59356fe895e35c1f64dd742c7c4d0d9854d7c

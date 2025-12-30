@@ -107,6 +107,7 @@ Acesse a aplicação em: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 ---
 
 ## 🐛 Solução de Problemas Comuns
+<<<<<<< HEAD
 
 ### Erro: `Vendor folder missing` ou `autoload.php not found`
 **Solução:** Você esqueceu de rodar o `composer install`. Execute o passo 2 novamente.
@@ -182,3 +183,41 @@ Se você prefere usar o XAMPP em vez do Docker, siga estes passos rápidos:
 6.  **Acesse:**
     *   Abra no navegador: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
+=======
+
+### Erro: `Vendor folder missing` ou `autoload.php not found`
+**Solução:** Você esqueceu de rodar o `composer install`. Execute o passo 2 novamente.
+
+### Erro: `could not find driver` (PDOException)
+**Solução:** O driver MySQL não está habilitado no PHP que seu terminal está usando.
+1.  Rode `php --ini` no terminal para ver qual arquivo está sendo usado (ex: `Loaded Configuration File`).
+2.  Abra esse arquivo específico (pode ser diferente do XAMPP, ex: `C:\php\php.ini`).
+3.  Procure por `;extension=pdo_mysql` e remova o ponto e vírgula `;`.
+4.  Faça o mesmo para `;extension=mysqli`.
+5.  Salve e tente rodar o comando novamente.
+
+### Erro: `Access denied for user 'root'@'localhost'`
+**Solução:** Verifique se a senha do banco de dados no arquivo `.env` está correta. No XAMPP, a senha padrão costuma ser vazia.
+
+### Erro: `Unknown database 'fitplan_academy'`
+**Solução:** Você precisa criar o banco de dados manualmente no MySQL/phpMyAdmin antes de rodar as migrações.
+
+### Erro: `No application encryption key has been specified`
+**Solução:** Execute `php artisan key:generate`.
+
+### Permissões de Pasta (Linux/Mac)
+Se tiver erros de permissão ao salvar arquivos ou logs:
+```bash
+chmod -R 775 storage bootstrap/cache
+```
+
+---
+
+## 📄 Credenciais de Acesso Padrão
+
+| Perfil | Login | Senha |
+| :--- | :--- | :--- |
+| **Master** | `MASTER` | `Master123` |
+| **Admin** | `ADMIN` | `password` |
+| **Aluno** | `SOPHIA` | `password` |
+>>>>>>> 15e59356fe895e35c1f64dd742c7c4d0d9854d7c

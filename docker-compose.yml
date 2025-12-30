@@ -64,7 +64,11 @@ services:
     container_name: fitplan_redis
     restart: unless-stopped
     ports:
+<<<<<<< HEAD
       - "6381:6379"
+=======
+      - "6380:6379"
+>>>>>>> 15e59356fe895e35c1f64dd742c7c4d0d9854d7c
     networks:
       - fitplan
 
@@ -78,7 +82,11 @@ services:
       PMA_USER: root
       PMA_PASSWORD: root
     ports:
+<<<<<<< HEAD
       - "8081:80"
+=======
+      - "8080:80"
+>>>>>>> 15e59356fe895e35c1f64dd742c7c4d0d9854d7c
     networks:
       - fitplan
     depends_on:
