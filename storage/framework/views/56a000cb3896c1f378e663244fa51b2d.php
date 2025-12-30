@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>Login - FitPlan Academy</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -40,12 +40,12 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-900 dark:text-zinc-200 min-h-screen flex flex-col">
     <!-- Barra de Acessibilidade -->
-    @include('components.accessibility-bar')
+    <?php echo $__env->make('components.accessibility-bar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-zinc-200 dark:border-zinc-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <a href="{{ route('landing') }}" class="flex items-center gap-4">
+                <a href="<?php echo e(route('landing')); ?>" class="flex items-center gap-4">
                     <div class="text-primary size-8">
                         <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                             <path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
@@ -56,7 +56,7 @@
                     <h1 class="text-2xl font-bold text-zinc-900 dark:text-white">FitPlan Academy</h1>
                 </a>
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('cadastro') }}" class="px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Cadastre-se</a>
+                    <a href="<?php echo e(route('cadastro')); ?>" class="px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-primary transition-colors">Cadastre-se</a>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- Success Message -->
-                @if(session('success'))
+                <?php if(session('success')): ?>
                     <div class="bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-300 px-4 py-3 rounded-lg mb-4">
                         <div class="flex items-center">
                             <div class="text-green-500 mr-3">
@@ -81,13 +81,13 @@
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <span class="font-medium">{{ session('success') }}</span>
+                            <span class="font-medium"><?php echo e(session('success')); ?></span>
                         </div>
                     </div>
-                @endif
+                <?php endif; ?>
 
                 <!-- Error Messages -->
-                @if($errors->any())
+                <?php if($errors->any()): ?>
                     <div class="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-4">
                         <div class="flex items-center">
                             <div class="text-red-500 mr-3">
@@ -98,18 +98,18 @@
                             <div>
                                 <div class="font-medium">Ops! Houve alguns problemas com seu envio.</div>
                                 <ul class="mt-2 text-sm list-disc list-inside">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
+                                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <li><?php echo e($error); ?></li>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                @endif
+                <?php endif; ?>
 
                 <!-- Login Form -->
-                <form action="{{ route('auth.login') }}" method="POST" class="space-y-6">
-                    @csrf
+                <form action="<?php echo e(route('auth.login')); ?>" method="POST" class="space-y-6">
+                    <?php echo csrf_field(); ?>
                     
                     <!-- Login Field -->
                     <div>
@@ -117,7 +117,7 @@
                         <input type="text" 
                                id="login" 
                                name="login" 
-                               value="{{ old('login') }}"
+                               value="<?php echo e(old('login')); ?>"
                                placeholder="Seu login"
                                class="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                     </div>
@@ -190,7 +190,7 @@
                 <div class="text-center">
                     <p class="text-sm text-zinc-600 dark:text-zinc-400">
                         Não tem uma conta? 
-                        <a href="{{ route('cadastro') }}" class="text-primary hover:underline font-medium">
+                        <a href="<?php echo e(route('cadastro')); ?>" class="text-primary hover:underline font-medium">
                             Cadastre-se aqui
                         </a>
                     </p>
@@ -202,7 +202,7 @@
     <!-- Footer -->
     <footer class="bg-zinc-100 dark:bg-zinc-900 py-6 text-center text-zinc-600 dark:text-zinc-400 text-sm border-t border-zinc-200 dark:border-zinc-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            &copy; {{ date('Y') }} FitPlan Academy. Todos os direitos reservados.
+            &copy; <?php echo e(date('Y')); ?> FitPlan Academy. Todos os direitos reservados.
         </div>
     </footer>
 
@@ -290,4 +290,4 @@
     });
     </script>
 </body>
-</html>
+</html><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/fitplan_acadamy/resources/views/auth/login.blade.php ENDPATH**/ ?>

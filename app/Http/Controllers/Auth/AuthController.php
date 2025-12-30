@@ -78,7 +78,12 @@ class AuthController extends Controller
             // Log do acesso bem-sucedido
             $this->logAccess($user, $request, $loginSuccessful, false);
             
-            return redirect()->intended('/dashboard')
+            // Redireciona baseado no role do usuário
+            $dashboardRoute = $user->role === 'master' || $user->role === 'admin' 
+                ? route('admin.dashboard') 
+                : route('student.dashboard');
+            
+            return redirect()->intended($dashboardRoute)
                            ->with('success', 'Login realizado com sucesso!');
         }
 
@@ -141,7 +146,12 @@ class AuthController extends Controller
             // Log do acesso bem-sucedido com 2FA
             $this->logAccess($user, $request, true, true);
             
-            return redirect()->intended('/dashboard')
+            // Redireciona baseado no role do usuário
+            $dashboardRoute = $user->role === 'master' || $user->role === 'admin' 
+                ? route('admin.dashboard') 
+                : route('student.dashboard');
+            
+            return redirect()->intended($dashboardRoute)
                            ->with('success', 'Login realizado com sucesso!');
         }
 

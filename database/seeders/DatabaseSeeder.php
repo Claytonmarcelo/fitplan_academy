@@ -22,37 +22,55 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Cria usuário administrador padrão
-        User::create([
-            'name' => 'Administrador',
-            'cpf' => '111.111.111-11',
-            'email' => 'admin@fitplanacademy.com',
-            'phone' => '(11) 99999-1111',
-            'login' => 'ADMIN',
-            'password' => Hash::make('password123'),
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
+        // Cria usuário administrador padrão (verifica se já existe)
+        User::firstOrCreate(
+            ['cpf' => '111.111.111-11'],
+            [
+                'name' => 'Administrador',
+                'email' => 'admin@fitplanacademy.com',
+                'phone' => '(11) 99999-1111',
+                'cep' => '01001-000',
+                'street' => 'Praça da Sé',
+                'number' => '100',
+                'district' => 'Sé',
+                'city' => 'São Paulo',
+                'state' => 'SP',
+                'login' => 'ADMIN',
+                'password' => Hash::make('password123'),
+                'is_active' => true,
+                'email_verified_at' => now(),
+            ]
+        );
 
-        // Cria usuário de teste
-        User::create([
-            'name' => 'Usuário Teste',
-            'cpf' => '222.222.222-22',
-            'email' => 'teste@fitplanacademy.com',
-            'phone' => '(11) 99999-2222',
-            'login' => 'TESTE',
-            'password' => Hash::make('password123'),
-            'is_active' => true,
-            'email_verified_at' => now(),
-        ]);
+        // Chama o seeder do usuário Master
+        $this->call(MasterUserSeeder::class);
+
+        // Cria usuário comum (Sophia) - verifica se já existe
+        User::firstOrCreate(
+            ['cpf' => '222.222.222-22'],
+            [
+                'name' => 'Sophia',
+                'email' => 'sophia@fitplanacademy.com',
+                'phone' => '(11) 99999-2222',
+                'cep' => '01310-100',
+                'street' => 'Av. Paulista',
+                'number' => '1000',
+                'district' => 'Bela Vista',
+                'city' => 'São Paulo',
+                'state' => 'SP',
+                'login' => 'SOPHIA',
+                'password' => Hash::make('password'),
+                'is_active' => true,
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Chama o seeder de planos
         $this->call(PlanSeeder::class);
 
         $this->command->info('✅ Usuários de teste criados com sucesso!');
-        $this->command->info('📧 Admin: admin@fitplanacademy.com');
-        $this->command->info('📧 Teste: teste@fitplanacademy.com');
-        $this->command->info('🔑 Senha: password123');
+        $this->command->info('📧 Master: master@fitplan.com.br (Senha: Master123)');
+        $this->command->info('📧 Sophia: sophia@fitplanacademy.com (Senha: password)');
     }
 }
 
