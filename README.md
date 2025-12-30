@@ -167,7 +167,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 👨‍💻 Desenvolvido por
 
-**Grupo acadêmico** - Desenvolvedor 
+**Grupo Ovelhas negras** - Desenvolvedor 
 
 ---
 
